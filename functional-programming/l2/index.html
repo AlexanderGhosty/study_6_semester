@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Приложение Список задач с использованием функционального программирования">
+    <title>Список задач</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">
+                <span class="title-icon">✓</span>
+                Список задач
+            </h1>
+        </header>
+
+        <main class="app-main">
+            <!-- Добавление новой задачи -->
+            <section class="add-task-section">
+                <form id="add-task-form" class="add-task-form">
+                    <input 
+                        type="text" 
+                        id="task-input" 
+                        class="task-input" 
+                        placeholder="Что нужно сделать?"
+                        autocomplete="off"
+                        required
+                    >
+                    <button type="submit" class="add-task-btn" id="add-task-btn">
+                        <span class="btn-icon">+</span>
+                        <span class="btn-text">Добавить</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Фильтры -->
+            <section class="filters-section">
+                <div class="filters-group" id="filters">
+                    <button class="filter-btn active" data-filter="all" id="filter-all">
+                        Все
+                    </button>
+                    <button class="filter-btn" data-filter="active" id="filter-active">
+                        Активные
+                    </button>
+                    <button class="filter-btn" data-filter="completed" id="filter-completed">
+                        Выполненные
+                    </button>
+                </div>
+                <div class="task-counter" id="task-counter">
+                    <span id="active-count">0</span> задач осталось
+                </div>
+            </section>
+
+            <!-- Список задач -->
+            <section class="tasks-section">
+                <ul class="task-list" id="task-list">
+                    <!-- Задачи добавляются динамически -->
+                </ul>
+                
+                <!-- Пустое состояние -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <p class="empty-text">Список задач пуст</p>
+                    <p class="empty-hint">Добавьте свою первую задачу!</p>
+                </div>
+            </section>
+
+            <!-- Действия -->
+            <section class="actions-section" id="actions-section">
+                <button class="clear-completed-btn" id="clear-completed-btn">
+                    Очистить выполненные
+                </button>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
