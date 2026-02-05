@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Functional Calculator</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="calculator">
+            <div class="display">
+                <div class="previous-operand" id="previous-operand"></div>
+                <div class="current-operand" id="current-operand">0</div>
+            </div>
+            <div class="keypad">
+                <button class="span-two" data-action="clear">AC</button>
+                <button data-action="sqrt">√</button>
+                <button data-action="pow">x^y</button>
+                <button data-action="divide">/</button>
+                <button data-number>7</button>
+                <button data-number>8</button>
+                <button data-number>9</button>
+                <button data-action="multiply">*</button>
+                <button data-number>4</button>
+                <button data-number>5</button>
+                <button data-number>6</button>
+                <button data-action="subtract">-</button>
+                <button data-number>1</button>
+                <button data-number>2</button>
+                <button data-number>3</button>
+                <button data-action="add">+</button>
+                <button data-number>0</button>
+                <button data-number>.</button>
+                <button class="span-two" data-action="calculate">=</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

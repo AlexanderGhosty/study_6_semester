@@ -1,0 +1,124 @@
+:root {
+    /* Палитра Solarized из задания */
+    --base03: #fdf6e3;
+    --base02: #eee8d5;
+    --base01: #93a1a1;
+    --base00: #839496;
+    --base0: #657b83;
+    --base1: #586e75;
+    --base2: #073642;
+    --base3: #002b36;
+    --yellow: #b58900;
+    --orange: #cb4b16;
+    --red: #dc322f;
+    --magenta: #d33682;
+    --violet: #6c71c4;
+    --blue: #268bd2;
+    --cyan: #2aa198;
+    --green: #859900;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--base03);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--base0);
+}
+
+.calculator {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    width: 400px;
+    background-color: var(--base02);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    gap: 1px;
+    background-color: var(--base01);
+    /* Тёмный фон для создания границ через промежутки */
+    border: 1px solid var(--base01);
+}
+
+.display {
+    grid-column: 1 / -1;
+    background-color: var(--base3);
+    color: var(--base03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.previous-operand {
+    color: var(--base01);
+    font-size: 1.5rem;
+}
+
+.current-operand {
+    font-size: 2.5rem;
+    color: #ffffff;
+    /* Белый для лучшего контраста на base3 */
+}
+
+.keypad {
+    display: contents;
+}
+
+button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: none;
+    /* Границы создаются через gap */
+    outline: none;
+    background-color: var(--base02);
+    /* Светло-бежевый */
+    color: var(--base2);
+    /* Тёмно-синий текст для цифр — высокий контраст */
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: var(--base00);
+    color: var(--base03);
+}
+
+button.span-two {
+    grid-column: span 2;
+}
+
+button[data-action] {
+    background-color: var(--base00);
+    /* Тёмно-серый для операций */
+    color: var(--base03);
+    /* Светлый текст */
+}
+
+button[data-action]:hover {
+    background-color: var(--base01);
+}
+
+button[data-action="calculate"] {
+    background-color: var(--blue);
+    color: white;
+}
+
+button[data-action="calculate"]:hover {
+    background-color: var(--violet);
+}
+
+button[data-action="clear"] {
+    background-color: var(--red);
+    color: white;
+}
+
+button[data-action="clear"]:hover {
+    background-color: var(--orange);
+}
