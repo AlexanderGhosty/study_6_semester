@@ -1,0 +1,624 @@
+---
+title: "Лабораторная работа №2: Работа с пакетами CARET и BORUTA на языке R"
+author: "Быков Александр 231-332"
+institute: "Московский Политехнический университет"
+subtitle: "Анализ данных"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 6)
+```
+
+# Введение
+
+В данной лабораторной работе рассматриваются методы выбора признаков и дискретизации данных с использованием различных пакетов R:
+
+- **caret** - для графического разведочного анализа
+- **FSelector** - для определения важности признаков
+- **arules** - для дискретизации непрерывных переменных
+- **Boruta** - для выбора признаков методом случайного леса
+
+---
+
+# 1. Пакет CARET: Графический разведочный анализ
+
+## 1.1 Установка и загрузка пакета
+
+```{r install-caret}
+# Установка пакета caret
+if (!requireNamespace("caret", quietly = TRUE)) {
+  install.packages("caret", repos = "https://cloud.r-project.org/")
+}
+library(caret)
+```
+
+## 1.2 Доступные методы выбора признаков
+
+Функция `getModelInfo()` возвращает информацию о всех доступных моделях в пакете caret:
+
+```{r model-info}
+# Получить список всех доступных методов
+available_methods <- names(getModelInfo())
+cat("Количество доступных методов:", length(available_methods), "\n\n")
+cat("Первые 50 методов:\n")
+print(head(available_methods, 50))
+```
+
+## 1.3 Создание тестовых данных
+
+```{r create-data}
+# Установка seed для воспроизводимости
+set.seed(42)
+
+# Создание матрицы признаков
+x <- matrix(rnorm(50 * 5), ncol = 5)
+colnames(x) <- paste0("Feature_", 1:5)
+
+# Создание целевой переменной
+y <- factor(rep(c("A", "B"), 25))
+
+# Преобразование в data.frame для удобства
+data_df <- data.frame(x, Class = y)
+
+# Просмотр структуры данных
+str(data_df)
+summary(data_df)
+```
+
+## 1.4 Графический разведочный анализ с featurePlot()
+
+### Диаграмма рассеяния (Scatter Plot)
+
+```{r featureplot-scatter, fig.height=8}
+# Scatter plot
+featurePlot(x = x, 
+            y = y, 
+            plot = "pairs",
+            auto.key = list(columns = 2))
+```
+
+```{r save-scatter}
+# Сохранение графика в JPG
+jpeg("plots/featureplot_scatter.jpg", width = 800, height = 600, quality = 100)
+featurePlot(x = x, 
+            y = y, 
+            plot = "pairs",
+            auto.key = list(columns = 2))
+dev.off()
+```
+
+### Box Plot (Ящик с усами)
+
+```{r featureplot-box, fig.height=8}
+# Box plots для каждого признака по классам
+featurePlot(x = x, 
+            y = y, 
+            plot = "box",
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2))
+```
+
+```{r save-box}
+# Сохранение графика в JPG
+jpeg("plots/featureplot_box.jpg", width = 800, height = 600, quality = 100)
+featurePlot(x = x, 
+            y = y, 
+            plot = "box",
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2))
+dev.off()
+```
+
+### Density Plot (График плотности)
+
+```{r featureplot-density, fig.height=8}
+# Графики плотности распределения
+featurePlot(x = x, 
+            y = y, 
+            plot = "density",
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2),
+            layout = c(3, 2))
+```
+
+```{r save-density}
+# Сохранение графика в JPG
+jpeg("plots/featureplot_density.jpg", width = 800, height = 600, quality = 100)
+featurePlot(x = x, 
+            y = y, 
+            plot = "density",
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2),
+            layout = c(3, 2))
+dev.off()
+```
+
+### Strip Plot (Точечные диаграммы)
+
+```{r featureplot-strip, fig.height=8}
+# Strip plots для каждого признака по классам
+featurePlot(x = x, 
+            y = y, 
+            plot = "strip",
+            jitter = TRUE,
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2))
+```
+
+```{r save-strip}
+# Сохранение графика в JPG
+jpeg("plots/featureplot_strip.jpg", width = 800, height = 600, quality = 100)
+featurePlot(x = x, 
+            y = y, 
+            plot = "strip",
+            jitter = TRUE,
+            scales = list(x = list(relation = "free"),
+                         y = list(relation = "free")),
+            auto.key = list(columns = 2))
+dev.off()
+```
+
+## 1.5 Выводы по разделу 1
+
+**Выводы:**
+
+1. Пакет **caret** предоставляет более 230 методов машинного обучения для решения задач классификации и регрессии.
+
+2. Функция `featurePlot()` позволяет быстро провести графический разведочный анализ данных:
+   - **Scatter plots (pairs)** - показывают взаимосвязи между признаками
+   - **Box plots** - демонстрируют распределение признаков по классам
+   - **Density plots** - отображают плотность распределения для каждого класса
+   - **Strip plots** - точечные диаграммы с разделением по классам
+
+3. Поскольку данные сгенерированы случайным образом (`rnorm`), признаки не показывают значимого разделения между классами A и B - распределения почти идентичны.
+
+---
+
+# 2. Пакет FSelector: Определение важности признаков
+
+## 2.1 Установка и загрузка пакета
+
+```{r install-fselector}
+# Установка пакета FSelector
+if (!requireNamespace("FSelector", quietly = TRUE)) {
+  install.packages("FSelector", repos = "https://cloud.r-project.org/")
+}
+library(FSelector)
+```
+
+## 2.2 Загрузка данных iris
+
+```{r load-iris}
+data(iris)
+str(iris)
+summary(iris)
+```
+
+## 2.3 Методы определения важности признаков
+
+### Information Gain (Информационный прирост)
+
+```{r info-gain}
+# Вычисление информационного прироста
+info_gain <- information.gain(Species ~ ., data = iris)
+print("Information Gain:")
+print(info_gain)
+```
+
+### Gain Ratio (Коэффициент прироста)
+
+```{r gain-ratio}
+# Вычисление коэффициента прироста
+gain_rat <- gain.ratio(Species ~ ., data = iris)
+print("Gain Ratio:")
+print(gain_rat)
+```
+
+### Symmetrical Uncertainty (Симметричная неопределенность)
+
+```{r sym-uncertainty}
+# Вычисление симметричной неопределенности
+sym_uncert <- symmetrical.uncertainty(Species ~ ., data = iris)
+print("Symmetrical Uncertainty:")
+print(sym_uncert)
+```
+
+### Chi-Squared (Хи-квадрат)
+
+```{r chi-squared}
+# Вычисление важности на основе хи-квадрат теста
+chi_sq <- chi.squared(Species ~ ., data = iris)
+print("Chi-Squared:")
+print(chi_sq)
+```
+
+## 2.4 Сравнительный анализ методов
+
+```{r compare-methods}
+# Объединение результатов
+importance_df <- data.frame(
+  Feature = rownames(info_gain),
+  Information_Gain = info_gain$attr_importance,
+  Gain_Ratio = gain_rat$attr_importance,
+  Symmetrical_Uncertainty = sym_uncert$attr_importance,
+  Chi_Squared = chi_sq$attr_importance
+)
+
+# Сортировка по Information Gain
+importance_df <- importance_df[order(-importance_df$Information_Gain), ]
+print(importance_df)
+```
+
+```{r visualize-importance, fig.height=8}
+# Визуализация важности признаков
+par(mfrow = c(2, 2), mar = c(5, 8, 4, 2))
+
+barplot(info_gain$attr_importance[order(info_gain$attr_importance)], 
+        names.arg = rownames(info_gain)[order(info_gain$attr_importance)],
+        horiz = TRUE, las = 1, col = "steelblue",
+        main = "Information Gain", xlab = "Importance")
+
+barplot(gain_rat$attr_importance[order(gain_rat$attr_importance)], 
+        names.arg = rownames(gain_rat)[order(gain_rat$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkgreen",
+        main = "Gain Ratio", xlab = "Importance")
+
+barplot(sym_uncert$attr_importance[order(sym_uncert$attr_importance)], 
+        names.arg = rownames(sym_uncert)[order(sym_uncert$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkorange",
+        main = "Symmetrical Uncertainty", xlab = "Importance")
+
+barplot(chi_sq$attr_importance[order(chi_sq$attr_importance)], 
+        names.arg = rownames(chi_sq)[order(chi_sq$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkred",
+        main = "Chi-Squared", xlab = "Importance")
+```
+
+```{r save-fselector-plot}
+# Сохранение графика
+jpeg("plots/fselector_importance.jpg", width = 800, height = 600, quality = 100)
+par(mfrow = c(2, 2), mar = c(5, 8, 4, 2))
+
+barplot(info_gain$attr_importance[order(info_gain$attr_importance)], 
+        names.arg = rownames(info_gain)[order(info_gain$attr_importance)],
+        horiz = TRUE, las = 1, col = "steelblue",
+        main = "Information Gain", xlab = "Importance")
+
+barplot(gain_rat$attr_importance[order(gain_rat$attr_importance)], 
+        names.arg = rownames(gain_rat)[order(gain_rat$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkgreen",
+        main = "Gain Ratio", xlab = "Importance")
+
+barplot(sym_uncert$attr_importance[order(sym_uncert$attr_importance)], 
+        names.arg = rownames(sym_uncert)[order(sym_uncert$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkorange",
+        main = "Symmetrical Uncertainty", xlab = "Importance")
+
+barplot(chi_sq$attr_importance[order(chi_sq$attr_importance)], 
+        names.arg = rownames(chi_sq)[order(chi_sq$attr_importance)],
+        horiz = TRUE, las = 1, col = "darkred",
+        main = "Chi-Squared", xlab = "Importance")
+dev.off()
+```
+
+### Выбор лучших признаков
+
+```{r cutoff-selection}
+# Выбор подмножества признаков с помощью cutoff
+cutoff_features <- cutoff.k(info_gain, k = 2)
+cat("Лучшие 2 признака (Information Gain):", cutoff_features, "\n")
+
+# Автоматический выбор на основе порога
+cutoff_biggest <- cutoff.biggest.diff(info_gain)
+cat("Признаки (biggest diff):", cutoff_biggest, "\n")
+```
+
+## 2.5 Выводы по разделу 2
+
+**Выводы:**
+
+1. Все методы (Information Gain, Gain Ratio, Symmetrical Uncertainty, Chi-Squared) согласованно определяют порядок важности признаков для набора данных iris:
+   - **Petal.Width** - наиболее важный признак
+   - **Petal.Length** - второй по важности
+   - **Sepal.Length** и **Sepal.Width** - менее информативны для классификации видов ирисов
+
+2. Признаки лепестка (Petal) значительно более информативны для определения вида ириса, чем признаки чашелистика (Sepal).
+
+3. Пакет FSelector предоставляет удобные функции `cutoff.k()` и `cutoff.biggest.diff()` для автоматического выбора наиболее значимых признаков.
+
+---
+
+# 3. Пакет arules: Дискретизация непрерывных переменных
+
+## 3.1 Установка и загрузка пакета
+
+```{r install-arules}
+if (!requireNamespace("arules", quietly = TRUE)) {
+  install.packages("arules", repos = "https://cloud.r-project.org/")
+}
+library(arules)
+```
+
+## 3.2 Исходные данные
+
+```{r arules-data}
+# Используем переменную Sepal.Length из iris
+data(iris)
+sepal_length <- iris$Sepal.Length
+
+cat("Статистика Sepal.Length:\n")
+summary(sepal_length)
+cat("\nКоличество наблюдений:", length(sepal_length), "\n")
+```
+
+## 3.3 Методы дискретизации
+
+### Метод "interval" (равная ширина интервала)
+
+```{r discretize-interval}
+# Дискретизация с равной шириной интервалов
+disc_interval <- discretize(sepal_length, method = "interval", breaks = 4)
+cat("\nМетод 'interval' (равная ширина интервалов):\n")
+print(table(disc_interval))
+print(levels(disc_interval))
+```
+
+### Метод "frequency" (равная частота)
+
+```{r discretize-frequency}
+# Дискретизация с равной частотой (квантили)
+disc_frequency <- discretize(sepal_length, method = "frequency", breaks = 4)
+cat("\nМетод 'frequency' (равная частота):\n")
+print(table(disc_frequency))
+print(levels(disc_frequency))
+```
+
+### Метод "cluster" (кластеризация k-means)
+
+```{r discretize-cluster}
+# Дискретизация методом кластеризации
+disc_cluster <- discretize(sepal_length, method = "cluster", breaks = 4)
+cat("\nМетод 'cluster' (k-means кластеризация):\n")
+print(table(disc_cluster))
+print(levels(disc_cluster))
+```
+
+### Метод "fixed" (фиксированные границы)
+
+```{r discretize-fixed}
+# Дискретизация с фиксированными границами
+disc_fixed <- discretize(sepal_length, method = "fixed", 
+                         breaks = c(-Inf, 5.0, 6.0, 7.0, Inf),
+                         labels = c("Маленький", "Средний", "Большой", "Очень большой"))
+cat("\nМетод 'fixed' (фиксированные границы: 5.0, 6.0, 7.0):\n")
+print(table(disc_fixed))
+print(levels(disc_fixed))
+```
+
+## 3.4 Сравнительная визуализация
+
+```{r visualize-discretization, fig.height=10}
+# Визуализация всех методов дискретизации
+par(mfrow = c(3, 2), mar = c(4, 4, 3, 1))
+
+# Оригинальные данные
+hist(sepal_length, breaks = 20, col = "lightgray", 
+     main = "Оригинальные данные", xlab = "Sepal.Length", border = "white")
+
+# Interval
+barplot(table(disc_interval), col = "steelblue", 
+        main = "Interval (равная ширина)", las = 2, cex.names = 0.7)
+
+# Frequency
+barplot(table(disc_frequency), col = "darkgreen", 
+        main = "Frequency (равная частота)", las = 2, cex.names = 0.7)
+
+# Cluster
+barplot(table(disc_cluster), col = "darkorange", 
+        main = "Cluster (k-means)", las = 2, cex.names = 0.7)
+
+# Fixed
+barplot(table(disc_fixed), col = "darkred", 
+        main = "Fixed (заданные границы)", las = 2, cex.names = 0.7)
+```
+
+```{r save-discretization-plot}
+# Сохранение графика
+jpeg("plots/discretization_comparison.jpg", width = 800, height = 800, quality = 100)
+par(mfrow = c(3, 2), mar = c(4, 4, 3, 1))
+
+hist(sepal_length, breaks = 20, col = "lightgray", 
+     main = "Оригинальные данные", xlab = "Sepal.Length", border = "white")
+
+barplot(table(disc_interval), col = "steelblue", 
+        main = "Interval (равная ширина)", las = 2, cex.names = 0.7)
+
+barplot(table(disc_frequency), col = "darkgreen", 
+        main = "Frequency (равная частота)", las = 2, cex.names = 0.7)
+
+barplot(table(disc_cluster), col = "darkorange", 
+        main = "Cluster (k-means)", las = 2, cex.names = 0.7)
+
+barplot(table(disc_fixed), col = "darkred", 
+        main = "Fixed (заданные границы)", las = 2, cex.names = 0.7)
+
+dev.off()
+```
+
+## 3.5 Дискретизация всех числовых переменных iris
+
+```{r discretize-all-iris}
+# Дискретизация всех числовых столбцов iris
+iris_numeric <- iris[, 1:4]
+
+# Применение метода frequency ко всем столбцам
+iris_disc <- as.data.frame(lapply(iris_numeric, function(x) {
+  discretize(x, method = "frequency", breaks = 3)
+}))
+
+# Добавление целевой переменной
+iris_disc$Species <- iris$Species
+
+cat("\nДискретизированный набор данных iris (первые 10 строк):\n")
+print(head(iris_disc, 10))
+```
+
+## 3.6 Выводы по разделу 3
+
+**Выводы:**
+
+1. **Метод "interval"** (равная ширина) делит диапазон данных на равные интервалы. Подходит, когда данные распределены равномерно.
+
+2. **Метод "frequency"** (равная частота) создает интервалы с примерно одинаковым количеством наблюдений. Лучше подходит для асимметричных распределений.
+
+3. **Метод "cluster"** (k-means) определяет границы на основе кластеризации данных. Эффективен для данных с естественными группами.
+
+4. **Метод "fixed"** позволяет задать экспертные границы категорий. Полезен, когда есть предметные знания о данных.
+
+5. Выбор метода дискретизации зависит от:
+   - Распределения данных
+   - Целей анализа
+   - Наличия экспертных знаний о предметной области
+
+---
+
+# 4. Пакет Boruta: Выбор признаков для набора данных Ozone
+
+## 4.1 Установка и загрузка пакетов
+
+```{r install-boruta}
+# Установка необходимых пакетов
+if (!requireNamespace("Boruta", quietly = TRUE)) {
+  install.packages("Boruta", repos = "https://cloud.r-project.org/")
+}
+if (!requireNamespace("mlbench", quietly = TRUE)) {
+  install.packages("mlbench", repos = "https://cloud.r-project.org/")
+}
+
+library(Boruta)
+library(mlbench)
+```
+
+## 4.2 Загрузка и подготовка данных Ozone
+
+```{r load-ozone}
+# Загрузка данных Ozone
+data("Ozone")
+str(Ozone)
+cat("\nРазмер данных:", nrow(Ozone), "x", ncol(Ozone), "\n")
+cat("Количество пропущенных значений по столбцам:\n")
+print(colSums(is.na(Ozone)))
+```
+
+```{r prepare-ozone}
+# Удаление строк с пропущенными значениями для Boruta
+ozone_clean <- na.omit(Ozone)
+cat("\nРазмер данных после удаления NA:", nrow(ozone_clean), "x", ncol(ozone_clean), "\n")
+```
+
+## 4.3 Выполнение алгоритма Boruta
+
+```{r run-boruta}
+# Установка seed для воспроизводимости
+set.seed(123)
+
+# Выполнение Boruta (V4 - целевая переменная - уровень озона)
+# V4 - Daily maximum one-hour-average ozone reading
+boruta_result <- Boruta(V4 ~ ., data = ozone_clean, doTrace = 0)
+
+print(boruta_result)
+```
+
+## 4.4 Результаты выбора признаков
+
+```{r boruta-results}
+# Получение финальных результатов
+cat("\nПодтвержденные (Confirmed) признаки:\n")
+print(getSelectedAttributes(boruta_result, withTentative = FALSE))
+
+cat("\nВсе важные признаки (включая Tentative):\n")
+print(getSelectedAttributes(boruta_result, withTentative = TRUE))
+
+# Подробная таблица результатов
+boruta_df <- attStats(boruta_result)
+boruta_df <- boruta_df[order(-boruta_df$meanImp), ]
+print(boruta_df)
+```
+
+## 4.5 Box Plot важности признаков
+
+```{r boruta-boxplot, fig.height=8, fig.width=10}
+# Построение boxplot
+plot(boruta_result, las = 2, cex.axis = 0.7, 
+     xlab = "", main = "Boruta Feature Importance - Ozone Dataset")
+```
+
+```{r save-boruta-plot}
+# Сохранение графика
+jpeg("plots/boruta_boxplot.jpg", width = 1000, height = 600, quality = 100)
+plot(boruta_result, las = 2, cex.axis = 0.7, 
+     xlab = "", main = "Boruta Feature Importance - Ozone Dataset")
+dev.off()
+```
+
+## 4.6 Разрешение неопределенных (Tentative) признаков
+
+```{r tentative-fix}
+# Попытка определить статус Tentative признаков
+boruta_final <- TentativeRoughFix(boruta_result)
+print(boruta_final)
+
+cat("\nФинальный список подтвержденных признаков:\n")
+print(getSelectedAttributes(boruta_final))
+```
+
+## 4.7 Выводы по разделу 4
+
+**Выводы:**
+
+1. Алгоритм **Boruta** использует метод случайного леса для определения важности признаков, сравнивая их с "теневыми" (shadow) признаками.
+
+2. Признаки классифицируются на три категории:
+   - **Confirmed** (зеленый) - достоверно важные признаки
+   - **Tentative** (желтый) - неопределенные признаки, требуют дополнительного анализа
+   - **Rejected** (красный) - неважные признаки
+
+3. Для набора данных Ozone наиболее важными признаками оказались метеорологические параметры (температура, влажность, давление), что соответствует научным представлениям о факторах, влияющих на концентрацию озона.
+
+4. Box plot наглядно показывает распределение важности каждого признака по итерациям алгоритма, а также сравнение с теневыми признаками (shadowMin, shadowMean, shadowMax).
+
+---
+
+# Заключение
+
+В данной лабораторной работе были изучены различные методы выбора признаков и дискретизации данных:
+
+1. **Пакет caret** предоставляет широкий набор методов машинного обучения и удобные средства визуализации для разведочного анализа данных.
+
+2. **Пакет FSelector** позволяет оценить важность признаков различными методами на основе теории информации и статистических тестов.
+
+3. **Пакет arules** предлагает гибкие методы дискретизации непрерывных переменных с различными стратегиями определения границ интервалов.
+
+4. **Пакет Boruta** реализует надежный алгоритм выбора признаков на основе случайного леса с использованием теневых атрибутов.
+
+
+---
+
+# Информация о сессии
+
+```{r session-info}
+sessionInfo()
+```
