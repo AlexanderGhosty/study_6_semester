@@ -1,0 +1,602 @@
+---
+title: "Лабораторная работа №4 Способы подготовки исходных данных"
+subtitle: "Анализ данных"
+author: "Быков Александр"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: true
+    theme: united
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Введение {-}
+
+В данной лабораторной работе рассматриваются различные способы подготовки исходных данных в языке R. Будут изучены методы очистки данных от пропущенных значений (NA), обработки выбросов, удаления дублируемых записей, а также методы заполнения пропусков с помощью статистических моделей.
+
+---
+
+# Задание 1: Формирование датасета с NA значениями
+
+**Задание:** Сформируйте свой собственный датасет с помощью функции c (конкатенация), в котором содержатся числовые данные и NA значения.
+
+```{r task1}
+# Создаем числовой вектор с NA значениями
+x <- c(7, 2, NA, 8, NA, 9, 1, 15, NA, 12, 4, NA, 6)
+
+# Выводим созданный датасет
+print("Созданный датасет с NA значениями:")
+print(x)
+
+# Проверяем количество NA значений
+cat("\nКоличество NA значений:", sum(is.na(x)), "\n")
+cat("Общее количество элементов:", length(x), "\n")
+```
+
+---
+
+# Задание 2: Очистка данных с использованием is.na()
+
+**Задание:** Проведите очистку данных с использованием функции `is.na()` и выведите "чистый" датасет.
+
+```{r task2}
+# Исходный датасет
+x <- c(7, 2, NA, 8, NA, 9, 1, 15, NA, 12, 4, NA, 6)
+print("Исходный датасет:")
+print(x)
+
+# Определяем позиции NA значений
+bad <- is.na(x)
+cat("\nЛогический вектор is.na(x) - TRUE означает NA:\n")
+print(bad)
+
+# Извлекаем только "хорошие" значения (не NA)
+clean_x <- x[!bad]
+cat("\n'Чистый' датасет (без NA):\n")
+print(clean_x)
+
+# Альтернативный способ - использование na.omit()
+clean_x_alt <- na.omit(x)
+cat("\nАльтернативный способ (na.omit):\n")
+print(as.vector(clean_x_alt))
+```
+
+---
+
+# Задание 3: Очистка таблицы данных с complete.cases()
+
+**Задание:** Сгенерируйте таблицу данных с числовыми и текстовыми столбцами. Очистите данные с помощью функции `complete.cases()`.
+
+```{r task3}
+# Создаем текстовый вектор с NA
+x <- c("a", "b", NA, "d", NA, "f", "r", NA, "ya")
+
+# Создаем числовой вектор с NA
+y <- c(1, 2, NA, 5, NA, 7, NA, 29, 31)
+
+# Создаем таблицу данных
+df <- data.frame(text_col = x, number_col = y)
+print("Исходная таблица данных:")
+print(df)
+
+# Применяем complete.cases() для определения полных строк
+good <- complete.cases(df)
+cat("\nЛогический вектор complete.cases() - TRUE означает полную строку:\n")
+print(good)
+
+# Извлекаем только полные строки
+df_clean <- df[good, ]
+cat("\n'Чистая' таблица данных (только полные строки):\n")
+print(df_clean)
+
+# Демонстрация на векторах отдельно
+cat("\n--- Очистка отдельных векторов ---\n")
+cat("Чистый текстовый вектор:\n")
+print(x[good])
+cat("Чистый числовой вектор:\n")
+print(y[good])
+```
+
+---
+
+# Задание 4: Заполнение пропусков в airquality с помощью caret
+
+**Задание:** Проанализируйте датасет airquality с пропусками. С использованием функции `preProcess` из пакета caret, заполните пропуски предсказанными значениями (среднее, медиана).
+
+```{r task4}
+# Загружаем необходимые пакеты
+library(caret)
+
+# Загружаем датасет airquality
+data(airquality)
+
+# Просматриваем структуру данных
+print("Структура датасета airquality:")
+str(airquality)
+
+# Просматриваем первые строки с пропусками
+print("\nПервые 10 строк датасета:")
+print(head(airquality, 10))
+
+# Подсчитываем количество пропусков в каждом столбце
+print("\nКоличество NA в каждом столбце:")
+print(colSums(is.na(airquality)))
+
+# Определяем строки с пропусками
+ind <- apply(airquality, 1, function(x) sum(is.na(x))) > 0
+cat("\nСтроки с пропущенными значениями (до заполнения):\n")
+print(airquality[ind, ])
+
+# --- Заполнение медианой (medianImpute) ---
+cat("\n Заполнение медианой (medianImpute) \n")
+
+# Сохраняем копию данных
+airquality_median <- airquality
+
+# Создаем препроцессор для числовых столбцов
+pPmI <- preProcess(airquality_median[, c("Ozone", "Solar.R")],
+  method = "medianImpute"
+)
+
+# Применяем препроцессор
+airquality_median[, c("Ozone", "Solar.R")] <- predict(
+  pPmI,
+  airquality_median[, c("Ozone", "Solar.R")]
+)
+
+print("Строки после заполнения медианой:")
+print(airquality_median[ind, ])
+
+# Проверяем отсутствие NA
+cat("\nКоличество NA после заполнения медианой:\n")
+print(colSums(is.na(airquality_median)))
+
+# Проверяем, какие значения были заполнены
+cat("\nСравнение исходных и заполненных значений:\n")
+comparison <- data.frame(
+  Строка = which(ind),
+  Ozone_исходный = airquality[ind, "Ozone"],
+  Ozone_заполненный = airquality_median[ind, "Ozone"],
+  Solar_R_исходный = airquality[ind, "Solar.R"],
+  Solar_R_заполненный = airquality_median[ind, "Solar.R"]
+)
+print(head(comparison, 10))
+```
+
+---
+
+# Задание 5: Обнаружение и удаление выбросов с boxplot
+
+**Задание:** Сгенерируйте два числовых набора данных и добавьте в них выбросы. С использованием функции `boxplot`, обнаружьте выбросы и удалить их.
+
+```{r task5}
+# Создаем два числовых набора данных с выбросами
+x <- c(
+  2.633213, 2.654674, 2.746650, 2.657763, 2.525229, 2.549804, 2.537088,
+  1.974909, 1.838017, 1.791683, 1.782088, 1.664908, 1.689402, 1.688826,
+  1.661763, 1.734322, 1.744875, 1.710471, 1.735690, 1.800677, 1.607354,
+  1.896810, 2.294757
+)
+
+y <- c(
+  4.358015, 4.489513, 4.560919, 4.613810, 4.599738, 4.621614, 4.633119,
+  4.616862, 4.754681, 4.849953, 4.945791, 5.019631, 4.805033, 4.989170,
+  5.024305, 5.065325, 4.970247, 4.998086, 5.096887, 4.977657, 4.888269,
+  3.479053, 2.878145
+)
+
+# Создаем DataFrame
+df_outliers <- data.frame(x = x, y = y)
+
+print("Исходные данные:")
+print(df_outliers)
+
+# Визуализация исходных данных
+par(mfrow = c(2, 2))
+
+# Scatter plot исходных данных
+plot(x, y,
+  main = "Исходные данные",
+  xlab = "X", ylab = "Y", pch = 19, col = "blue"
+)
+
+# Boxplot для x
+boxplot(x, main = "Boxplot для X", col = "lightblue")
+
+# Boxplot для y
+boxplot(y, main = "Boxplot для Y", col = "lightgreen")
+
+# Получаем выбросы
+outliers_x <- boxplot.stats(x)$out
+outliers_y <- boxplot.stats(y)$out
+
+cat("\nВыбросы в X:\n")
+print(outliers_x)
+
+cat("Выбросы в Y:\n")
+print(outliers_y)
+
+# Находим индексы выбросов в Y
+ind <- which(y %in% boxplot.stats(y)$out)
+cat("\nИндексы выбросов в Y:\n")
+print(ind)
+
+# Сохраняем координаты точек-выбросов
+vybrosy <- data.frame(x = x[ind], y = y[ind])
+cat("\nКоординаты точек-выбросов:\n")
+print(vybrosy)
+
+# Визуализация с выделением выбросов
+par(mfrow = c(1, 2))
+
+plot(x, y,
+  col = "green", pch = 18, ylim = c(0, max(y)),
+  main = "Данные с выделенными\nвыбросами",
+  xlab = "X", ylab = "Y"
+)
+points(vybrosy$x, vybrosy$y, col = "red", pch = 18, cex = 2)
+legend("topright",
+  legend = c("Нормальные", "Выбросы"),
+  col = c("green", "red"), pch = 18
+)
+
+# Удаляем выбросы
+x_clean <- x[-ind]
+y_clean <- y[-ind]
+
+# Визуализация очищенных данных
+plot(x_clean, y_clean,
+  col = "purple", pch = 16, ylim = c(0, max(y)),
+  main = "Очищенные данные\n(без выбросов)",
+  xlab = "X", ylab = "Y"
+)
+
+par(mfrow = c(1, 1))
+
+# Boxplot после удаления выбросов
+boxplot(y_clean, main = "Boxplot Y после удаления выбросов", col = "lightgreen")
+
+cat("\nРазмер данных до очистки:", length(y), "\n")
+cat("Размер данных после очистки:", length(y_clean), "\n")
+```
+
+---
+
+# Задание 6: Удаление дублируемых строк
+
+**Задание:** Сгенерируйте таблицу данных, в которой дублируются строки. Удалите строки с использованием функций `unique()` и `duplicated()`. Сравните результаты.
+
+```{r task6}
+# Создаем данные с дублируемыми строками
+a <- c(rep("A", 3), rep("B", 3), rep("C", 2))
+b <- c(1, 1, 2, 4, 1, 1, 2, 2)
+
+df <- data.frame(category = a, value = b)
+
+print("Исходный датафрейм:")
+print(df)
+
+# --- Метод 1: duplicated() ---
+cat("\n Метод duplicated() \n")
+
+# duplicated() возвращает TRUE для дублирующихся строк (кроме первого вхождения)
+dup_mask <- duplicated(df)
+print("Маска дубликатов (TRUE = дубликат):")
+print(dup_mask)
+
+# Показываем какие строки являются дубликатами
+cat("\nДублирующиеся строки:\n")
+print(df[dup_mask, ])
+
+# Удаляем дубликаты (оставляем только уникальные)
+df_clean_dup <- df[!duplicated(df), ]
+cat("\nДатафрейм после удаления дубликатов (!duplicated):\n")
+print(df_clean_dup)
+
+# --- Метод 2: unique() ---
+cat("\n Метод unique() \n")
+
+df_clean_unique <- unique(df)
+print("Датафрейм после применения unique():")
+print(df_clean_unique)
+
+# --- Сравнение результатов ---
+cat("\n Сравнение результатов \n")
+cat("Исходное количество строк:", nrow(df), "\n")
+cat("После !duplicated():", nrow(df_clean_dup), "\n")
+cat("После unique():", nrow(df_clean_unique), "\n")
+
+# Проверяем идентичность результатов
+identical_result <- identical(df_clean_dup, df_clean_unique)
+cat("\nРезультаты идентичны:", identical_result, "\n")
+
+# Дополнительно: поиск дубликатов по конкретному столбцу
+cat("\n Дубликаты по столбцу 'category' \n")
+dup_by_category <- duplicated(df$category)
+print("Маска дубликатов по category:")
+print(dup_by_category)
+
+df_unique_category <- df[!duplicated(df$category), ]
+cat("\nУникальные записи по category (первое вхождение):\n")
+print(df_unique_category)
+```
+
+---
+
+# Задание 7: Обработка пропусков с помощью пакета mice
+
+**Задание:** Обработайте пропуски в данных с использованием пакета `mice`.
+
+```{r task7}
+# Проверяем наличие пакета mice
+mice_available <- requireNamespace("mice", quietly = TRUE)
+
+# Создаем датасет с пропущенными значениями
+set.seed(123)
+dataset <- data.frame(
+  var1 = rnorm(20, 0, 1),
+  var2 = rnorm(20, 5, 1)
+)
+
+# Вносим пропущенные значения
+dataset[c(2, 5, 7, 10), 1] <- NA
+dataset[c(4, 8, 19), 2] <- NA
+
+print("Исходный датасет с пропусками:")
+print(dataset)
+
+cat("\nСтатистика по датасету:\n")
+summary(dataset)
+
+# Визуализация паттерна пропусков (ручной метод)
+cat("\n Паттерн пропущенных значений \n")
+na_pattern <- data.frame(
+  var1_missing = is.na(dataset$var1),
+  var2_missing = is.na(dataset$var2)
+)
+print("Строки с пропусками в var1:")
+print(which(is.na(dataset$var1)))
+print("Строки с пропусками в var2:")
+print(which(is.na(dataset$var2)))
+
+if (mice_available) {
+  # Используем пакет mice если он доступен
+  library(mice)
+
+  # Визуализация паттерна пропусков
+  cat("\nПаттерн пропущенных значений (mice):\n")
+  md.pattern(dataset, rotate.names = TRUE)
+
+  # Применяем MICE для заполнения пропусков
+  imp <- mice(dataset,
+    method = "pmm", m = 5, maxit = 50, seed = 500,
+    print = FALSE
+  )
+
+  cat("\nИнформация об импутации:\n")
+  print(imp)
+
+  # Получаем заполненный датасет
+  dataset_complete <- complete(imp, 1)
+
+  cat("\nДатасет после заполнения пропусков (MICE - PMM):\n")
+  print(dataset_complete)
+} else {
+  # Альтернативный метод без mice
+  cat("\n Пакет mice недоступен. Используем альтернативные методы \n")
+
+  # Сохраняем исходные данные
+  dataset_original <- dataset
+
+  # --- Метод 1: Заполнение средним ---
+  cat("\n--- Метод 1: Заполнение средним значением ---\n")
+  dataset_mean <- dataset
+  dataset_mean$var1[is.na(dataset_mean$var1)] <- mean(dataset$var1, na.rm = TRUE)
+  dataset_mean$var2[is.na(dataset_mean$var2)] <- mean(dataset$var2, na.rm = TRUE)
+  print(dataset_mean)
+
+  # --- Метод 2: Заполнение медианой ---
+  cat("\n--- Метод 2: Заполнение медианой ---\n")
+  dataset_median <- dataset
+  dataset_median$var1[is.na(dataset_median$var1)] <- median(dataset$var1, na.rm = TRUE)
+  dataset_median$var2[is.na(dataset_median$var2)] <- median(dataset$var2, na.rm = TRUE)
+  print(dataset_median)
+
+  # --- Метод 3: Hot-Deck Imputation (ближайшее наблюдение) ---
+  cat("\n--- Метод 3: Hot-Deck Imputation (случайное из наблюдаемых) ---\n")
+  dataset_hotdeck <- dataset
+  set.seed(42)
+  # Заменяем NA случайным значением из непропущенных
+  dataset_hotdeck$var1[is.na(dataset_hotdeck$var1)] <-
+    sample(na.omit(dataset$var1), sum(is.na(dataset$var1)), replace = TRUE)
+  dataset_hotdeck$var2[is.na(dataset_hotdeck$var2)] <-
+    sample(na.omit(dataset$var2), sum(is.na(dataset$var2)), replace = TRUE)
+  print(dataset_hotdeck)
+
+  # --- Метод 4: Линейная интерполяция ---
+  cat("\n--- Метод 4: Простая регрессионная импутация ---\n")
+  dataset_reg <- dataset
+  # Для var1: используем var2 как предиктор (если var2 не NA)
+  lm_var1 <- lm(var1 ~ var2, data = dataset, na.action = na.omit)
+  na_idx_var1 <- which(is.na(dataset$var1) & !is.na(dataset$var2))
+  if (length(na_idx_var1) > 0) {
+    dataset_reg$var1[na_idx_var1] <- predict(lm_var1,
+      newdata = dataset[na_idx_var1, ]
+    )
+  }
+  # Оставшиеся NA заполняем средним
+  dataset_reg$var1[is.na(dataset_reg$var1)] <- mean(dataset$var1, na.rm = TRUE)
+
+  # Для var2: используем var1 как предиктор
+  lm_var2 <- lm(var2 ~ var1, data = dataset_reg, na.action = na.omit)
+  na_idx_var2 <- which(is.na(dataset_reg$var2))
+  if (length(na_idx_var2) > 0) {
+    dataset_reg$var2[na_idx_var2] <- predict(lm_var2,
+      newdata = dataset_reg[na_idx_var2, ]
+    )
+  }
+  print(dataset_reg)
+
+  dataset_complete <- dataset_reg
+}
+
+cat("\nСтатистика после заполнения:\n")
+summary(dataset_complete)
+
+# Проверяем отсутствие NA
+cat("\nКоличество NA после импутации:\n")
+print(colSums(is.na(dataset_complete)))
+
+# Сравнение средних
+cat("\n Сравнение статистик до и после импутации \n")
+comparison <- data.frame(
+  Показатель = c("Среднее var1", "Медиана var1", "Среднее var2", "Медиана var2"),
+  До_импутации = c(
+    round(mean(dataset$var1, na.rm = TRUE), 4),
+    round(median(dataset$var1, na.rm = TRUE), 4),
+    round(mean(dataset$var2, na.rm = TRUE), 4),
+    round(median(dataset$var2, na.rm = TRUE), 4)
+  ),
+  После_импутации = c(
+    round(mean(dataset_complete$var1), 4),
+    round(median(dataset_complete$var1), 4),
+    round(mean(dataset_complete$var2), 4),
+    round(median(dataset_complete$var2), 4)
+  )
+)
+print(comparison)
+```
+
+---
+
+# Задание 8: Анализ мультиколлинеарности
+
+**Задание:** Разберите пример с мультиколлинеарностью.
+
+```{r task8, message=FALSE, warning=FALSE}
+# Загружаем необходимые пакеты
+library(car)
+
+# Создаем синтетические данные для демонстрации мультиколлинеарности
+set.seed(42)
+n <- 100
+
+# Базовые переменные
+age <- round(runif(n, 20, 60))
+education <- round(runif(n, 8, 18)) # годы образования
+
+# experience сильно коррелирует с age (это типичная проблема)
+experience <- age - education - 6 + rnorm(n, 0, 2)
+experience <- pmax(0, experience) # не отрицательный опыт
+
+# Зависимая переменная
+wage <- 10 + 0.5 * age + 2 * education + 1.5 * experience + rnorm(n, 0, 5)
+
+# Создаем датафрейм
+data_mc <- data.frame(
+  wage = wage,
+  age = age,
+  education = education,
+  experience = experience
+)
+
+print("Структура данных:")
+str(data_mc)
+
+cat("\nОписательная статистика:\n")
+summary(data_mc)
+
+# --- Анализ корреляций ---
+cat("\n Корреляционная матрица \n")
+cor_matrix <- cor(data_mc)
+print(round(cor_matrix, 3))
+
+# Визуализация корреляций
+pairs(data_mc,
+  main = "Scatter Plot Matrix",
+  pch = 19, col = rgb(0, 0, 1, 0.5)
+)
+
+# --- Оценка модели с мультиколлинеарностью ---
+cat("\n Модель с потенциальной мультиколлинеарностью \n")
+fit1 <- lm(wage ~ age + education + experience, data = data_mc)
+print(summary(fit1))
+
+# --- Расчет VIF (Variance Inflation Factor) ---
+cat("\n Variance Inflation Factor (VIF) \n")
+vif_values <- vif(fit1)
+print(vif_values)
+
+cat("\nИнтерпретация VIF:\n")
+cat("VIF = 1: Нет корреляции между переменной и другими\n")
+cat("VIF > 5: Умеренная мультиколлинеарность (требует внимания)\n")
+cat("VIF > 10: Сильная мультиколлинеарность (нужно решать)\n\n")
+
+# Определяем проблемные переменные
+problematic <- names(vif_values[vif_values > 5])
+if (length(problematic) > 0) {
+  cat("Переменные с VIF > 5:", paste(problematic, collapse = ", "), "\n")
+} else {
+  cat("Нет переменных с VIF > 5\n")
+}
+
+# --- Решение проблемы: удаление коррелированной переменной ---
+cat("\n Модель после удаления experience (коррелирует с age) \n")
+fit2 <- lm(wage ~ age + education, data = data_mc)
+print(summary(fit2))
+
+# VIF для новой модели
+cat("\nVIF для модели без experience:\n")
+print(vif(fit2))
+
+# --- Сравнение моделей ---
+cat("\n Сравнение моделей \n")
+comparison_models <- data.frame(
+  Model = c("С experience", "Без experience"),
+  R_squared = c(summary(fit1)$r.squared, summary(fit2)$r.squared),
+  Adj_R_squared = c(summary(fit1)$adj.r.squared, summary(fit2)$adj.r.squared),
+  Max_VIF = c(max(vif_values), max(vif(fit2)))
+)
+print(comparison_models)
+
+# --- Дополнительный метод: анализ собственных значений ---
+cat("\n Анализ числа обусловленности \n")
+X <- model.matrix(fit1)[, -1] # матрица предикторов без intercept
+eigenvalues <- eigen(cor(X))$values
+condition_number <- sqrt(max(eigenvalues) / min(eigenvalues))
+cat("Число обусловленности:", round(condition_number, 2), "\n")
+cat("Если > 30, то серьезная мультиколлинеарность\n")
+```
+
+---
+
+# Заключение
+
+В данной лабораторной работе были рассмотрены основные методы подготовки данных:
+
+1. **Создание датасета с NA**: использование функции `c()` для создания векторов с пропущенными значениями
+2. **Очистка данных с `is.na()`**: идентификация и удаление пропущенных значений
+3. **Функция `complete.cases()`**: работа с таблицами данных и удаление неполных строк
+4. **Пакет caret и `preProcess()`**: заполнение пропусков с помощью медианы
+5. **Обнаружение выбросов с `boxplot()`**: визуализация и удаление аномальных значений
+6. **Удаление дубликатов**: функции `unique()` и `duplicated()` для работы с повторяющимися записями
+7. **Пакет mice**: множественная импутация для заполнения пропусков
+8. **Мультиколлинеарность**: диагностика с помощью VIF и методы решения проблемы
+
+Все эти методы являются необходимыми инструментами для предварительной обработки данных перед проведением статистического анализа и построения моделей машинного обучения.
+
+---
+
+# Информация о сессии
+
+```{r session}
+sessionInfo()
+```
