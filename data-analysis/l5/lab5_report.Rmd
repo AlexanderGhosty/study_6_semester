@@ -1,0 +1,434 @@
+---
+title: "Лабораторная работа №5"
+subtitle: "Кластерный и регрессионный анализ данных с использованием языка R"
+author: "Быков Александр 231-332"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Введение
+
+В данной лабораторной работе рассматриваются методы машинного обучения:
+
+- **K-ближайших соседей (KNN)** — непараметрический метод классификации
+- **Метод опорных векторов (SVM)** — алгоритм построения оптимальной разделяющей гиперплоскости
+- **Анализ главных компонент (PCA)** — метод снижения размерности данных
+
+# Задание 2: Классификация методом k-ближайших соседей
+
+## 2.1 Загрузка и исследование данных
+
+```{r}
+# Загружаем датасет iris
+data(iris)
+
+# Структура данных
+str(iris)
+
+# Распределение по классам
+table(iris$Species)
+
+# Процентное соотношение классов
+round(prop.table(table(iris$Species)) * 100, digits = 1)
+```
+
+## 2.2 Визуализация данных
+
+```{r fig.width=10, fig.height=5}
+par(mfrow = c(1, 2))
+
+# График Sepal.Length vs Sepal.Width
+plot(iris$Sepal.Length, iris$Sepal.Width, 
+     col = iris$Species, pch = 19,
+     xlab = "Sepal.Length", ylab = "Sepal.Width",
+     main = "Sepal: Length vs Width")
+legend("topright", legend = levels(iris$Species), 
+       bty = "n", pch = 19, col = 1:3)
+
+# График Petal.Length vs Petal.Width
+plot(iris$Petal.Length, iris$Petal.Width, 
+     col = iris$Species, pch = 19,
+     xlab = "Petal.Length", ylab = "Petal.Width",
+     main = "Petal: Length vs Width")
+legend("topright", legend = levels(iris$Species), 
+       bty = "n", pch = 19, col = 1:3)
+```
+
+**Наблюдение**: Видно, что setosa хорошо отделяется от других видов, в то время как versicolor и virginica частично перекрываются.
+
+## 2.3 Нормализация данных
+
+Алгоритм KNN сильно зависит от масштаба признаков, поэтому необходима нормализация:
+
+```{r}
+# Функция min-max нормализации
+normMinMax <- function(x) {
+  return((x - min(x)) / (max(x) - min(x)))
+}
+
+# Применяем нормализацию к числовым признакам
+iris_norm <- as.data.frame(lapply(iris[1:4], normMinMax))
+
+# Проверяем результат
+summary(iris_norm)
+```
+
+После нормализации все признаки находятся в диапазоне [0, 1].
+
+## 2.4 Разделение на обучающую и тестовую выборки
+
+```{r}
+set.seed(1234)
+
+# Случайное разделение: 70% обучающая, 30% тестовая
+indexes <- sample(2, nrow(iris), replace = TRUE, prob = c(0.7, 0.3))
+
+# Обучающая выборка (признаки)
+iris_train <- iris_norm[indexes == 1, ]
+# Тестовая выборка (признаки)
+iris_test <- iris_norm[indexes == 2, ]
+
+# Метки классов
+iris_train_labels <- iris[indexes == 1, 5]
+iris_test_labels <- iris[indexes == 2, 5]
+
+cat("Размер обучающей выборки:", nrow(iris_train), "\n")
+cat("Размер тестовой выборки:", nrow(iris_test), "\n")
+```
+
+## 2.5 Построение модели KNN
+
+```{r}
+library(class)
+
+# Построение модели KNN с k=3
+iris_mdl <- knn(train = iris_train, 
+                test = iris_test, 
+                cl = iris_train_labels, 
+                k = 3)
+
+# Результаты предсказания
+cat("Предсказанные классы:\n")
+print(iris_mdl)
+```
+
+## 2.6 Оценка модели с помощью CrossTable
+
+```{r}
+library(gmodels)
+
+# CrossTable для оценки модели
+CrossTable(x = iris_test_labels, 
+           y = iris_mdl, 
+           prop.chisq = FALSE)
+```
+
+## 2.7 Матрица ошибок (Confusion Matrix)
+
+```{r}
+# Построение матрицы ошибок
+CM <- table(Факт = iris_test_labels, Прогноз = iris_mdl)
+print(CM)
+```
+
+### Интерпретация матрицы ошибок
+
+- **True Positive (TP)**: Правильно классифицированные объекты каждого класса (диагональные элементы)
+- **False Positive (FP)**: Объекты, ошибочно отнесённые к данному классу
+- **False Negative (FN)**: Объекты данного класса, ошибочно отнесённые к другим классам
+
+## 2.8 Диагональная оценка качества прогноза (Accuracy)
+
+```{r}
+# Расчёт точности (accuracy)
+accuracy <- sum(diag(CM)) / sum(CM)
+cat("Точность модели (Accuracy):", round(accuracy * 100, 2), "%\n")
+
+# Детальный анализ по классам
+cat("\nКоличество правильных классификаций:", sum(diag(CM)), "\n")
+cat("Общее количество наблюдений:", sum(CM), "\n")
+```
+
+**Вывод**: Модель KNN с k=3 показывает высокую точность на датасете iris. Большинство ошибок связано с путаницей между versicolor и virginica, что объясняется их схожестью.
+
+## 2.9 Исследование влияния параметра k
+
+```{r fig.width=8, fig.height=4}
+# Проверка разных значений k
+k_values <- 1:15
+accuracies <- sapply(k_values, function(k) {
+  pred <- knn(train = iris_train, test = iris_test, 
+              cl = iris_train_labels, k = k)
+  mean(pred == iris_test_labels)
+})
+
+# Визуализация
+plot(k_values, accuracies, type = "b", 
+     xlab = "Значение k", ylab = "Accuracy",
+     main = "Зависимость точности от параметра k",
+     pch = 19, col = "blue")
+abline(h = max(accuracies), lty = 2, col = "red")
+cat("Лучшее значение k:", k_values[which.max(accuracies)], 
+    "с точностью", round(max(accuracies) * 100, 2), "%\n")
+```
+
+---
+
+# Задание 3: Метод опорных векторов (SVM)
+
+## 3.1 Подготовка данных
+
+Для демонстрации SVM используем датасет iris с бинарной классификацией:
+
+```{r}
+library(e1071)
+
+# Загрузка данных
+data(iris)
+
+# Преобразуем в задачу бинарной классификации
+# Класс 1: setosa, Класс 2: versicolor + virginica
+iris_svm <- iris
+iris_svm$Class <- as.factor(ifelse(iris$Species == "setosa", "Setosa", "Other"))
+
+# Проверка распределения
+table(iris_svm$Class)
+```
+
+## 3.2 Построение линейного SVM-классификатора
+
+```{r}
+# Построение SVM с линейным ядром и 10-fold перекрестной проверкой
+svm_model <- svm(formula = Class ~ Sepal.Length + Sepal.Width + 
+                          Petal.Length + Petal.Width,
+                 data = iris_svm,
+                 cross = 10,
+                 kernel = "linear")
+
+# Информация о модели
+print(svm_model)
+```
+
+## 3.3 Результаты перекрестной проверки
+
+```{r}
+# Точность на перекрестной проверке
+cat("Точность 10-fold CV:", round(svm_model$tot.accuracy, 2), "%\n")
+
+# Предсказания модели
+svm_predictions <- predict(svm_model)
+
+# Матрица ошибок
+svm_CM <- table(Факт = iris_svm$Class, Прогноз = svm_predictions)
+print(svm_CM)
+
+# Точность on training data
+svm_accuracy <- mean(svm_predictions == iris_svm$Class)
+cat("\nТочность на обучающих данных:", round(svm_accuracy * 100, 2), "%\n")
+```
+
+## 3.4 Визуализация опорных векторов
+
+```{r fig.width=8, fig.height=6}
+# Количество опорных векторов
+cat("Количество опорных векторов:", svm_model$tot.nSV, "\n")
+cat("Опорные векторы по классам:", svm_model$nSV, "\n")
+
+# Визуализация (используем первые 2 признака для наглядности)
+plot(svm_model, iris_svm, Sepal.Width ~ Sepal.Length,
+     main = "SVM: Sepal.Width vs Sepal.Length")
+```
+
+## 3.5 Многоклассовая SVM-классификация
+
+Рассмотрим также полную трёхклассовую задачу:
+
+```{r}
+# SVM для всех трёх классов
+svm_multi <- svm(formula = Species ~ .,
+                 data = iris,
+                 cross = 10,
+                 kernel = "linear")
+
+cat("Точность многоклассовой SVM (10-fold CV):", 
+    round(svm_multi$tot.accuracy, 2), "%\n")
+
+# Матрица ошибок
+multi_pred <- predict(svm_multi)
+multi_CM <- table(Факт = iris$Species, Прогноз = multi_pred)
+print(multi_CM)
+```
+
+**Вывод**: 
+- Линейный SVM-классификатор эффективно разделяет setosa от других видов с высокой точностью.
+- При многоклассовой классификации SVM также показывает хорошие результаты.
+- 10-fold перекрестная проверка (cross=10) позволяет получить более надёжную оценку качества модели.
+
+---
+
+# Задание 4: Анализ главных компонент (PCA)
+
+## 4.1 Подготовка данных
+
+```{r}
+library(vegan)
+library(ggplot2)
+
+# Используем числовые признаки iris
+Y <- iris[, 1:4]
+
+# Описательные статистики
+summary(Y)
+```
+
+## 4.2 Расчёт главных компонент
+
+```{r}
+# Выполняем PCA с помощью rda() из пакета vegan
+mod_pca <- rda(Y ~ 1)
+
+# Полный отчёт PCA
+summary(mod_pca)
+```
+
+## 4.3 Собственные значения и доля объяснённой дисперсии
+
+```{r}
+# Собственные значения
+eigenvalues <- mod_pca$CA$eig
+cat("Собственные значения (eigenvalues):\n")
+print(round(eigenvalues, 4))
+
+# Доля объяснённой дисперсии
+prop_var <- eigenvalues / sum(eigenvalues)
+cumulative_var <- cumsum(prop_var)
+
+variance_table <- data.frame(
+  PC = paste0("PC", 1:length(eigenvalues)),
+  Eigenvalue = round(eigenvalues, 4),
+  Proportion = round(prop_var * 100, 2),
+  Cumulative = round(cumulative_var * 100, 2)
+)
+print(variance_table)
+```
+
+```{r fig.width=8, fig.height=4}
+# Scree plot
+barplot(prop_var * 100, names.arg = paste0("PC", 1:length(eigenvalues)),
+        main = "Scree Plot - Доля объяснённой дисперсии",
+        ylab = "Процент дисперсии (%)",
+        xlab = "Главные компоненты",
+        col = "steelblue")
+```
+
+## 4.4 Нагрузки (Loadings)
+
+```{r}
+# Нагрузки переменных на главные компоненты
+loadings <- scores(mod_pca, display = "species")
+cat("Нагрузки переменных на главные компоненты:\n")
+print(round(loadings, 4))
+```
+
+## 4.5 Ординационная диаграмма
+
+```{r fig.width=10, fig.height=7}
+# Получаем координаты наблюдений
+pca_scores <- as.data.frame(scores(mod_pca, display = "sites")[, 1:2])
+colnames(pca_scores) <- c("PC1", "PC2")
+pca_scores$Species <- iris$Species
+
+# Включаем доли объяснённой дисперсии в названия осей
+axX <- paste("PC1 (", 
+             round(100 * mod_pca$CA$eig[1] / sum(mod_pca$CA$eig), 1), "%)", sep = "")
+axY <- paste("PC2 (", 
+             round(100 * mod_pca$CA$eig[2] / sum(mod_pca$CA$eig), 1), "%)", sep = "")
+
+# Каркас (hull) для выделения классов на диаграмме
+hull <- do.call(rbind, lapply(unique(pca_scores$Species), function(s) {
+  f <- subset(pca_scores, Species == s)
+  f[chull(f$PC1, f$PC2), ]
+}))
+
+# Построение ординационной диаграммы
+ggplot() +
+  geom_polygon(data = hull, aes(x = PC1, y = PC2, fill = Species), 
+               alpha = 0.3, linetype = 0) +
+  geom_point(data = pca_scores, 
+             aes(x = PC1, y = PC2, shape = Species, colour = Species), 
+             size = 3) +
+  scale_colour_manual(values = c("setosa" = "#E41A1C", 
+                                  "versicolor" = "#377EB8", 
+                                  "virginica" = "#4DAF4A")) +
+  scale_fill_manual(values = c("setosa" = "#E41A1C", 
+                                "versicolor" = "#377EB8", 
+                                "virginica" = "#4DAF4A")) +
+  xlab(axX) + ylab(axY) +
+  ggtitle("Ординационная диаграмма PCA (метод RDA)") +
+  coord_equal() + 
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+## 4.6 Биплот с нагрузками переменных
+
+```{r fig.width=10, fig.height=7}
+# Альтернативная визуализация с векторами переменных
+biplot(mod_pca, display = c("sites", "species"), 
+       type = c("points", "text"),
+       main = "PCA Biplot")
+```
+
+## 4.7 Выводы по PCA
+1. **Объяснённая дисперсия:**
+   - PC1 объясняет `r round(prop_var[1] * 100, 1)`% вариации данных.
+   - PC1 + PC2 совместно объясняют `r round(cumulative_var[2] * 100, 1)`% вариации.
+   - Первые две компоненты достаточны для визуализации.
+
+2. **Интерпретация главных компонент:**
+   - PC1 определяется преимущественно Petal.Length и Petal.Width.
+   - PC2 отражает вариацию в Sepal.Width.
+
+3. **Разделение классов:**
+   - Setosa чётко отделяется от других видов по PC1.
+   - Versicolor и Virginica частично перекрываются.
+   - Это согласуется с результатами KNN и SVM.
+
+---
+
+# Заключение
+
+В ходе лабораторной работы были изучены и применены три метода анализа данных:
+
+1. **KNN-классификация**: 
+   - Нормализация данных критически важна для работы алгоритма
+   - Модель показала высокую точность на датасете iris
+   - Оптимальное значение k следует подбирать экспериментально
+
+2. **SVM-классификация**:
+   - Линейный SVM эффективно работает с линейно разделимыми данными
+   - 10-fold перекрестная проверка обеспечивает надёжную оценку качества
+   - Метод устойчив к выбросам благодаря использованию опорных векторов
+
+3. **Анализ главных компонент**:
+   - Позволяет визуализировать многомерные данные в 2D
+   - Первые две компоненты объясняют большую часть вариации
+   - Подтверждает наблюдения о структуре данных iris
+
+---
+
+# Информация о сессии
+
+```{r}
+sessionInfo()
+```

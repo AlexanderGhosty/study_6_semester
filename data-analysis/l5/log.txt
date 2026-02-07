@@ -1,0 +1,5011 @@
+
+R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> sink("lab5_log.txt", split=TRUE)
+> swirl()
+Error in swirl() : could not find function "swirl"
+
+> install.packages("swirl")
+Installing package into ‘/home/alex/R/x86_64-pc-linux-gnu-library/4.5’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘diffobj’, ‘brio’, ‘praise’, ‘waldo’, ‘bitops’, ‘testthat’, ‘httr’, ‘RCurl’
+trying URL 'https://cran.rstudio.com/src/contrib/diffobj_0.3.6.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/brio_1.1.5.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/praise_1.0.0.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/waldo_0.6.2.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/bitops_1.0-9.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/testthat_3.3.2.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/httr_1.4.7.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/RCurl_1.98-1.17.tar.gz'
+trying URL 'https://cran.rstudio.com/src/contrib/swirl_2.4.5.tar.gz'
+* installing *source* package ‘diffobj’ ...
+** this is package ‘diffobj’ version ‘0.3.6’
+** package ‘diffobj’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+----
+----
+----
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (swirl)
+
+The downloaded source packages are in
+	‘/tmp/Rtmp4MYutm/downloaded_packages’
+> swirl()
+Error in swirl() : could not find function "swirl"
+
+> library(swirl)
+
+| Hi! Type swirl() when you are ready to begin.
+> swirl()
+
+| Welcome to swirl! Please sign in. If you've been here before, use the same name as you did
+| then. If you are new, call yourself something unique.
+
+What shall I call you? Alexander
+
+| Thanks, Alexander. Let's cover a couple of quick housekeeping items before we begin our
+| first lesson. First of all, you should know that when you see '...', that means you should
+| press Enter when you are done reading and ready to continue.
+
+...  <-- That's your cue to press Enter to continue
+
+| Also, when you see 'ANSWER:', the R prompt (>), or when you are asked to select from a list,
+| that means it's your turn to enter a response, then press Enter to continue.
+
+Select 1, 2, or 3 and press Enter 
+
+1: Continue.
+2: Proceed.
+3: Let's get going!
+
+Selection: 2
+
+| You can exit swirl and return to the R prompt (>) at any time by pressing the Esc key. If
+| you are already at the prompt, type bye() to exit and save your progress. When you exit
+| properly, you'll see a short message letting you know you've done so.
+
+| When you are at the R prompt (>):
+| -- Typing skip() allows you to skip the current question.
+| -- Typing play() lets you experiment with R on your own; swirl will ignore what you do...
+| -- UNTIL you type nxt() which will regain swirl's attention.
+| -- Typing bye() causes swirl to exit. Your progress will be saved.
+| -- Typing main() returns you to swirl's main menu.
+| -- Typing info() displays these options again.
+
+| Let's get started!
+
+...
+
+| To begin, you must install a course. I can install a course for you from the internet, or I
+| can send you to a web page (https://github.com/swirldev/swirl_courses) which will provide
+| course options and directions for installing courses yourself. (If you are not connected to
+| the internet, type 0 to exit.)
+
+1: R Programming: The basics of programming in R
+2: Regression Models: The basics of regression modeling in R
+3: Statistical Inference: The basics of statistical inference in R
+4: Exploratory Data Analysis: The basics of exploring data in R
+5: Don't install anything for me. I'll do it myself.
+
+Selection: 4
+  |=====================================================================================| 100%
+
+| Course installed successfully!
+
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+ 1: Principles of Analytic Graphs   2: Exploratory Graphs           
+ 3: Graphics Devices in R           4: Plotting Systems             
+ 5: Base Plotting System            6: Lattice Plotting System      
+ 7: Working with Colors             8: GGPlot2 Part1                
+ 9: GGPlot2 Part2                  10: GGPlot2 Extras               
+11: Hierarchical Clustering        12: K Means Clustering           
+13: Dimension Reduction            14: Clustering Example           
+15: CaseStudy                      
+
+Selection: 11
+
+| Attempting to load lesson dependencies...
+
+| Package ‘ggplot2’ loaded correctly!
+
+| This lesson requires the ‘fields’ package. Would you like me to install it for you now?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Trying to install package ‘fields’ now...
+also installing the dependencies ‘dotCall64’, ‘spam’, ‘maps’
+
+
+| Package ‘fields’ loaded correctly!
+
+| This lesson requires the ‘jpeg’ package. Would you like me to install it for you now?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Trying to install package ‘jpeg’ now...
+
+| Package ‘jpeg’ loaded correctly!
+
+| Package ‘datasets’ loaded correctly!
+
+  |                                                                                     |   0%
+
+| Hierarchical_Clustering. (Slides for this and other Data Science courses may be found at
+| github https://github.com/DataScienceSpecialization/courses/. If you care to use them, they
+| must be downloaded as a zip file and viewed locally. This lesson corresponds to
+| 04_ExploratoryAnalysis/hierarchicalClustering.)
+
+...
+
+  |=                                                                                    |   2%
+| In this lesson we'll learn about hierarchical clustering, a simple way of quickly examining
+| and displaying multi-dimensional data. This technique is usually most useful in the early
+| stages of analysis when you're trying to get an understanding of the data, e.g., finding
+| some pattern or relationship between different factors or variables. As the name suggests
+| hierarchical clustering creates a hierarchy of clusters.
+
+...
+
+  |===                                                                                  |   3%
+| Clustering organizes data points that are close into groups. So obvious questions are "How
+| do we define close?", "How do we group things?", and "How do we interpret the grouping?"
+| Cluster analysis is a very important topic in data analysis.
+
+...
+
+  |====                                                                                 |   5%
+| To give you an idea of what we're talking about, consider these random points we generated.
+| We'll use them to demonstrate hierarchical clustering in this lesson. We'll do this in
+| several steps, but first we have to clarify our terms and concepts.
+
+...
+
+  |=====                                                                                |   6%
+| Hierarchical clustering is an agglomerative, or bottom-up, approach. From Wikipedia
+| (http://en.wikipedia.org/wiki/Hierarchical_clustering), we learn that in this method, "each
+| observation starts in its own cluster, and pairs of clusters are merged as one moves up the
+| hierarchy." This means that we'll find the closest two points and put them together in one
+| cluster, then find the next closest pair in the updated picture, and so forth. We'll repeat
+| this process until we reach a reasonable stopping place.
+
+...
+
+  |=======                                                                              |   8%
+| Note the word "reasonable". There's a lot of flexibility in this field and how you perform
+| your analysis depends on your problem. Again, Wikipedia tells us, "one can decide to stop
+| clustering either when the clusters are too far apart to be merged (distance criterion) or
+| when there is a sufficiently small number of clusters (number criterion)."
+
+...
+
+  |========                                                                             |  10%
+| First, how do we define close? This is the most important step and there are several
+| possibilities depending on the questions you're trying to answer and the data you have.
+| Distance or similarity are usually the metrics used.
+
+...
+
+  |==========                                                                           |  11%
+| In the given plot which pair points would you first cluster? Use distance as the metric.
+
+1: 5 and 6
+2: 1 and 4
+3: 10 and 12
+4: 7 and 8
+
+Selection: 3
+
+| Not quite right, but keep trying.
+
+| The choices aren't very close. Look at the picture for the answer.
+
+1: 5 and 6
+2: 1 and 4
+3: 7 and 8
+4: 10 and 12
+
+Selection: 3
+
+| That's not exactly what I'm looking for. Try again.
+
+| The choices aren't very close. Look at the picture for the answer.
+
+1: 7 and 8
+2: 1 and 4
+3: 5 and 6
+4: 10 and 12
+
+Selection: 3
+
+| You nailed it! Good job!
+
+  |===========                                                                          |  13%
+| It's pretty obvious that out of the 4 choices,
+| the pair 5 and 6 were the closest together.
+| However, there are several ways to measure
+| distance or similarity. Euclidean distance and
+| correlation similarity are continuous
+| measures, while Manhattan distance is a binary
+| measure. In this lesson we'll just briefly
+| discuss the first and last of these. It's
+| important that you use a measure of distance
+| that fits your problem.
+
+...
+
+  |============                                                                         |  15%
+| Euclidean distance is what you learned about
+| in high school algebra. Given two points on a
+| plane, (x1,y1) and (x2,y2), the Euclidean
+| distance is the square root of the sums of the
+| squares of the distances between the two
+| x-coordinates (x1-x2) and the two
+| y-coordinates (y1-y2). You probably recognize
+| this as an application of the Pythagorean
+| theorem which yields the length of the
+| hypotenuse of a right triangle.
+
+...
+
+  |==============                                                                       |  16%
+| It shouldn't be hard to believe that this
+| generalizes to more than two dimensions as
+| shown in the formula at the bottom of the
+| picture shown here.
+
+...
+
+  |===============                                                                      |  18%
+| Euclidean distance is distance "as the crow
+| flies". Many applications, however, can't
+| realistically use crow-flying distance. Cars,
+| for instance, have to follow roads.
+
+...
+
+  |================                                                                     |  19%
+| In this case, we can use Manhattan or city
+| block distance (also known as a taxicab
+| metric). This picture, copied from
+| http://en.wikipedia.org/wiki/Taxicab_geometry,
+| shows what this means.
+
+...
+
+  |==================                                                                   |  21%
+| You want to travel from the point at the lower
+| left to the one on the top right. The shortest
+| distance is the Euclidean (the green line),
+| but you're limited to the grid, so you have to
+| follow a path similar to those shown in red,
+| blue, or yellow. These all have the same
+| length (12) which is the number of small gray
+| segments covered by their paths.
+
+...
+
+  |===================                                                                  |  23%
+| More formally, Manhattan distance is the sum
+| of the absolute values of the distances
+| between each coordinate, so the distance
+| between the points (x1,y1) and (x2,y2) is
+| |x1-x2|+|y1-y2|. As with Euclidean distance,
+| this too generalizes to more than 2
+| dimensions.
+
+...
+
+  |=====================                                                                |  24%
+| Now we'll go back to our random points. You
+| might have noticed that these points don't
+| really look randomly positioned, and in fact,
+| they're not. They were actually generated as 3
+| distinct clusters. We've put the coordinates
+| of these points in a data frame for you,
+| called dataFrame.
+
+...
+
+  |======================                                                               |  26%
+| We'll use this dataFrame to demonstrate an
+| agglomerative (bottom-up) technique of
+| hierarchical clustering and create a
+| dendrogram. This is an abstract picture (or
+| graph) which shows how the 12 points in our
+| dataset cluster together. Two clusters
+| (initially, these are points) that are close
+| are connected with a line, We'll use Euclidean
+| distance as our metric of closeness.
+
+...
+
+  |=======================                                                              |  27%
+| Run the R command dist with the argument
+| dataFrame to compute the distances between all
+| pairs of these points. By default dist uses
+| Euclidean distance as its metric, but other
+| metrics such as Manhattan, are available. Just
+| use the default.
+
+> 
+> dist(dataFrame)
+            1          2          3          4
+2  0.34120511                                 
+3  0.57493739 0.24102750                      
+4  0.26381786 0.52578819 0.71861759           
+5  1.69424700 1.35818182 1.11952883 1.80666768
+6  1.65812902 1.31960442 1.08338841 1.78081321
+7  1.49823399 1.16620981 0.92568723 1.60131659
+8  1.99149025 1.69093111 1.45648906 2.02849490
+9  2.13629539 1.83167669 1.67835968 2.35675598
+10 2.06419586 1.76999236 1.63109790 2.29239480
+11 2.14702468 1.85183204 1.71074417 2.37461984
+12 2.05664233 1.74662555 1.58658782 2.27232243
+            5          6          7          8
+2                                             
+3                                             
+4                                             
+5                                             
+6  0.08150268                                 
+7  0.21110433 0.21666557                      
+8  0.61704200 0.69791931 0.65062566           
+9  1.18349654 1.11500116 1.28582631 1.76460709
+10 1.23847877 1.16550201 1.32063059 1.83517785
+11 1.28153948 1.21077373 1.37369662 1.86999431
+12 1.07700974 1.00777231 1.17740375 1.66223814
+            9         10         11
+2                                  
+3                                  
+4                                  
+5                                  
+6                                  
+7                                  
+8                                  
+9                                  
+10 0.14090406                      
+11 0.11624471 0.08317570           
+12 0.10848966 0.19128645 0.20802789
+
+| Excellent job!
+
+  |=========================                                                            |  29%
+| You see that the output is a lower triangular
+| matrix with rows numbered from 2 to 12 and
+| columns numbered from 1 to 11. Entry (i,j)
+| indicates the distance between points i and j.
+| Clearly you need only a lower triangular
+| matrix since the distance between points i and
+| j equals that between j and i.
+
+...
+
+  |==========================                                                           |  31%
+| From the output of dist, what is the minimum
+| distance between two points?
+
+1: 0.0815
+2: 0.1085
+3: -0.0700
+4: 0.08317
+
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: 1
+
+| Excellent job!
+
+  |===========================                                                          |  32%
+| So 0.0815 (units are unspecified) between
+| points 5 and 6 is the shortest distance. We
+| can put these points in a single cluster and
+| look for another close pair of points.
+
+...
+
+  |=============================                                                        |  34%
+| Looking at the picture, what would be another
+| good pair of points to put in another cluster
+| given that 5 and 6 are already clustered?
+
+1: 1 and 4
+2: 7 and 8
+3: 10 and 11
+4: 7 and the cluster containing 5 ad 6
+
+Selection: 3
+
+| That's correct!
+
+  |==============================                                                       |  35%
+| So 10 and 11 are another pair of points that
+| would be in a second cluster. We'll start
+| creating our dendrogram now. Here're the
+| original plot and two beginning pieces of the
+| dendrogram.
+
+...
+
+  |================================                                                     |  37%
+| We can keep going like this in the obvious way
+| and pair up individual points, but as luck
+| would have it, R provides a simple function
+| which you can call which creates a dendrogram
+| for you. It's called hclust() and takes as an
+| argument the pairwise distance matrix which we
+| looked at before. We've stored this matrix for
+| you in a variable called distxy. Run hclust
+| now with distxy as its argument and put the
+| result in the variable hc.
+
+> 
+> hc <- hclust(distxy)
+
+| Keep up the great work!
+
+  |=================================                                                    |  39%
+| You're probably curious and want to see hc.
+
+...
+
+  |==================================                                                   |  40%
+| Call the R function plot with one argument,
+| hc.
+
+> 
+> plot(hc)
+
+| Keep working like that and you'll get there!
+
+  |====================================                                                 |  42%
+| Nice plot, right? R's plot conveniently
+| labeled everything for you. The points we saw
+| are the leaves at the bottom of the graph, 5
+| and 6 are connected, as are 10 and 11.
+| Moreover, we see that the original 3 groupings
+| of points are closest together as leaves on
+| the picture. That's reassuring.  Now call plot
+| again, this time with the argument
+| as.dendrogram(hc).
+
+> plot(as.dendrogram(hc))
+
+| You are really on a roll!
+
+  |=====================================                                                |  44%
+| The essentials are the same, but the labels
+| are missing and the leaves (original points)
+| are all printed at the same level. Notice that
+| the vertical heights of the lines and labeling
+| of the scale on the left edge give some
+| indication of distance. Use the R command
+| abline to draw a horizontal blue line at 1.5
+| on this plot. Recall that this requires 2
+| arguments, h=1.5 and col="blue".
+
+> abline(h=1.5,col="blue")
+
+| Keep up the great work!
+
+  |======================================                                               |  45%
+| We see that this blue line intersects 3
+| vertical lines and this tells us that using
+| the distance 1.5 (unspecified units) gives us
+| 3 clusters (1 through 4), (9 through 12), and
+| (5 through 8). We call this a "cut" of our
+| dendrogram. Now cut the dendrogam by drawing a
+| red horizontal line at .4.
+
+> abline(h=.4,col="red")
+
+| Perseverance, that's the answer.
+
+  |========================================                                             |  47%
+| How many clusters are there with a cut at this
+| distance?
+
+> equiv_val(5)
+Error in equiv_val(5) : could not find function "equiv_val"
+
+> 5
+[1] 5
+
+| Your dedication is inspiring!
+
+  |=========================================                                            |  48%
+| We see that by cutting at .4 we have 5
+| clusters, indicating that this distance is
+| small enough to break up our original grouping
+| of points. If we drew a horizontal line at
+| .05, how many clusters would we get
+
+> 12
+[1] 12
+
+| Keep up the great work!
+
+  |==========================================                                           |  50%
+| Try it now (draw a horizontal line at .05) and
+| make the line green.
+
+> 
+> abline(h=.05,col="green")
+
+| Excellent work!
+
+  |============================================                                         |  52%
+| So the number of clusters in your data depends
+| on where you draw the line! (We said there's a
+| lot of flexibility here.) Now that we've seen
+| the practice, let's go back to some "theory".
+| Notice that the two original groupings, 5
+| through 8, and 9 through 12, are connected
+| with a horizontal line near the top of the
+| display. You're probably wondering how
+| distances between clusters of points are
+| measured.
+
+...
+
+  |=============================================                                        |  53%
+| There are several ways to do this. We'll just
+| mention two. The first is called complete
+| linkage and it says that if you're trying to
+| measure a distance between two clusters, take
+| the greatest distance between the pairs of
+| points in those two clusters. Obviously such
+| pairs contain one point from each cluster.
+
+...
+
+  |===============================================                                      |  55%
+| So if we were measuring the distance between
+| the two clusters of points (1 through 4) and
+| (5 through 8), using complete linkage as the
+| metric we would use the distance between
+| points 4 and 8 as the measure since this is
+| the largest distance between the pairs of
+| those groups.
+
+...
+
+  |================================================                                     |  56%
+| The distance between the two clusters of
+| points (9 through 12) and (5 through 8), using
+| complete linkage as the metric, is the
+| distance between points 11 and 8 since this is
+| the largest distance between the pairs of
+| those groups.
+
+...
+
+  |=================================================                                    |  58%
+| As luck would have it, the distance between
+| the two clusters of points (9 through 12) and
+| (1 through 4), using complete linkage as the
+| metric, is the distance between points 11 and
+| 4.
+
+...
+
+  |===================================================                                  |  60%
+| We've created the dataframe dFsm for you
+| containing these 3 points, 4, 8, and 11. Run
+| dist on dFsm to see what the smallest distance
+| between these 3 points is.
+
+> 
+> dist(dFsm)
+         1        2
+2 2.028495         
+3 2.374620 1.869994
+
+| All that practice is paying off!
+
+  |====================================================                                 |  61%
+| We see that the smallest distance is between
+| points 2 and 3 in this reduced set, (these are
+| actually points 8 and 11 in the original set),
+| indicating that the two clusters these points
+| represent ((5 through 8) and (9 through 12)
+| respectively) would be joined (at a distance
+| of 1.869) before being connected with the
+| third cluster (1 through 4). This is
+| consistent with the dendrogram we plotted.
+
+...
+
+  |=====================================================                                |  63%
+| The second way to measure a distance between
+| two clusters that we'll just mention is called
+| average linkage. First you compute an
+| "average" point in each cluster (think of it
+| as the cluster's center of gravity). You do
+| this by computing the mean (average) x and y
+| coordinates of the points in the cluster.
+
+...
+
+  |=======================================================                              |  65%
+| Then you compute the distances between each
+| cluster average to compute the intercluster
+| distance.
+
+...
+
+  |========================================================                             |  66%
+| Now look at the hierarchical cluster we
+| created before, hc.
+
+> 
+> hc
+
+Call:
+hclust(d = distxy)
+
+Cluster method   : complete 
+Distance         : euclidean 
+Number of objects: 12 
+
+
+| That's the answer I was looking for.
+
+  |==========================================================                           |  68%
+| Which type of linkage did hclust() use to
+| agglomerate clusters?
+
+1: complete
+2: average
+
+Selection: 1
+
+| You nailed it! Good job!
+
+  |===========================================================                          |  69%
+| In our simple set of data, the average and
+| complete linkages aren't that different, but
+| in more complicated datasets the type of
+| linkage you use could affect how your data
+| clusters. It is a good idea to experiment with
+| different methods of linkage to see the
+| varying ways your data groups. This will help
+| you determine the best way to continue with
+| your analysis.
+
+...
+
+  |============================================================                         |  71%
+| The last method of visualizing data we'll
+| mention in this lesson concerns heat maps.
+| Wikipedia
+| (http://en.wikipedia.org/wiki/Heat_map) tells
+| us a heat map is "a graphical representation
+| of data where the individual values contained
+| in a matrix are represented as colors. ...
+| Heat maps originated in 2D displays of the
+| values in a data matrix. Larger values were
+| represented by small dark gray or black
+| squares (pixels) and smaller values by lighter
+| squares."
+
+...
+
+  |==============================================================                       |  73%
+| You've probably seen many examples of heat
+| maps, for instance weather radar and displays
+| of ocean salinity. From Wikipedia
+| (http://en.wikipedia.org/wiki/Heat_map) we
+| learn that heat maps are often used in
+| molecular biology "to represent the level of
+| expression of many genes across a number of
+| comparable samples (e.g. cells in different
+| states, samples from different patients) as
+| they are obtained from DNA microarrays."
+
+...
+
+  |===============================================================                      |  74%
+| We won't say too much on this topic, but a
+| very nice concise tutorial on creating
+| heatmaps in R exists at
+| http://sebastianraschka.com/Articles/heatmaps_in_r.html#clustering.
+| Here's an image from the tutorial to start you
+| thinking about the topic. It shows a sample
+| heat map with a dendrogram on the left edge
+| mapping the relationship between the rows. The
+| legend at the top shows how colors relate to
+| values.
+
+...
+
+  |================================================================                     |  76%
+| R provides a handy function to produce heat
+| maps. It's called heatmap. We've put the point
+| data we've been using throughout this lesson
+| in a matrix. Call heatmap now with 2
+| arguments. The first is dataMatrix and the
+| second is col set equal to cm.colors(25). This
+| last is optional, but we like the colors
+| better than the default ones.
+
+> heatmap(dataMatrix,col=cm.colors(25))
+
+| That's a job well done!
+
+  |==================================================================                   |  77%
+| We see an interesting display of sorts. This
+| is a very simple heat map - simple because the
+| data isn't very complex. The rows and columns
+| are grouped together as shown by colors. The
+| top rows (labeled 5, 6, and 7) seem to be in
+| the same group (same colors) while 8 is next
+| to them but colored differently. This matches
+| the dendrogram shown on the left edge.
+| Similarly, 9, 12, 11, and 10 are grouped
+| together (row-wise) along with 3 and 2. These
+| are followed by 1 and 4 which are in a
+| separate group. Column data is treated
+| independently of rows but is also grouped.
+
+...
+
+  |===================================================================                  |  79%
+| We've subsetted some vehicle data from mtcars,
+| the Motor Trend Car Road Tests which is part
+| of the package datasets. The data is in the
+| matrix mt and contains 6 factors of 11 cars.
+| Run heatmap now with mt as its only argument.
+
+> heatmap(mt)
+
+| Keep working like that and you'll get there!
+
+  |=====================================================================                |  81%
+| This looks slightly more interesting than the
+| heatmap for the point data. It shows a little
+| better how the rows and columns are treated
+| (clustered and colored) independently of one
+| another. To understand the disparity in color
+| (between the left 4 columns and the right 2)
+| look at mt now.
+
+> 
+> mt
+                  mpg cyl  disp  hp drat    wt
+Dodge Challenger 15.5   8 318.0 150 2.76 3.520
+AMC Javelin      15.2   8 304.0 150 3.15 3.435
+Camaro Z28       13.3   8 350.0 245 3.73 3.840
+Pontiac Firebird 19.2   8 400.0 175 3.08 3.845
+Fiat X1-9        27.3   4  79.0  66 4.08 1.935
+Porsche 914-2    26.0   4 120.3  91 4.43 2.140
+Lotus Europa     30.4   4  95.1 113 3.77 1.513
+Ford Pantera L   15.8   8 351.0 264 4.22 3.170
+Ferrari Dino     19.7   6 145.0 175 3.62 2.770
+Maserati Bora    15.0   8 301.0 335 3.54 3.570
+Volvo 142E       21.4   4 121.0 109 4.11 2.780
+
+| You're the best!
+
+  |======================================================================               |  82%
+| See how four of the columns are all relatively
+| small numbers and only two (disp and hp) are
+| large? That explains the big difference in
+| color columns. Now to understand the grouping
+| of the rows call plot with one argument, the
+| dendrogram object denmt we've created for you.
+
+> 
+> plot(denmt)
+
+| Excellent work!
+
+  |=======================================================================              |  84%
+| We see that this dendrogram is the one
+| displayed at the side of the heat map. How was
+| this created? Recall that we generalized the
+| distance formula for more than 2 dimensions.
+| We've created a distance matrix for you,
+| distmt. Look at it now.
+
+> distmt
+                 Dodge Challenger AMC Javelin
+AMC Javelin              14.00890            
+Camaro Z28              100.27404   105.57041
+Pontiac Firebird         85.80733    99.28330
+Fiat X1-9               253.64640   240.51305
+Porsche 914-2           206.63309   193.29419
+Lotus Europa            226.48724   212.74240
+Ford Pantera L          118.69012   123.31494
+Ferrari Dino            174.86264   161.03078
+Maserati Bora           185.78176   185.02489
+Volvo 142E              201.35337   187.68535
+                 Camaro Z28 Pontiac Firebird
+AMC Javelin                                 
+Camaro Z28                                  
+Pontiac Firebird   86.22779                 
+Fiat X1-9         325.11191        339.12867
+Porsche 914-2     276.87318        292.15588
+Lotus Europa      287.59666        311.37656
+Ford Pantera L     19.20778        101.66275
+Ferrari Dino      216.72821        255.01117
+Maserati Bora     102.48902        188.19917
+Volvo 142E        266.49555        286.74036
+                 Fiat X1-9 Porsche 914-2
+AMC Javelin                             
+Camaro Z28                              
+Pontiac Firebird                        
+Fiat X1-9                               
+Porsche 914-2     48.29642              
+Lotus Europa      49.78046      33.75246
+Ford Pantera L   336.65679     288.56998
+Ferrari Dino     127.67016      87.81135
+Maserati Bora    349.02042     303.85577
+Volvo 142E        60.40302      18.60543
+                 Lotus Europa Ford Pantera L
+AMC Javelin                                 
+Camaro Z28                                  
+Pontiac Firebird                            
+Fiat X1-9                                   
+Porsche 914-2                               
+Lotus Europa                                
+Ford Pantera L      297.51961               
+Ferrari Dino         80.33743      224.44761
+Maserati Bora       303.20992       86.84620
+Volvo 142E           27.74042      277.43923
+                 Ferrari Dino Maserati Bora
+AMC Javelin                                
+Camaro Z28                                 
+Pontiac Firebird                           
+Fiat X1-9                                  
+Porsche 914-2                              
+Lotus Europa                               
+Ford Pantera L                             
+Ferrari Dino                               
+Maserati Bora       223.52346              
+Volvo 142E           70.27895     289.02233
+
+| You nailed it! Good job!
+
+  |=========================================================================            |  85%
+| See how these distances match those in the
+| dendrogram?  So hclust really works! Let's
+| review now.
+
+...
+
+  |==========================================================================           |  87%
+| What is the purpose of hierarchical
+| clustering?
+
+1: Inspire other researchers
+2: Give an idea of the relationships between variables or observations
+3: None of the others
+4: Present a finished picture
+
+Selection: 2
+
+| You are amazing!
+
+  |===========================================================================          |  89%
+| True or False? When you're doing hierarchical
+| clustering there are strict rules that you
+| MUST follow.
+
+1: False
+2: True
+
+Selection: 1
+
+| You got it!
+
+  |=============================================================================        |  90%
+| True or False? There's only one way to measure
+| distance.
+
+1: False
+2: True
+
+Selection: 1
+
+| Excellent work!
+
+  |==============================================================================       |  92%
+| True or False? Complete linkage is a method of
+| computing distances between clusters.
+
+1: True
+2: False
+
+Selection: 1
+
+| That's a job well done!
+
+  |================================================================================     |  94%
+| True or False? Average linkage uses the
+| maximum distance between points of two
+| clusters as the distance between those
+| clusters.
+
+1: True
+2: False
+
+Selection: 2
+
+| You nailed it! Good job!
+
+  |=================================================================================    |  95%
+| True or False? The number of clusters you
+| derive from your data depends on the distance
+| at which you choose to cut it.
+
+1: True
+2: False
+
+Selection: 1
+
+| Your dedication is inspiring!
+
+  |==================================================================================   |  97%
+| True or False? Once you decide basics, such as
+| defining a distance metric and linkage method,
+| hierarchical clustering is deterministic.
+
+1: True
+2: False
+
+Selection: 1
+
+| You nailed it! Good job!
+
+  |==================================================================================== |  98%
+| Congratulations! We hope this lesson didn't
+| fluster you or get you too heated!
+
+...
+
+  |=====================================================================================| 100%
+| Would you like to receive credit for
+| completing this course on Coursera.org?
+
+1: No
+2: Yes
+
+Selection: 1
+
+| That's the answer I was looking for.
+
+| You've reached the end of this lesson!
+| Returning to the main menu...
+
+| Please choose a course, or type 0 to exit
+| swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to
+| course menu.
+
+ 1: Principles of Analytic Graphs
+ 2: Exploratory Graphs
+ 3: Graphics Devices in R
+ 4: Plotting Systems
+ 5: Base Plotting System
+ 6: Lattice Plotting System
+ 7: Working with Colors
+ 8: GGPlot2 Part1
+ 9: GGPlot2 Part2
+10: GGPlot2 Extras
+11: Hierarchical Clustering
+12: K Means Clustering
+13: Dimension Reduction
+14: Clustering Example
+15: CaseStudy
+
+Selection: 12
+
+| Attempting to load lesson dependencies...
+
+| Package ‘ggplot2’ loaded correctly!
+
+| Package ‘fields’ loaded correctly!
+
+| Package ‘jpeg’ loaded correctly!
+
+| Package ‘datasets’ loaded correctly!
+
+  |                                       |   0%
+
+| K_Means_Clustering. (Slides for this and other
+| Data Science courses may be found at github
+| https://github.com/DataScienceSpecialization/courses/.
+| If you care to use them, they must be
+| downloaded as a zip file and viewed locally.
+| This lesson corresponds to
+| 04_ExploratoryAnalysis/kmeansClustering.)
+
+...
+
+  |=                                      |   2%
+| In this lesson we'll learn about k-means
+| clustering, another simple way of examining
+| and organizing multi-dimensional data. As with
+| hierarchical clustering, this technique is
+| most useful in the early stages of analysis
+| when you're trying to get an understanding of
+| the data, e.g., finding some pattern or
+| relationship between different factors or
+| variables.
+
+...
+
+  |==                                     |   4%
+| R documentation tells us that the k-means
+| method "aims to partition the points into k
+| groups such that the sum of squares from
+| points to the assigned cluster centres is
+| minimized."
+
+...
+
+  |==                                     |   6%
+| Since clustering organizes data points that
+| are close into groups we'll assume we've
+| decided on a measure of distance, e.g.,
+| Euclidean.
+
+...
+
+  |===                                    |   8%
+| To illustrate the method, we'll use these
+| random points we generated, familiar to you if
+| you've already gone through the hierarchical
+| clustering lesson. We'll demonstrate k-means
+| clustering in several steps, but first we'll
+| explain the general idea.
+
+...
+
+  |====                                   |  10%
+| As we said, k-means is a partioning approach
+| which requires that you first guess how many
+| clusters you have (or want). Once you fix this
+| number, you randomly create a "centroid" (a
+| phantom point) for each cluster and assign
+| each point or observation in your dataset to
+| the centroid to which it is closest. Once each
+| point is assigned a centroid, you readjust the
+| centroid's position by making it the average
+| of the points assigned to it.
+
+...
+
+  |=====                                  |  12%
+| Once you have repositioned the centroids, you
+| must recalculate the distance of the
+| observations to the centroids and reassign
+| any, if necessary, to the centroid closest to
+| them. Again, once the reassignments are done,
+| readjust the positions of the centroids based
+| on the new cluster membership. The process
+| stops once you reach an iteration in which no
+| adjustments are made or when you've reached
+| some predetermined maximum number of
+| iterations.
+
+...
+
+  |=====                                  |  14%
+| As described, what does this process require?
+
+1: All of the others
+2: A number of clusters
+3: A defined distance metric
+4: An initial guess as to cluster centroids
+
+Selection: 
+Enter an item from the menu, or 0 to exit
+Selection: 1
+
+| That's the answer I was looking for.
+
+  |======                                 |  16%
+| So k-means clustering requires some distance
+| metric (say Euclidean), a hypothesized fixed
+| number of clusters, and an initial guess as to
+| cluster centroids. As described, what does
+| this process produce?
+
+1: All of the others
+2: An assignment of each point to a cluster
+3: A final estimate of cluster centroids
+
+Selection: 1
+
+| You nailed it! Good job!
+
+  |=======                                |  18%
+| When it's finished k-means clustering returns
+| a final position of each cluster's centroid as
+| well as the assignment of each data point or
+| observation to a cluster.
+
+...
+
+  |========                               |  20%
+| Now we'll step through this process using our
+| random points as our data. The coordinates of
+| these are stored in 2 vectors, x and y. We
+| eyeball the display and guess that there are 3
+| clusters. We'll pick 3 positions of centroids,
+| one for each cluster.
+
+...
+
+  |=========                              |  22%
+| We've created two 3-long vectors for you, cx
+| and cy. These respectively hold the x- and y-
+| coordinates for 3 proposed centroids. For
+| convenience, we've also stored them in a 2 by
+| 3 matrix cmat. The x coordinates are in the
+| first row and the y coordinates in the second.
+| Look at cmat now.
+
+> 
+> cmat
+     [,1] [,2] [,3]
+[1,]    1  1.8  2.5
+[2,]    2  1.0  1.5
+
+| Excellent work!
+
+  |=========                              |  24%
+| The coordinates of these points are (1,2),
+| (1.8,1) and (2.5,1.5). We'll add these
+| centroids to the plot of our points. Do this
+| by calling the R command points with 6
+| arguments. The first 2 are cx and cy, and the
+| third is col set equal to the concatenation of
+| 3 colors, "red", "orange", and "purple". The
+| fourth argument is pch set equal to 3 (a plus
+| sign), the fifth is cex set equal to 2
+| (expansion of character), and the final is lwd
+| (line width) also set equal to 2.
+
+> 
+> points(cx,cy,col=c("red","orange","purple"),pch=3,cex=2,lwd=2)
+
+| You nailed it! Good job!
+
+  |==========                             |  26%
+| We see the first centroid (1,2) is in red. The
+| second (1.8,1), to the right and below the
+| first, is orange, and the final centroid
+| (2.5,1.5), the furthest to the right, is
+| purple.
+
+...
+
+  |===========                            |  28%
+| Now we have to calculate distances between
+| each point and every centroid. There are 12
+| data points and 3 centroids. How many
+| distances do we have to calculate?
+
+1: 15
+2: 108
+3: 36
+4: 9
+
+Selection: 3
+
+| You are amazing!
+
+  |============                           |  30%
+| We've written a function for you called mdist
+| which takes 4 arguments. The vectors of data
+| points (x and y) are the first two and the two
+| vectors of centroid coordinates (cx and cy)
+| are the last two. Call mdist now with these
+| arguments.
+
+> mdist(x,y,cx,cy)
+         [,1]      [,2]      [,3]     [,4]
+[1,] 1.392885 0.9774614 0.7000680 1.264693
+[2,] 1.108644 0.5544675 0.3768445 1.611202
+[3,] 3.461873 2.3238956 1.7413021 4.150054
+          [,5]      [,6]      [,7]     [,8]
+[1,] 1.1894610 1.2458771 0.8113513 1.026750
+[2,] 0.8877373 0.7594611 0.7003994 2.208006
+[3,] 0.3297843 0.2600045 0.4887610 1.337896
+          [,9]     [,10]     [,11]     [,12]
+[1,] 4.5082665 4.5255617 4.8113368 4.0657750
+[2,] 1.1825265 1.0540994 1.2278193 1.0090944
+[3,] 0.3737554 0.4614472 0.5095428 0.2567247
+
+| Excellent job!
+
+  |============                           |  32%
+| We've stored these distances in the matrix
+| distTmp for you. Now we have to assign a
+| cluster to each point. To do that we'll look
+| at each column and ?
+
+1: add up the 3 entries.
+2: pick the minimum entry
+3: pick the maximum entry
+
+Selection: 2
+
+| Perseverance, that's the answer.
+
+  |=============                          |  34%
+| From the distTmp entries, which cluster would
+| point 6 be assigned to?
+
+1: none of the above
+2: 3
+3: 2
+4: 1
+
+Selection: 2
+
+| Keep working like that and you'll get there!
+
+  |==============                         |  36%
+| R has a handy function which.min which you can
+| apply to ALL the columns of distTmp with one
+| call. Simply call the R function apply with 3
+| arguments. The first is distTmp, the second is
+| 2 meaning the columns of distTmp, and the
+| third is which.min, the function you want to
+| apply to the columns of distTmp. Try this now.
+
+> apply(distTmp,2,which.min)
+ [1] 2 2 2 1 3 3 3 1 3 3 3 3
+
+| You are really on a roll!
+
+  |===============                        |  38%
+| You can see that you were right and the 6th
+| entry is indeed 3 as you answered before. We
+| see the first 3 entries were assigned to the
+| second (orange) cluster and only 2 points (4
+| and 8) were assigned to the first (red)
+| cluster.
+
+...
+
+  |================                       |  40%
+| We've stored the vector of cluster colors
+| ("red","orange","purple") in the array cols1
+| for you and we've also stored the cluster
+| assignments in the array newClust. Let's color
+| the 12 data points according to their
+| assignments. Again, use the command points
+| with 5 arguments. The first 2 are x and y. The
+| third is pch set to 19, the fourth is cex set
+| to 2, and the last, col is set to
+| cols1[newClust].
+
+> points(x,y,pch=19,cex=2,col=cols1[newClust])
+
+| Keep up the great work!
+
+  |================                       |  42%
+| Now we have to recalculate our centroids so
+| they are the average (center of gravity) of
+| the cluster of points assigned to them. We
+| have to do the x and y coordinates separately.
+| We'll do the x coordinate first. Recall that
+| the vectors x and y hold the respective
+| coordinates of our 12 data points.
+
+...
+
+  |=================                      |  44%
+| We can use the R function tapply which applies
+| "a function over a ragged array". This means
+| that every element of the array is assigned a
+| factor and the function is applied to subsets
+| of the array (identified by the factor
+| vector). This allows us to take advantage of
+| the factor vector newClust we calculated. Call
+| tapply now with 3 arguments, x (the data),
+| newClust (the factor array), and mean (the
+| function to apply).
+
+> tapply(x,newClust,mean)
+       1        2        3 
+1.210767 1.010320 2.498011 
+
+| Perseverance, that's the answer.
+
+  |==================                     |  46%
+| Repeat the call, except now apply it to the
+| vector y instead of x.
+
+> tapply(y,newClust,mean)
+       1        2        3 
+1.730555 1.016513 1.354373 
+
+| Your dedication is inspiring!
+
+  |===================                    |  48%
+| Now that we have new x and new y coordinates
+| for the 3 centroids we can plot them. We've
+| stored off the coordinates for you in
+| variables newCx and newCy. Use the R command
+| points with these as the first 2 arguments. In
+| addition, use the arguments col set equal to
+| cols1, pch equal to 8, cex equal to 2 and lwd
+| also equal to 2.
+
+> points(newCx,newCy,col=cols1,pch=8,cex=2,lwd=2)
+
+| Keep up the great work!
+
+  |====================                   |  50%
+| We see how the centroids have moved closer to
+| their respective clusters. This is especially
+| true of the second (orange) cluster. Now call
+| the distance function mdist with the 4
+| arguments x, y, newCx, and newCy. This will
+| allow us to reassign the data points to new
+| clusters if necessary.
+
+> mdist(x,y,newCx,newCy)
+           [,1]        [,2]      [,3]      [,4]
+[1,] 0.98911875 0.539152725 0.2901879 1.0286979
+[2,] 0.09287262 0.002053041 0.0734304 0.2313694
+[3,] 3.28531180 2.197487387 1.6676725 4.0113796
+          [,5]      [,6]      [,7]     [,8]
+[1,] 0.7936966 0.8004956 0.4650664 1.028698
+[2,] 1.9333732 1.8320407 1.4310971 2.926095
+[3,] 0.4652075 0.3721778 0.6043861 1.643033
+          [,9]    [,10]     [,11]     [,12]
+[1,] 3.3053706 3.282778 3.5391512 2.9345445
+[2,] 3.5224442 3.295301 3.5990955 3.2097944
+[3,] 0.2586908 0.309730 0.3610747 0.1602755
+
+| Excellent work!
+
+  |====================                   |  52%
+| We've stored off this new matrix of distances
+| in the matrix distTmp2 for you. Recall that
+| the first cluster is red, the second orange
+| and the third purple. Look closely at columns
+| 4 and 7 of distTmp2. What will happen to
+| points 4 and 7?
+
+1: They will both change to cluster 2
+2: Nothing
+3: They're the only points that won't change clusters
+4: They will both change clusters
+
+Selection: 4
+
+| You nailed it! Good job!
+
+  |=====================                  |  54%
+| Now call apply with 3 arguments, distTmp2, 2,
+| and which.min to find the new cluster
+| assignments for the points.
+
+> apply(distTmp2,2,which.min)
+ [1] 2 2 2 2 3 3 1 1 3 3 3 3
+
+| That's a job well done!
+
+  |======================                 |  56%
+| We've stored off the new cluster assignments
+| in a vector of factors called newClust2. Use
+| the R function points to recolor the points
+| with their new assignments. Again, there are 5
+| arguments, x and y are first, followed by pch
+| set to 19, cex to 2, and col to
+| cols1[newClust2].
+
+> points(x,y,pch=19,cex=2,col=cols1[newClust2])
+
+| Keep working like that and you'll get there!
+
+  |=======================                |  58%
+| Notice that points 4 and 7 both changed
+| clusters, 4 moved from 1 to 2 (red to orange),
+| and point 7 switched from 3 to 2 (purple to
+| red).
+
+...tapply(x,newClust2,mean)
+
+  |=======================                |  60%
+| Now use tapply to find the x coordinate of the
+| new centroid. Recall there are 3 arguments, x,
+| newClust2, and mean.
+
+> tapply(x,newClust2,mean)
+        1         2         3 
+1.8878628 0.8904553 2.6001704 
+
+| You're the best!
+
+  |========================               |  62%
+| Do the same to find the new y coordinate.
+
+> tapply(y,newClust2,mean)
+       1        2        3 
+2.157866 1.006871 1.274675 
+
+| Excellent work!
+
+  |=========================              |  64%
+| We've stored off these coordinates for you in
+| the variables finalCx and finalCy. Plot these
+| new centroids using the points function with 6
+| arguments. The first 2 are finalCx and
+| finalCy. The argument col should equal cols1,
+| pch should equal 9, cex 2 and lwd 2.
+
+> points(finalCx,finalCy,col=cols1,pch=9,cex=2,lwd=2)
+
+| You nailed it! Good job!
+
+  |==========================             |  66%
+| It should be obvious that if we continued this
+| process points 5 through 8 would all turn red,
+| while points 1 through 4 stay orange, and
+| points 9 through 12 purple.
+
+...
+
+  |===========================            |  68%
+| Now that you've gone through an example step
+| by step, you'll be relieved to hear that R
+| provides a command to do all this work for
+| you. Unsurprisingly it's called kmeans and,
+| although it has several parameters, we'll just
+| mention four. These are x, (the numeric matrix
+| of data), centers, iter.max, and nstart. The
+| second of these (centers) can be either a
+| number of clusters or a set of initial
+| centroids. The third, iter.max, specifies the
+| maximum number of iterations to go through,
+| and nstart is the number of random starts you
+| want to try if you specify centers as a
+| number.
+
+...
+
+  |===========================            |  70%
+| Call kmeans now with 2 arguments, dataFrame
+| (which holds the x and y coordinates of our 12
+| points) and centers set equal to 3.
+
+> kmeans(dataFrame,centers=3)
+K-means clustering with 3 clusters of sizes 4, 4, 4
+
+Cluster means:
+          x         y
+1 0.8904553 1.0068707
+2 2.8534966 0.9831222
+3 1.9906904 2.0078229
+
+Clustering vector:
+ [1] 1 1 1 1 3 3 3 3 2 2 2 2
+
+Within cluster sum of squares by cluster:
+[1] 0.34188313 0.03298027 0.34732441
+ (between_SS / total_SS =  93.6 %)
+
+Available components:
+
+[1] "cluster"      "centers"      "totss"       
+[4] "withinss"     "tot.withinss" "betweenss"   
+[7] "size"         "iter"         "ifault"      
+
+| You are really on a roll!
+
+  |============================           |  72%
+| The program returns the information that the
+| data clustered into 3 clusters each of size 4.
+| It also returns the coordinates of the 3
+| cluster means, a vector named cluster
+| indicating how the 12 points were partitioned
+| into the clusters, and the sum of squares
+| within each cluster. It also shows all the
+| available components returned by the function.
+| We've stored off this data for you in a kmeans
+| object called kmObj. Look at kmObj$iter to see
+| how many iterations the algorithm went
+| through.
+
+> kmObj$iter
+[1] 1
+
+| You got it!
+
+  |=============================          |  74%
+| Two iterations as we did before. We just want
+| to emphasize how you can access the
+| information available to you. Let's plot the
+| data points color coded according to their
+| cluster. This was stored in kmObj$cluster. Run
+| plot with 5 arguments. The data, x and y, are
+| the first two; the third, col is set equal to
+| kmObj$cluster, and the last two are pch and
+| cex. The first of these should be set to 19
+| and the last to 2.
+
+>  plot(x,y,col=kmObj$cluster,pch=19,cex=2)
+
+| You are doing so well!
+
+  |==============================         |  76%
+| Now add the centroids which are stored in
+| kmObj$centers. Use the points function with 5
+| arguments. The first two are kmObj$centers and
+| col=c("black","red","green"). The last three,
+| pch, cex, and lwd, should all equal 3.
+
+>  points(kmObj$centers,col=c("black","red","green"),pch=3,cex=3,lwd=3)
+
+| Excellent work!
+
+  |==============================         |  78%
+| Now for some fun! We want to show you how the
+| output of the kmeans function is affected by
+| its random start (when you just ask for a
+| number of clusters). With random starts you
+| might want to run the function several times
+| to get an idea of the relationships between
+| your observations. We'll call kmeans with the
+| same data points (stored in dataFrame), but
+| ask for 6 clusters instead of 3.
+
+...
+
+  |===============================        |  80%
+| We'll plot our data points several times and
+| each time we'll just change the argument col
+| which will show us how the R function kmeans
+| is clustering them. So, call plot now with 5
+| arguments. The first 2 are x and y. The third
+| is col set equal to the call
+| kmeans(dataFrame,6)$cluster. The last two (pch
+| and cex) are set to 19 and 2 respectively.
+
+
+> plot(x,y,col=kmeans(dataFrame,6)$cluster,pch=19,cex=2)
+
+| You nailed it! Good job!
+
+  |================================       |  82%
+| See how the points cluster? Now recall your
+| last command and rerun it.
+
+> plot(x,y,col=kmeans(dataFrame,6)$cluster,pch=19,cex=2)
+
+| Nice work!
+
+  |=================================      |  84%
+| See how the clustering has changed? As the
+| Teletubbies would say, "Again! Again!"
+
+> plot(x,y,col=kmeans(dataFrame,6)$cluster,pch=19,cex=2)
+
+| That's the answer I was looking for.
+
+  |==================================     |  86%
+| So the clustering changes with different
+| starts. Perhaps 6 is too many clusters? Let's
+| review!
+
+... 
+
+  |==================================     |  88%
+| True or False? K-means clustering requires you
+| to specify a number of clusters before you
+| begin.
+
+1: False
+2: True
+
+Selection: 2
+
+| You nailed it! Good job!
+
+  |===================================    |  90%
+| True or False? K-means clustering requires you
+| to specify a number of iterations before you
+| begin.
+
+1: True
+2: False
+
+Selection: 2
+
+| Excellent work!
+
+  |====================================   |  92%
+| True or False? Every data set has a single
+| fixed number of clusters.
+
+1: True
+2: False
+
+Selection: 2
+
+| You got it right!
+
+  |=====================================  |  94%
+| True or False? K-means clustering will always
+| stop in 3 iterations
+
+1: False
+2: True
+
+Selection: 1
+
+| Excellent job!
+
+  |=====================================  |  96%
+| True or False? When starting kmeans with
+| random centroids, you'll always end up with
+| the same final clustering.
+
+1: True
+2: False
+
+Selection: 2
+
+| You are really on a roll!
+
+  |====================================== |  98%
+| Congratulations! We hope this means you found
+| this lesson oK.
+
+...
+
+  |=======================================| 100%
+| Would you like to receive credit for
+| completing this course on Coursera.org?
+
+1: No
+2: Yes
+
+Selection: 1
+
+| Great job!
+
+| You've reached the end of this lesson!
+| Returning to the main menu...
+
+| Please choose a course, or type 0 to exit
+| swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to
+| course menu.
+
+ 1: Principles of Analytic Graphs
+ 2: Exploratory Graphs
+ 3: Graphics Devices in R
+ 4: Plotting Systems
+ 5: Base Plotting System
+ 6: Lattice Plotting System
+ 7: Working with Colors
+ 8: GGPlot2 Part1
+ 9: GGPlot2 Part2
+10: GGPlot2 Extras
+11: Hierarchical Clustering
+12: K Means Clustering
+13: Dimension Reduction
+14: Clustering Example
+15: CaseStudy
+
+Selection: 13
+
+| Attempting to load lesson dependencies...
+
+| Package ‘fields’ loaded correctly!
+
+| Package ‘jpeg’ loaded correctly!
+
+| Package ‘datasets’ loaded correctly!
+
+  |                                     |   0%
+
+| Dimension_Reduction. (Slides for this and
+| other Data Science courses may be found at
+| github
+| https://github.com/DataScienceSpecialization/courses/.
+| If you care to use them, they must be
+| downloaded as a zip file and viewed locally.
+| This lesson corresponds to
+| 04_ExploratoryAnalysis/dimensionReduction.)
+
+...
+
+  |                                     |   1%
+| In this lesson we'll discuss principal
+| component analysis (PCA) and singular value
+| decomposition (SVD), two important and
+| related techniques of dimension reduction.
+| This last entails processes which finding
+| subsets of variables in datasets that
+| contain their essences. PCA and SVD are used
+| in both the exploratory phase and the more
+| formal modelling stage of analysis. We'll
+| focus on the exploratory phase and briefly
+| touch on some of the underlying theory.
+
+...
+
+  |=                                    |   2%
+| We'll begin with a motivating example -
+| random data.
+
+...
+
+  |=                                    |   4%
+| This is dataMatrix, a matrix of 400 random
+| normal numbers (mean 0 and standard
+| deviation 1).  We're displaying it with the
+| R command image. Run the R command head with
+| dataMatrix as its argument to see what
+| dataMatrix looks like.
+
+> head(dataMatrix)
+           [,1]       [,2]       [,3]
+[1,]  0.5855288  1.1285108  0.6453831
+[2,]  0.7094660 -2.3803581  1.0431436
+[3,] -0.1093033 -1.0602656 -0.3043691
+[4,] -0.4534972  0.9371405  2.4771109
+[5,]  0.6058875  0.8544517  0.9712207
+[6,] -1.8179560  1.4607294  1.8670992
+           [,4]       [,5]       [,6]
+[1,]  1.5448636 -0.4876385 -1.4361457
+[2,]  1.3214520  0.3031512 -0.6292596
+[3,]  0.3221516 -0.2419740  0.2435218
+[4,]  1.5309551 -0.4817336  1.0583622
+[5,] -0.4212397 -0.9918029  0.8313488
+[6,] -1.1588210 -0.2806491  0.1052118
+           [,7]       [,8]       [,9]
+[1,] -0.7000758 -1.5138641  0.3803157
+[2,] -0.5674016  0.1642810  0.6051368
+[3,] -0.2613939 -0.8708652  1.0196741
+[4,] -1.0638850  1.5933290  0.4749430
+[5,] -0.1063687  0.6465975 -2.1859464
+[6,]  0.7711037  0.3573697  0.9331922
+           [,10]
+[1,] -0.37582344
+[2,] -1.81283376
+[3,]  0.28860021
+[4,] -0.18962258
+[5,]  0.01786021
+[6,]  0.65043024
+
+| Keep working like that and you'll get there!
+
+  |==                                   |   5%
+| So we see that dataMatrix has 10 columns
+| (and hence 40 rows) of random numbers. The
+| image here looks pretty random. Let's see
+| how the data clusters. Run the R command
+| heatmap with dataMatrix as its only
+| argument.
+
+> heatmap(dataMatrix)
+
+| You are amazing!
+
+  |==                                   |   6%
+| We can see that even with the clustering
+| that heatmap provides, permuting the rows
+| (observations) and columns (variables)
+| independently, the data still looks random.
+
+...
+
+  |===                                  |   7%
+| Let's add a pattern to the data. We've put
+| some R code in the file addPatt.R for you.
+| Run the command myedit with the single
+| argument "addPatt.R" (make sure to use the
+| quotation marks) to see the code. You might
+| have to click your cursor in the console
+| after you do this to keep from accidentally
+| changing the file.
+
+> myedit("addPatt.R")
+
+| That's correct!
+
+  |===                                  |   8%
+| Look at the code. Will every row of the
+| matrix have a pattern added to it?
+
+1: Yes
+2: No
+
+Selection: 2
+
+| Nice work!
+
+  |====                                 |  10%
+| So whether or not a row gets modified by a
+| pattern is determined by a coin flip. Will
+| the added pattern affect every column in the
+| affected row?
+
+1: Yes
+2: No
+
+Selection: 2
+
+| Keep working like that and you'll get there!
+
+  |====                                 |  11%
+| So in rows affected by the coin flip, the 5
+| left columns will still have a mean of 0 but
+| the right 5 columns will have a mean closer
+| to 3.
+
+...
+
+  |====                                 |  12%
+| Now to execute this code, run the R command
+| source with 2 arguments. The first is the
+| filename (in quotes), "addPatt.R", and the
+| second is the argument local set equal to
+| TRUE.
+
+> source("addPatt.R", local=TRUE)
+
+| That's correct!
+
+  |=====                                |  13%
+| Here's the image of the altered dataMatrix
+| after the pattern has been added. The
+| pattern is clearly visible in the columns of
+| the matrix. The right half is yellower or
+| hotter, indicating higher values in the
+| matrix.
+
+...
+
+  |=====                                |  14%
+| Now run the R command heatmap again with
+| dataMatrix as its only argument. This will
+| perform a hierarchical cluster analysis on
+| the matrix.
+
+> heatmap(dataMatrix)
+
+| You got it!
+
+  |======                               |  16%
+| Again we see the pattern in the columns of
+| the matrix. As shown in the dendrogram at
+| the top of the display, these split into 2
+| clusters, the lower numbered columns (1
+| through 5) and the higher numbered ones (6
+| through 10). Recall from the code in
+| addPatt.R that for rows selected by the
+| coinflip the last 5 columns had 3 added to
+| them. The rows still look random.
+
+...
+
+  |======                               |  17%
+| Now consider this picture. On the left is an
+| image similar to the heatmap of dataMatix
+| you just plotted. It is an image plot of the
+| output of hclust(), a hierarchical
+| clustering function applied to dataMatrix.
+| Yellow indicates "hotter" or higher values
+| than red. This is consistent with the
+| pattern we applied to the data (increasing
+| the values for some of the rightmost
+| columns).
+
+...
+
+  |=======                              |  18%
+| The middle display shows the mean of each of
+| the 40 rows (along the x-axis). The rows are
+| shown in the same order as the rows of the
+| heat matrix on the left. The rightmost
+| display shows the mean of each of the 10
+| columns. Here the column numbers are along
+| the x-axis and their means along the y.
+
+...
+
+  |=======                              |  19%
+| We see immediately the connection between
+| the yellow (hotter) portion of the cluster
+| image and the higher row means, both in the
+| upper right portion of the displays.
+| Similarly, the higher valued column means
+| are in the right half of that display and
+| lower colummn means are in the left half.
+
+...
+
+  |========                             |  20%
+| Now we'll talk a little theory. Suppose you
+| have 1000's of multivariate variables X_1,
+| ... ,X_n. By multivariate we mean that each
+| X_i contains many components, i.e., X_i =
+| (X_{i1}, ... , X_{im}. However, these
+| variables (observations) and their
+| components might be correlated to one
+| another.
+
+...
+
+  |========                             |  22%
+| Which of the following would be an example
+| of variables correlated to one another?
+
+1: Today's weather and a butterfly's wing position
+2: Heights and weights of members of a family
+3: The depth of the Atlantic Ocean and what you eat for breakfast
+
+Selection: 2
+
+| Keep up the great work!
+
+  |========                             |  23%
+| As data scientists, we'd like to find a
+| smaller set of multivariate variables that
+| are uncorrelated AND explain as much
+| variance (or variability) of the data as
+| possible. This is a statistical approach.
+
+...
+
+  |=========                            |  24%
+| In other words, we'd like to find the best
+| matrix created with fewer variables (that
+| is, a lower rank matrix) that explains the
+| original data. This is related to data
+| compression.
+
+...
+
+  |=========                            |  25%
+| Two related solutions to these problems are
+| PCA which stands for Principal Component
+| Analysis and SVD, Singular Value
+| Decomposition. This latter simply means that
+| we express a matrix X of observations (rows)
+| and variables (columns) as the product of 3
+| other matrices, i.e., X=UDV^t. This last
+| term (V^t) represents the transpose of the
+| matrix V.
+
+...
+
+  |==========                           |  27%
+| Here U and V each have orthogonal
+| (uncorrelated) columns. U's columns are the
+| left singular vectors of X and V's columns
+| are the right singular vectors of X.  D is a
+| diagonal matrix, by which we mean that all
+| of its entries not on the diagonal are 0.
+| The diagonal entries of D are the singular
+| values of X.
+
+...
+
+  |==========                           |  28%
+| To illustrate this idea we created a simple
+| example matrix called mat. Look at it now.
+
+> mat
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    2    5    7
+
+| Perseverance, that's the answer.
+
+  |===========                          |  29%
+| So mat is a 2 by 3 matrix. Lucky for us R
+| provides a function to perform singular
+| value decomposition. It's called,
+| unsurprisingly, svd. Call it now with a
+| single argument, mat.
+
+> svd(mat)
+$d
+[1] 9.5899624 0.1806108
+
+$u
+           [,1]       [,2]
+[1,] -0.3897782 -0.9209087
+[2,] -0.9209087  0.3897782
+
+$v
+           [,1]       [,2]
+[1,] -0.2327012 -0.7826345
+[2,] -0.5614308  0.5928424
+[3,] -0.7941320 -0.1897921
+
+
+| Keep working like that and you'll get there!
+
+  |===========                          |  30%
+| We see that the function returns 3
+| components, d which holds 2 diagonal
+| elements, u, a 2 by 2 matrix, and v, a 3 by
+| 2 matrix. We stored the diagonal entries in
+| a diagonal matrix for you, diag, and we also
+| stored u and v in the variables matu and
+| matv respectively. Multiply matu by diag by
+| t(matv) to see what you get. (This last
+| expression represents the transpose of matv
+| in R). Recall that in R matrix
+| multiplication requires you to use the
+| operator %*%.
+
+> matu %*% diag %*% t(matv)
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    2    5    7
+
+| All that practice is paying off!
+
+  |============                         |  31%
+| So we did in fact get mat back. That's a
+| relief! Note that this type of decomposition
+| is NOT unique.
+
+...
+
+  |============                         |  33%
+| Now we'll talk a little about PCA, Principal
+| Component Analysis, "a simple,
+| non-parametric method for extracting
+| relevant information from confusing data
+| sets." We're quoting here from a very nice
+| concise paper on this subject which can be
+| found at http://arxiv.org/pdf/1404.1100.pdf.
+| The paper by Jonathon Shlens of Google
+| Research is called, A Tutorial on Principal
+| Component Analysis.
+
+...
+
+  |============                         |  34%
+| Basically, PCA is a method to reduce a
+| high-dimensional data set to its essential
+| elements (not lose information) and explain
+| the variability in the data. We won't go
+| into the mathematical details here, (R has a
+| function to perform PCA), but you should
+| know that SVD and PCA are closely related.
+
+...
+
+  |=============                        |  35%
+| We'll demonstrate this now. First we have to
+| scale mat, our simple example data matrix.
+| This means that we subtract the column mean
+| from every element and divide the result by
+| the column standard deviation. Of course R
+| has a command, scale, that does this for
+| you. Run svd on scale of mat.
+
+> svd(scale(mat))
+$d
+[1] 1.732051 0.000000
+
+$u
+           [,1]      [,2]
+[1,] -0.7071068 0.7071068
+[2,]  0.7071068 0.7071068
+
+$v
+          [,1]       [,2]
+[1,] 0.5773503 -0.5773503
+[2,] 0.5773503  0.7886751
+[3,] 0.5773503 -0.2113249
+
+
+| Perseverance, that's the answer.
+
+  |=============                        |  36%
+| Now run the R program prcomp on scale(mat).
+| This will give you the principal components
+| of mat. See if they look familiar.
+
+> prcomp(scale(mat))
+Standard deviations (1, .., p=2):
+[1] 1.732051 0.000000
+
+Rotation (n x k) = (3 x 2):
+           PC1        PC2
+[1,] 0.5773503 -0.5773503
+[2,] 0.5773503  0.7886751
+[3,] 0.5773503 -0.2113249
+
+| Great job!
+
+  |==============                       |  37%
+| Notice that the principal components of the
+| scaled matrix, shown in the Rotation
+| component of the prcomp output, ARE the
+| columns of V, the right singular values.
+| Thus, PCA of a scaled matrix yields the V
+| matrix (right singular vectors) of the same
+| scaled matrix.
+
+...
+
+  |==============                       |  39%
+| Now that we covered the theory let's return
+| to our bigger matrix of random data into
+| which we had added a fixed pattern for some
+| rows selected by coinflips. The pattern
+| effectively shifted the means of the rows
+| and columns.
+
+...
+
+  |===============                      |  40%
+| Here's a picture showing the relationship
+| between PCA and SVD for that bigger matrix.
+| We've plotted 10 points (5 are squished
+| together in the bottom left corner). The
+| x-coordinates are the elements of the first
+| principal component (output from prcomp),
+| and the y-coordinates are the elements of
+| the first column of V, the first right
+| singular vector (gotten from running svd).
+| We see that the points all lie on the 45
+| degree line represented by the equation y=x.
+| So the first column of V IS the first
+| principal component of our bigger data
+| matrix.
+
+...
+
+  |===============                      |  41%
+| To prove we're not making this up, we've run
+| svd on dataMatrix and stored the result in
+| the object svd1. This has 3 components, d, u
+| and v. look at the first column of V now. It
+| can be viewed by using the svd1$v[,1]
+| notation.
+
+> svd1$v[,1]
+ [1] -0.01269600  0.11959541  0.03336723
+ [4]  0.09405542 -0.12201820 -0.43175437
+ [7] -0.44120227 -0.43732624 -0.44207248
+[10] -0.43924243
+
+| Keep working like that and you'll get there!
+
+  |================                     |  42%
+| See how these values correspond to those
+| plotted? Five of the entries are slightly to
+| the left of the point (-0.4,-0.4), two more
+| are negative (to the left of (0,0)), and
+| three are positive (to the right of (0,0)).
+
+...
+
+  |================                     |  43%
+| Here we again show the clustered data matrix
+| on the left. Next to it we've plotted the
+| first column of the U matrix associated with
+| the scaled data matrix. This is the first
+| LEFT singular vector and it's associated
+| with the ROW means of the clustered data.
+| You can see the clear separation between the
+| top 24 (around -0.2) row means and the
+| bottom 16 (around 0.2). We don't show them
+| but note that the other columns of U don't
+| show this pattern so clearly.
+
+...
+
+  |================                     |  45%
+| The rightmost display shows the first column
+| of the V matrix associated with the scaled
+| and clustered data matrix. This is the first
+| RIGHT singular vector and it's associated
+| with the COLUMN means of the clustered data.
+| You can see the clear separation between the
+| left 5 column means (between -0.1 and 0.1)
+| and the right 5 column means (all below
+| -0.4). As with the left singular vectors,
+| the other columns of V don't show this
+| pattern as clearly as this first one does.
+
+...
+
+  |=================                    |  46%
+| So the singular value decomposition
+| automatically picked up these patterns, the
+| differences in the row and column means.
+
+...
+
+  |=================                    |  47%
+| Why were the first columns of both the U and
+| V matrices so special?  Well as it happens,
+| the D matrix of the SVD explains this
+| phenomenon. It is an aspect of SVD called
+| variance explained. Recall that D is the
+| diagonal matrix sandwiched in between U and
+| V^t in the SVD representation of the data
+| matrix. The diagonal entries of D are like
+| weights for the U and V columns accounting
+| for the variation in the data. They're given
+| in decreasing order from highest to lowest.
+| Look at these diagonal entries now. Recall
+| that they're stored in svd1$d.
+
+> svd1$d
+ [1] 12.458121  7.779798  6.732595  6.301878
+ [5]  5.860013  4.501826  3.921267  2.973909
+ [9]  2.401470  2.152848
+
+| Perseverance, that's the answer.
+
+  |==================                   |  48%
+| Here's a display of these values (on the
+| left). The first one (12.46) is
+| significantly bigger than the others. Since
+| we don't have any units specified, to the
+| right we've plotted the proportion of the
+| variance each entry represents. We see that
+| the first entry accounts for about 40% of
+| the variance in the data. This explains why
+| the first columns of the U and V matrices
+| respectively showed the distinctive patterns
+| in the row and column means so clearly.
+
+...
+
+  |==================                   |  49%
+| Now we'll show you another simple example of
+| how SVD explains variance. We've created a
+| 40 by 10 matrix, constantMatrix. Use the R
+| command head with constantMatrix as its
+| argument to see the top rows.
+
+> head(constantMatrix)
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+[1,]    0    0    0    0    0    1    1    1
+[2,]    0    0    0    0    0    1    1    1
+[3,]    0    0    0    0    0    1    1    1
+[4,]    0    0    0    0    0    1    1    1
+[5,]    0    0    0    0    0    1    1    1
+[6,]    0    0    0    0    0    1    1    1
+     [,9] [,10]
+[1,]    1     1
+[2,]    1     1
+[3,]    1     1
+[4,]    1     1
+[5,]    1     1
+[6,]    1     1
+
+| You got it right!
+
+  |===================                  |  51%
+| The rest of the rows look just like these.
+| You can see that the left 5 columns are all
+| 0's and the right 5 columns are all 1's.
+| We've run svd with constantMatrix as its
+| argument for you and stored the result in
+| svd2. Look at the diagonal component, d, of
+| svd2 now.
+
+> svd2$d
+ [1] 14.14214  0.00000  0.00000  0.00000
+ [5]  0.00000  0.00000  0.00000  0.00000
+ [9]  0.00000  0.00000
+
+| All that practice is paying off!
+
+  |===================                  |  52%
+| Which index holds the largest entry of the
+| svd2$d?
+
+1: 1
+2: 5
+3: 10
+4: 9
+
+Selection: 1
+
+| You are amazing!
+
+  |====================                 |  53%
+| So the first entry by far dominates the
+| others. Here the picture on the left shows
+| the heat map of constantMatrix. You can see
+| how the left columns differ from the right
+| ones. The middle plot shows the values of
+| the singular values of the matrix, i.e., the
+| diagonal elements which are the entries of
+| svd2$d. Nine of these are 0 and the first is
+| a little above 14. The third plot shows the
+| proportion of the total each diagonal
+| element represents.
+
+...
+
+  |====================                 |  54%
+| According to the plot, what percentage of
+| the total variation does the first diagonal
+| element account for?
+
+1: 0%
+2: 100%
+3: 50%
+4: 90%
+
+Selection: 2
+
+| Your dedication is inspiring!
+
+  |=====================                |  55%
+| So what does this mean? Basically that the
+| data is one-dimensional. Only 1 piece of
+| information, namely which column an entry is
+| in, determines its value.
+
+...
+
+  |=====================                |  57%
+| Now let's return to our random 40 by 10
+| dataMatrix and consider a slightly more
+| complicated example in which we add 2
+| patterns to it. Again we'll choose which
+| rows to tweak using coinflips. Specifically,
+| for each of the 40 rows we'll flip 2 coins.
+| If the first coinflip is heads, we'll add 5
+| to each entry in the right 5 columns of that
+| row, and if the second coinflip is heads,
+| we'll add 5 to just the even columns of that
+| row.
+
+...
+
+  |=====================                |  58%
+| So here's the image of the scaled data
+| matrix on the left. We can see both
+| patterns, the clear difference between the
+| left 5 and right 5 columns, but also,
+| slightly less visible, the alternating
+| pattern of the columns. The other plots show
+| the true patterns that were added into the
+| affected rows. The middle plot shows the
+| true difference between the left and right
+| columns, while the rightmost plot shows the
+| true difference between the odd numbered and
+| even-numbered columns.
+
+...
+
+  |======================               |  59%
+| The question is, "Can our analysis detect
+| these patterns just from the data?" Let's
+| see what SVD shows. Since we're interested
+| in patterns on columns we'll look at the
+| first two right singular vectors (columns of
+| V) to see if they show any evidence of the
+| patterns.
+
+...
+
+  |======================               |  60%
+| Here we see the 2 right singular vectors
+| plotted next to the image of the data
+| matrix. The middle plot shows the first
+| column of V and the rightmost plot the
+| second. The middle plot does show that the
+| last 5 columns have higher entries than the
+| first 5. This picks up, or at least alludes
+| to, the first pattern we added in which
+| affected the last 5 columns of the matrix.
+| The rightmost plot, showing the second
+| column of V, looks more random. However,
+| closer inspection shows that the entries
+| alternate or bounce up and down as you move
+| from left to right. This hints at the second
+| pattern we added in which affected only even
+| columns of selected rows.
+
+...
+
+  |=======================              |  61%
+| To see this more closely, look at the first
+| 2 columns of the v component. We stored the
+| SVD output in the svd object svd2.
+
+> 
+> svd2$v[,1:2]
+            [,1]         [,2]
+ [1,] 0.06154540  0.142468636
+ [2,] 0.26433096  0.504510087
+ [3,] 0.04987554  0.316470664
+ [4,] 0.27693897  0.524499356
+ [5,] 0.14275820 -0.282921362
+ [6,] 0.43252652 -0.002280468
+ [7,] 0.37724057 -0.354403893
+ [8,] 0.43280767  0.039226153
+ [9,] 0.34912246 -0.376485206
+[10,] 0.43379723 -0.031422705
+
+| You are amazing!
+
+  |=======================              |  63%
+| Seeing the 2 columns side by side, we see
+| that the values in both columns alternately
+| increase and decrease. However, we knew to
+| look for this pattern, so chances are, you
+| might not have noticed this pattern if you
+| hadn't known if was there. This example is
+| meant to show you that it's hard to see
+| patterns, even straightforward ones.
+
+...
+
+  |========================             |  64%
+| Now look at the entries of the diagonal
+| matrix d resulting from the svd. Recall that
+| we stored this output for you in the svd
+| object svd2.
+
+> svd2$d
+ [1] 14.084918  8.257842  6.458184  6.100500
+ [5]  5.538262  2.266358  1.955790  1.609508
+ [9]  1.078566  1.054146
+
+| That's a job well done!
+
+  |========================             |  65%
+| We see that the first element, 14.55,
+| dominates the others. Here's the plot of
+| these diagonal elements of d. The left shows
+| the numerical entries and the right show the
+| percentage of variance each entry explains.
+
+...
+
+  |=========================            |  66%
+| According to the plot, how much of the
+| variance does the second element account
+| for?
+
+1: 11%
+2: 18%
+3: .1%
+4: 53%
+
+Selection: 2
+
+| You're the best!
+
+  |=========================            |  67%
+| So the first element which showed the
+| difference between the left and right halves
+| of the matrix accounts for roughly 50% of
+| the variation in the matrix, and the second
+| element which picked up the alternating
+| pattern accounts for 18% of the variance.
+| The remaining elements account for smaller
+| percentages of the variation. This indicates
+| that the first pattern is much stronger than
+| the second. Also the two patterns confound
+| each other so they're harder to separate and
+| see clearly. This is what often happens with
+| real data.
+
+...
+
+  |=========================            |  69%
+| Now you're probably convinced that SVD and
+| PCA are pretty cool and useful as tools for
+| analysis, but one problem with them that you
+| should be aware of, is that they cannot deal
+| with MISSING data. Neither of them will work
+| if any data in the matrix is missing.
+| (You'll get error messages from R in red if
+| you try.) Missing data is not unusual, so
+| luckily we have ways to work around this
+| problem. One we'll just mention is called
+| imputing the data.
+
+...
+
+  |==========================           |  70%
+| This uses the k nearest neighbors to
+| calculate a values to use in place of the
+| missing data. You may want to specify an
+| integer k which indicates how many neighbors
+| you want to average to create this
+| replacement value. The bioconductor package
+| (http://bioconductor.org) has an impute
+| package which you can use to fill in missing
+| data. One specific function in it is
+| impute.knn.
+
+...
+
+  |==========================           |  71%
+| We'll move on now to a final example of the
+| power of singular value decomposition and
+| principal component analysis and how they
+| work as a data compression technique.
+
+...
+
+  |===========================          |  72%
+| Consider this low resolution image file
+| showing a face. We'll use SVD and see how
+| the first several components contain most of
+| the information in the file so that storing
+| a huge matrix might not be necessary.
+
+...
+
+  |===========================          |  73%
+| The image data is stored in the matrix
+| faceData. Run the R command dim on faceData
+| to see how big it is.
+
+> dim(faceData)
+[1] 32 32
+
+| Nice work!
+
+  |============================         |  75%
+| So it's not that big of a file but we want
+| to show you how to use what you learned in
+| this lesson. We've done the SVD and stored
+| it in the object svd1 for you. Here's the
+| plot of the variance explained.
+
+...
+
+  |============================         |  76%
+| According to the plot what percentage of the
+| variance is explained by the first singular
+| value?
+
+1: 15
+2: 23
+3: 100
+4: 40
+
+Selection: 40
+Enter an item from the menu, or 0 to exit
+Selection: 4
+
+| Excellent job!
+
+  |=============================        |  77%
+| So 40% of the variation in the data matrix
+| is explained by the first component, 22% by
+| the second, and so forth. It looks like most
+| of the variation is contained in the first
+| 10 components. How can we check this out?
+| Can we try to create an approximate image
+| using only a few components?
+
+...
+
+  |=============================        |  78%
+| Recall that the data matrix X is the product
+| of 3 matrices, that is X=UDV^t. These are
+| precisely what you get when you run svd on
+| the matrix X.
+
+...
+
+  |=============================        |  80%
+| Suppose we create the product of pieces of
+| these, say the first columns of U and V and
+| the first element of D. The first column of
+| U can be interpreted as a 32 by 1 matrix
+| (recall that faceData was a 32 by 32
+| matrix), so we can multiply it by the first
+| element of D, a 1 by 1 matrix, and get a 32
+| by 1 matrix result. We can multiply that by
+| the transpose of the first column of V,
+| which is the first principal component. (We
+| have to use the transpose of V's column to
+| make it a 1 by 32 matrix in order to do the
+| matrix multiplication properly.)
+
+...
+
+  |==============================       |  81%
+| Alas, that is how we do it in theory, but in
+| R using only one element of d means it's a
+| constant. So we have to do the matrix
+| multiplication with the %*% operator and the
+| multiplication by the constant (svd1$d[1])
+| with the regular multiplication operator *.
+
+...
+
+  |==============================       |  82%
+| Try this now and put the result in the
+| variable a1. Recall that svd1$u, svd1$d, and
+| svd1$v contain all the information you need.
+| NOTE that because of the peculiarities of
+| R's casting, if you do the scalar
+| multiplication with the * operator first
+| (before the matrix multiplication with the
+| %*% operator) you MUST enclose the 2
+| arguments (svd1$u[,1] and svd1$d[1]) in
+| parentheses.
+
+> a1 <- svd1$u[,1] %*% t(svd1$v[,1]) * svd1$d[1]
+
+| You are amazing!
+
+  |===============================      |  83%
+| Now to look at it as an image. We wrote a
+| function for you called myImage which takes
+| a single argument, a matrix of data to
+| display using the R function image. Run it
+| now with a1 as its argument.
+
+> myImage(a1)
+
+| All that practice is paying off!
+
+  |===============================      |  84%
+| It might not look like much but it's a good
+| start. Now we'll try the same experiment but
+| this time we'll use 2 elements from each of
+| the 3 SVD terms.
+
+...
+
+  |================================     |  86%
+| Create the matrix a2 as the product of the
+| first 2 columns of svd1$u, a diagonal matrix
+| using the first 2 elements of svd1$d, and
+| the transpose of the first 2 columns of
+| svd1$v. Since all of your multiplicands are
+| matrices you have to use only the operator
+| %*% AND you DON'T need parentheses. Also,
+| you must use the R function diag with
+| svd1$d[1:2] as its sole argument to create
+| the proper diagonal matrix. Remember, matrix
+| multiplication is NOT commutative so you
+| have to put the multiplicands in the correct
+| order. Please use the 1:2 notation and not
+| the c(m:n), i.e., the concatenate function,
+| when specifying the columns.
+
+> a2 <- svd1$u[,1:2] %*%  diag(svd1$d[1:2])  %*% t(svd1$v[,1:2]) 
+
+| Great job!
+
+  |================================     |  87%
+| Use myImage again to see how a2 displays.
+
+> myImage(a2)
+
+| You are quite good my friend!
+
+  |=================================    |  88%
+| We're starting to see slightly more detail,
+| and maybe if you squint you see a grimacing
+| mouth. Now let's see what image results
+| using 5 components. From our plot of the
+| variance explained 5 components covered a
+| sizeable percentage of the variation. To
+| save typing, use the up arrow to recall the
+| command which created a2 and replace the a2
+| and assignment arrow with the call to
+| myImage, and change the three occurrences of
+| 2 to 5.
+
+> myImage(svd1$u[,1:5] %*%  diag(svd1$d[1:5])  %*% t(svd1$v[,1:5]))
+
+| You're the best!
+
+  |=================================    |  89%
+| Certainly much better. Clearly a face is
+| appearing with eyes, nose, ears, and mouth
+| recognizable. Again, use the up arrow to
+| recall the last command (calling myImage
+| with a matrix product argument) and change
+| the 5's to 10's. We'll see how this image
+| looks.
+
+>  myImage(svd1$u[,1:10] %*%  diag(svd1$d[1:10])  %*% t(svd1$v[,1:10]))
+
+| All that hard work is paying off!
+
+  |=================================    |  90%
+| Now that's pretty close to the original
+| which was low resolution to begin with, but
+| you can see that 10 components really do
+| capture the essence of the image. Singular
+| value decomposition is a good way to
+| approximate data without having to store a
+| lot.
+
+...
+
+  |==================================   |  92%
+| We'll close now with a few comments. First,
+| when reducing dimensions you have to pay
+| attention to the scales on which different
+| variables are measured and make sure that
+| all your data is in consistent units. In
+| other words, scales of your data matter.
+| Second, principal components and singular
+| values may mix real patterns, as we saw in
+| our simple 2-pattern example, so finding and
+| separating out the real patterns require
+| some detective work. Let's do a quick review
+| now.
+
+...
+
+  |==================================   |  93%
+| Which of the following cliches LEAST
+| captures the essence of dimension reduction?
+
+1: find the needle in the haystack
+2: separate the wheat from the chaff
+3: a face that could launch a 1000 ships
+4: see the forest through the trees
+
+Selection: 3
+
+| You got it right!
+
+  |===================================  |  94%
+| A matrix X has the singular value
+| decomposition UDV^t. The principal
+| components of X are ?
+
+1: the rows of U
+2: the rows of V
+3: the columns of U
+4: the columns of V
+
+Selection: 4
+
+| You nailed it! Good job!
+
+  |===================================  |  95%
+| A matrix X has the singular value
+| decomposition UDV^t. The singular values of
+| X are found where?
+
+1: the columns of D
+2: the diagonal elements of D
+3: the columns of V
+4: the columns of U
+
+Selection: 2
+
+| You are really on a roll!
+
+  |==================================== |  96%
+| True or False? PCA and SVD are totally
+| unrelated.
+
+1: True
+2: False
+
+Selection: 2
+
+| You're the best!
+
+  |==================================== |  98%
+| True or False? D gives the singular values
+| of a matrix in decreasing order of weight.
+
+1: True
+2: False
+
+Selection: 1
+
+| All that practice is paying off!
+
+  |=====================================|  99%
+| Congratulations! We hope you enjoyed making
+| faces and that this lesson didn't reduce the
+| dimensions of your understanding.
+
+...
+
+  |=====================================| 100%
+| Would you like to receive credit for
+| completing this course on Coursera.org?
+
+1: Yes
+2: No
+
+Selection: 2
+
+| Excellent job!
+
+| You've reached the end of this lesson!
+| Returning to the main menu...
+
+| Please choose a course, or type 0 to exit
+| swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return
+| to course menu.
+
+ 1: Principles of Analytic Graphs
+ 2: Exploratory Graphs
+ 3: Graphics Devices in R
+ 4: Plotting Systems
+ 5: Base Plotting System
+ 6: Lattice Plotting System
+ 7: Working with Colors
+ 8: GGPlot2 Part1
+ 9: GGPlot2 Part2
+10: GGPlot2 Extras
+11: Hierarchical Clustering
+12: K Means Clustering
+13: Dimension Reduction
+14: Clustering Example
+15: CaseStudy
+
+Selection: 14
+
+| Attempting to load lesson dependencies...
+
+| Package ‘fields’ loaded correctly!
+
+| Package ‘jpeg’ loaded correctly!
+
+| Package ‘datasets’ loaded correctly!
+
+  |                                     |   0%
+
+| Clustering_Example. (Slides for this and
+| other Data Science courses may be found at
+| github
+| https://github.com/DataScienceSpecialization/courses/.
+| If you care to use them, they must be
+| downloaded as a zip file and viewed locally.
+| This lesson corresponds to
+| 04_ExploratoryAnalysis/clusteringExample.)
+
+...
+
+  |=                                    |   2%
+| In this lesson we'll apply some of the
+| analytic techniques we learned in this
+| course to data from the University of
+| California, Irvine. Specifically, the data
+| we'll use is from UCI's Center for Machine
+| Learning and Intelligent Systems. You can
+| find out more about the data at
+| http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones.
+| As this address indicates, the data involves
+| smartphones and recognizing human activity.
+| Cool, right?
+
+...
+
+  |=                                    |   3%
+| Our goal is to show you how to use
+| exploratory data analysis to point you in
+| fruitful directions of research, that is,
+| towards answerable questions. Exploratory
+| data analysis is a "rough cut" or filter
+| which helps you to find the most beneficial
+| areas of questioning so you can set your
+| priorities accordingly.
+
+...
+
+  |==                                   |   5%
+| We also hope to show you that "real-world"
+| research isn't always neat and well-defined
+| like textbook questions with clearcut
+| answers.
+
+...
+
+  |==                                   |   6%
+| We've loaded data from this study for you in
+| a matrix called ssd.  Run the R command dim
+| now to see its dimensions.
+
+> dim(ssd)
+[1] 7352  563
+
+| You are really on a roll!
+
+  |===                                  |   8%
+| Wow - ssd is pretty big, 7352 observations,
+| each of 563 variables. Don't worry we'll
+| only use a small portion of this "Human
+| Activity Recognition database".
+
+...
+
+  |===                                  |   9%
+| The study creating this database involved 30
+| volunteers "performing activities of daily
+| living (ADL) while carrying a waist-mounted
+| smartphone with embedded inertial sensors.
+| ... Each person performed six activities ...
+| wearing a smartphone (Samsung Galaxy S II)
+| on the waist. ... The experiments have been
+| video-recorded to label the data manually.
+| The obtained dataset has been randomly
+| partitioned into two sets, where 70% of the
+| volunteers was selected for generating the
+| training data and 30% the test data."
+
+...
+
+  |====                                 |  11%
+| Use the R command names with just the last
+| two columns (562 and 563) of ssd to see what
+| data they contain.
+
+> 
+> names(ssd[562:563])
+[1] "subject"  "activity"
+
+| All that hard work is paying off!
+
+  |=====                                |  12%
+| These last 2 columns contain subject and
+| activity information. We saw above that the
+| gathered data had "been randomly partitioned
+| into two sets, where 70% of the volunteers
+| was selected for generating the training
+| data and 30% the test data." Run the R
+| command table with ssd$subject as its
+| argument to see if the data in ssd contains
+| training or test data.
+
+> 
+> table(ssd$subject)
+
+  1   3   5   6   7   8  11  14  15  16  17 
+347 341 302 325 308 281 316 323 328 366 368 
+ 19  21  22  23  25  26  27  28  29  30 
+360 408 321 372 409 392 376 382 344 383 
+
+| You are quite good my friend!
+
+  |=====                                |  14%
+| From the number of subjects, would you infer
+| that ssd contains training or test data?
+
+1: training
+2: test
+
+Selection: 1
+
+| All that hard work is paying off!
+
+  |======                               |  16%
+| So ssd contains only training data. If you
+| ran the R command sum with
+| table(ssd$subject) as its argument, what
+| would the number you get back represent?
+
+1: the number of columns in ssd
+2: Huh?
+3: the number of rows in ssd
+4: the number of rows and columns of ssd
+
+Selection: 3
+
+| You nailed it! Good job!
+
+  |======                               |  17%
+| Try it now (running sum on
+| table(ssd$subject))to see if you get 7352,
+| the number of rows in ssd, as a result.
+
+> 
+> sum(table(ssd$subject))
+[1] 7352
+
+| That's correct!
+
+  |=======                              |  19%
+| So we're looking at training data from a
+| machine learning repository. We can infer
+| that this data is supposed to train machines
+| to recognize activity collected from the
+| accelerometers and gyroscopes built into the
+| smartphones that the subjects had strapped
+| to their waists. Run the R command table on
+| ssd$activity to see what activities have
+| been characterized by this data.
+
+> table(ssd$activity)
+
+  laying  sitting standing     walk walkdown 
+    1407     1286     1374     1226      986 
+  walkup 
+    1073 
+
+| You got it right!
+
+  |========                             |  20%
+| We have 6 activities, 3 passive (laying,
+| standing and sitting) and 3 active which
+| involve walking. If you ran the R command
+| sum with table(ssd$activity) as its
+| argument, what would the number you get back
+| represent?
+
+1: Huh?
+2: the number of columns in ssd
+3: the number of rows and columns of ssd
+4: the number of rows in ssd
+
+Selection: 4
+
+| You are doing so well!
+
+  |========                             |  22%
+| Because it's training data, each row is
+| labeled with the correct activity (from the
+| 6 possible) and associated with the column
+| measurements (from the accelerometer and
+| gyroscope). We're interested in questions
+| such as, "Is the correlation between the
+| measurements and activities good enough to
+| train a machine?" so that "Given a set of
+| 561 measurements, would a trained machine be
+| able to determine which of the 6 activities
+| the person was doing?"
+
+...
+
+  |=========                            |  23%
+| First, let's massage the data a little so
+| it's easier to work with. We've already run
+| the R command transform on the data so that
+| activities are factors. This will let us
+| color code them when we generate plots.
+| Let's look at only the first subject
+| (numbered 1). Create the variable sub1 by
+| assigning to it the output of the R command
+| subset with ssd as the first argument and
+| the boolean, subject equal to 1, as the
+| second.
+
+> 
+> sub1 <- subset(ssd, subject == 1)
+
+| You are doing so well!
+
+  |=========                            |  25%
+| Look at the dimensions of sub1 now.
+
+> dim(sub1)
+[1] 347 563
+
+| That's the answer I was looking for.
+
+  |==========                           |  27%
+| So sub1 has fewer than 400 rows now, but
+| still a lot of columns which contain
+| measurements. Use names on the first 12
+| columns of sub1 to see what kind of data we
+| have.
+
+> names(sub1[1:12])
+ [1] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y"
+ [3] "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" 
+ [5] "tBodyAcc-std()-Y"  "tBodyAcc-std()-Z" 
+ [7] "tBodyAcc-mad()-X"  "tBodyAcc-mad()-Y" 
+ [9] "tBodyAcc-mad()-Z"  "tBodyAcc-max()-X" 
+[11] "tBodyAcc-max()-Y"  "tBodyAcc-max()-Z" 
+
+| You are amazing!
+
+  |==========                           |  28%
+| We see X, Y, and Z (3 dimensions) of
+| different aspects of body acceleration
+| measurements, such as mean and standard
+| deviation. Let's do some comparisons of
+| activities now by looking at plots of mean
+| body acceleration in the X and Y directions.
+| Call the function myedit with the string
+| "showXY.R" to see the code generating the
+| plots. Make sure your cursor is back in the
+| console window before you hit any more
+| buttons.
+
+> myedit("showXY.R")
+
+| That's a job well done!
+
+  |===========                          |  30%
+| You see both the code and its output! The
+| plots are a little squished, but we see that
+| the active activities related to walking
+| (shown in the two blues and magenta) show
+| more variability than the passive activities
+| (shown in black, red, and green),
+| particularly in the X dimension.
+
+...
+
+  |============                         |  31%
+| The colors are a little hard to distinguish.
+| Just for fun, call the function showMe (we
+| used it in the Working_with_Colors lesson)
+| which displays color vectors. Use the vector
+| 1:6 as its argument, and hopefully this will
+| clarify the colors you see in the XY
+| comparison plot.
+
+> showMe(1:6)
+
+| Keep up the great work!
+
+  |============                         |  33%
+| Nice! We just wanted to show you the beauty
+| and difference in colors. The colors at the
+| bottom, black, red and green, mark the
+| passive activities, while the true blues and
+| magenta near the top show the walking
+| activities. Let's try clustering to see if
+| we can distinguish the activities more.
+
+...
+
+  |=============                        |  34%
+| We'll still focus on the 3 dimensions of
+| mean acceleration. (The plot we just saw
+| looked at the first 2 dimensions.) Create a
+| distance matrix, mdist, of the first 3
+| columns of sub1, by using the R command
+| dist. Use the x[,1:3] notation to specify
+| the columns.
+
+> mdist <- dist(sub1[,1:3])
+
+| You are doing so well!
+
+  |=============                        |  36%
+| Now create the variable hclustering by
+| calling the R command hclust and passing it
+| mdist as an argument. This will use the
+| Euclidean distance as its default metric.
+
+> hclustering <- hclust(mdist)
+
+| All that hard work is paying off!
+
+  |==============                       |  38%
+| Now call the pretty plotting function (which
+| we've already sourced) myplclust with 2
+| arguments. The first is hclustering, and the
+| second is the argument lab.col set equal to
+| unclass(sub1$activity).
+
+> myplclust(hclustering, lab.col = unclass(sub1$activity))
+
+| Nice work!
+
+  |==============                       |  39%
+| Well that dendrogram doesn't look too
+| helpful, does it? There's no clear grouping
+| of colors, except that active colors (blues
+| and magenta) are near each other as are the
+| passive (black, red, and green). So average
+| acceleration doesn't tell us much. How about
+| maximum acceleration? Let's look at that for
+| the first subject (in our array sub1) for
+| the X and Y dimensions. These are in column
+| 10 and 11.
+
+...
+
+  |===============                      |  41%
+| Here they are plotted side by side, X
+| dimension on the left and Y on the right.
+| The x-axis of each show the 300+
+| observations and the y-axis indicates the
+| maximum acceleration.
+
+...
+
+  |================                     |  42%
+| From the 2 plots, what separation, if any,
+| do you see?
+
+1: laying generates the most acceleration in the X dimension
+2: passive activities generate the most acceleration
+3: there is no pattern
+4: passive activities mostly fall below the walking activities
+
+Selection: 2
+
+| Not quite! Try again.
+
+| There is a pattern. Which choice makes the
+| most obvious sense?
+
+1: there is no pattern
+2: passive activities generate the most acceleration
+3: passive activities mostly fall below the walking activities
+4: laying generates the most acceleration in the X dimension
+
+Selection: 3
+
+| Excellent work!
+
+  |================                     |  44%
+| Finally we're seeing something vaguely
+| interesting! Let's focus then on the 3
+| dimensions of maximum acceleration, stored
+| in columns 10 through 12 of sub1. Create a
+| new distance matrix, mdist, of these 3
+| columns of sub1, by using the R command
+| dist. Again, use the x[,10:12] notation to
+| catch the columns.
+
+> mdist <- dist(sub1[,10:12])
+
+| You are doing so well!
+
+  |=================                    |  45%
+| Now create the variable hclustering by
+| calling hclust with mdist as the argument.
+
+> hclustering <- hclust(mdist)
+
+| You are amazing!
+
+  |=================                    |  47%
+| Again, call the myplclust with 2 arguments.
+| The first is hclustering, and the second is
+| the argument lab.col set equal to
+| unclass(sub1$activity).
+
+> myplclust(hclustering, lab.col = unclass(sub1$activity))
+
+| Perseverance, that's the answer.
+
+  |==================                   |  48%
+| Now we see clearly that the data splits into
+| 2 clusters, active and passive activities.
+| Moreover, the light blue (walking down) is
+| clearly distinct from the other walking
+| activities. The dark blue (walking level)
+| also seems to be somewhat clustered. The
+| passive activities, however, seem all
+| jumbled together with no clear pattern
+| visible.
+
+...
+
+  |==================                   |  50%
+| Let's try some SVD now. Create the variable
+| svd1 by assigning to it the output of a call
+| to the R command svd. The argument to svd
+| should be scale(sub1[,-c(562,563)]). This
+| will remove the last 2 columns from sub1 and
+| scale the data. Recall that the last 2
+| columns contain activity and subject
+| information which we won't need.
+
+> svd1 <- svd(scale(sub1[,-c(562,563)]))
+
+| Great job!
+
+  |===================                  |  52%
+| To see LEFT singular vectors of sub1, which
+| component of svd1 would we examine?
+
+1: v
+2: u
+3: d
+4: x
+
+Selection: 2
+
+| Excellent job!
+
+  |====================                 |  53%
+| Call the R command dim with svd1$u as an
+| argument.
+
+> dim(svd1$u)
+[1] 347 347
+
+| You nailed it! Good job!
+
+  |====================                 |  55%
+| We see that the u matrix is a 347 by 347
+| matrix. Each row in u corresponds to a row
+| in the matrix sub1. Recall that in sub1 each
+| row has an associated activity.
+
+...
+
+  |=====================                |  56%
+| Here we're looking at the 2 left singular
+| vectors of svd1 (the first 2 columns of
+| svd1$u). Each entry of the columns belongs
+| to a particular row with one of the 6
+| activities assigned to it. We see the
+| activities distinguished by color. Moving
+| from left to right, the first section of
+| rows are green (standing), the second red
+| (sitting), the third black (laying), etc.
+| The first column of u shows separation of
+| the nonmoving (black, red, and green) from
+| the walking activities. The second column is
+| harder to interpret. However, the magenta
+| cluster, which represents walking up, seems
+| separate from the others.
+
+...
+
+  |=====================                |  58%
+| We'll try to figure out why that is. To do
+| that we'll have to find which of the 500+
+| measurements (represented by the columns of
+| sub1) contributes to the variation of that
+| component. Since we're interested in sub1
+| columns, we'll look at the RIGHT singular
+| vectors (the columns of svd1$v), and in
+| particular, the second one since the
+| separation of the magenta cluster stood out
+| in the second column of svd1$u.
+
+...
+
+  |======================               |  59%
+| Here's a plot of the second column of
+| svd1$v. We used transparency in our plotting
+| but nothing clearly stands out here. Let's
+| use clustering to find the feature (out of
+| the 500+) which contributes the most to the
+| variation of this second column of svd1$v.
+
+...
+
+  |=======================              |  61%
+| Create the variable maxCon by assigning to
+| it the output of the R command which.max
+| using the second column of svd1$v as an
+| argument.
+
+> 
+> maxCon <- which.max(svd1$v[,2])
+
+| Excellent work!
+
+  |=======================              |  62%
+| Now create a distance matrix mdist by
+| assigning to it the output of the R command
+| dist using 4 columns of sub1 as the
+| arguments. These 4 columns are 10 through 12
+| (10:12) and maxCon. Recall that you'll have
+| to concatenate these 2 column expressions
+| when specifying them.
+
+> mdist <- dist(sub1[,c(10:12,maxCon)])
+
+| You nailed it! Good job!
+
+  |========================             |  64%
+| Now create hclustering, the output of the R
+| command hclust using mdist as the argument.
+
+> hclustering <- hclust(mdist)
+
+| Excellent job!
+
+  |========================             |  66%
+| Call the myplclust with 2 arguments,
+| hclustering, and lab.col set equal to
+| unclass(sub1$activity).
+
+> myplclust(hclustering, lab.col = unclass(sub1$activity))
+
+| Excellent job!
+
+  |=========================            |  67%
+| Now we see some real separation. Magenta
+| (walking up) is on the far left, and the two
+| other walking activities, the two blues, are
+| on the far right, but in separate clusters
+| from one another. The nonmoving activities
+| still are jumbled together.
+
+...
+
+  |=========================            |  69%
+| Run the R command names with the argument
+| sub1[maxCon] to see what measurement is
+| associated with this maximum contributor.
+
+> names(sub1[maxCon])
+[1] "fBodyAcc-meanFreq()-Z"
+
+| You are amazing!
+
+  |==========================           |  70%
+| So the mean body acceleration in the
+| frequency domain in the Z direction is the
+| main contributor to this clustering
+| phenomenon we're seeing. Let's move on to
+| k-means clustering to see if this technique
+| can distinguish between the activities.
+
+...
+
+  |===========================          |  72%
+| Create the variable kClust by assigning to
+| it the output of the R command kmeans with 2
+| arguments. The first is sub1 with the last 2
+| columns removed. (Recall these don't have
+| pertinent information for clustering
+| analysis.) The second argument to kmeans is
+| centers set equal to 6, the number of
+| activities we know we have.
+
+> kClust <- kmeans(sub1[, -c(562, 563)], centers = 6)
+
+| Perseverance, that's the answer.
+
+  |===========================          |  73%
+| Recall that without specifying coordinates
+| for the cluster centroids (as we did),
+| kmeans will generate starting points
+| randomly. Here we did only 1 random start
+| (the default). To see the output, run the R
+| command table with 2 arguments. The first is
+| kClust$cluster (part of the output from
+| kmeans), and the second is sub1$activity.
+
+>  table(kClust$cluster, sub1$activity)
+   
+    laying sitting standing walk walkdown
+  1      3       0        0    0        0
+  2      0       0        0    0       48
+  3     20      10        2    0        0
+  4      0       0        0   54        0
+  5     27      37       51    0        0
+  6      0       0        0   41        1
+   
+    walkup
+  1     53
+  2      0
+  3      0
+  4      0
+  5      0
+  6      0
+
+| Your dedication is inspiring!
+
+  |============================         |  75%
+| Your exact output will depend on the state
+| of your random number generator. We notice
+| that when we just run with 1 random start,
+| the clusters tend to group the nonmoving
+| activities together in one cluster. The
+| walking activities seem to cluster
+| individually by themselves. You could run
+| the call to kmeans with one random start
+| again and you'll probably get a slightly
+| different result, but....
+
+...
+
+  |============================         |  77%
+| ... instead call kmeans with 3 arguments,
+| the last of which will tell it to try more
+| random starts and return the best one. The
+| first 2 arguments should be the same as
+| before (sub1 with the last 2 columns removed
+| and centers set equal to 6). The third is
+| nstart set equal to 100. Put the result in
+| kClust again.
+
+> kClust <- kmeans(sub1[, -c(562, 563)], centers = 6, nstart=100)
+
+| You nailed it! Good job!
+
+  |=============================        |  78%
+| Again, run the R command table with 2
+| arguments. The first is kClust$cluster (part
+| of the output from kmeans), and the second
+| is sub1$activity.
+
+> table(kClust$cluster, sub1$activity)
+   
+    laying sitting standing walk walkdown
+  1      0      37       51    0        0
+  2      3       0        0    0        0
+  3     18      10        2    0        0
+  4     29       0        0    0        0
+  5      0       0        0    0       49
+  6      0       0        0   95        0
+   
+    walkup
+  1      0
+  2     53
+  3      0
+  4      0
+  5      0
+  6      0
+
+| All that hard work is paying off!
+
+  |=============================        |  80%
+| We see that even with 100 random starts, the
+| passive activities tend to cluster together.
+| One of the clusters contains only laying,
+| but in another cluster, standing and sitting
+| group together.
+
+...
+
+  |==============================       |  81%
+| Use dim to find the dimensions of kClust's
+| centers. Use the x$y notation to access
+| them.
+
+> 
+> 
+> dim(kClust$centers)
+[1]   6 561
+
+| Excellent job!
+
+  |===============================      |  83%
+| So the centers are a 6 by 561 array.
+| Sometimes it's a good idea to look at the
+| features (columns) of these centers to see
+| if any dominate.
+
+...
+
+  |===============================      |  84%
+| Create the variable laying and assign to it
+| the output of the call to the R command
+| which with the argument kClust$size==29.
+
+> laying <- which(kClust$size==29)
+
+| You got it right!
+
+  |================================     |  86%
+| Now call plot with 3 arguments. The first is
+| kClust$centers[laying,1:12], and the second
+| is pch set to 19. The third is ylab set
+| equal to "Laying Cluster"
+
+> plot(kClust$centers[laying, 1:12],pch=19,ylab="Laying Cluster")
+
+| That's the answer I was looking for.
+
+  |================================     |  88%
+| We see the first 3 columns dominate this
+| cluster center. Run names with the first 3
+| columns of sub1 as the argument to remind
+| yourself of what these columns contain.
+
+> names(sub1[,1:3])
+[1] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y"
+[3] "tBodyAcc-mean()-Z"
+
+| That's correct!
+
+  |=================================    |  89%
+| So the 3 directions of mean body
+| acceleration seem to have the biggest effect
+| on laying.
+
+...
+
+  |==================================   |  91%
+| Create the variable walkdown and assign to
+| it the output of the call to the R command
+| which with the argument kClust$size==49.
+
+> walkdown <- which(kClust$size==49)
+
+| You got it right!
+
+  |==================================   |  92%
+| Now call plot with 3 arguments. The first is
+| kClust$centers[walkdown,1:12], and the
+| second is pch set to 19. The third is ylab
+| set equal to "Walkdown Cluster"
+
+> a
+Error: object 'a' not found
+
+> plot(kClust$centers[walkdown, 1:12],pch=19,ylab="Walkdown Cluster")
+
+| That's a job well done!
+
+  |===================================  |  94%
+| We see an interesting pattern here. From
+| left to right, looking at the 12
+| acceleration measurements in groups of 3,
+| the points decrease in value. The X
+| direction dominates, followed by Y then Z.
+| This might tell us something more about the
+| walking down activity.
+
+...
+
+  |===================================  |  95%
+| We'll wrap up here and hope this example
+| convinced you that real world analysis can
+| be frustrating sometimes and not always
+| obvious. You might have to try several
+| techniques of exploratory data analysis
+| before you hit one that pays off and leads
+| you to the questioms that will be the most
+| promising to explore.
+
+...
+
+  |==================================== |  97%
+| We saw here that the sensor measurements
+| were pretty good at discriminating between
+| the 3 walking activities, but the passive
+| activities were harder to distinguish from
+| one another. These might require more
+| analysis or an entirely different set of
+| sensory measurements.
+
+...
+
+  |==================================== |  98%
+| Congratulations! We hope you enjoyed the 6
+| activities and 500+ features of this lesson.
+
+...
+
+  |=====================================| 100%
+| Would you like to receive credit for
+| completing this course on Coursera.org?
+
+1: Yes
+2: No
+
+Selection: 2
+
+| Keep up the great work!
+
+| You've reached the end of this lesson!
+| Returning to the main menu...
+
+| Please choose a course, or type 0 to exit
+| swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return
+| to course menu.
+
+ 1: Principles of Analytic Graphs
+ 2: Exploratory Graphs
+ 3: Graphics Devices in R
+ 4: Plotting Systems
+ 5: Base Plotting System
+ 6: Lattice Plotting System
+ 7: Working with Colors
+ 8: GGPlot2 Part1
+ 9: GGPlot2 Part2
+10: GGPlot2 Extras
+11: Hierarchical Clustering
+12: K Means Clustering
+13: Dimension Reduction
+14: Clustering Example
+15: CaseStudy
+
+Selection: 15
+  |                                     |   0%
+
+| CaseStudy. (Slides for this and other Data
+| Science courses may be found at github
+| https://github.com/DataScienceSpecialization/courses/.
+| If you care to use them, they must be
+| downloaded as a zip file and viewed locally.
+| This lesson corresponds to
+| 04_ExploratoryAnalysis/CaseStudy.)
+
+...
+
+  |                                     |   1%
+| In this lesson we'll apply some of the
+| techniques we learned in this course to
+| study air pollution data, specifically
+| particulate matter (we'll call it pm25
+| sometimes), collected by the U.S.
+| Environmental Protection Agency. This
+| website
+| https://www.health.ny.gov/environmental/indoors/air/pmq_a.htm
+| from New York State offers some basic
+| information on this topic if you're
+| interested.
+
+...
+
+  |=                                    |   2%
+| Particulate matter (less than 2.5 microns in
+| diameter) is a fancy name for dust, and
+| breathing in dust might pose health hazards
+| to the population. We'll study data from two
+| years, 1999 (when monitoring of particulate
+| matter started) and 2012. Our goal is to see
+| if there's been a noticeable decline in this
+| type of air pollution between these two
+| years.
+
+...
+
+  |=                                    |   3%
+| We've read in 2 large zipped files for you
+| using the R command read.table (which is
+| smart enough to unzip the files).  We stored
+| the 1999 data in the array pm0 for you. Run
+| the R command dim now to see its dimensions.
+
+> 
+> dim(pm0)
+[1] 117421      5
+
+| All that hard work is paying off!
+
+  |==                                   |   4%
+| We see that pm0 has over 117000 lines, each
+| containing 5 columns. In the original file,
+| at the EPA website, each row had 28 columns,
+| but since we'll be using only a few of
+| these, we've created and read in a somewhat
+| smaller file. Run head on pm0 now to see
+| what the first few lines look like.
+
+> head(pm0)
+  V1 V2 V3       V4     V5
+1  1 27  1 19990103     NA
+2  1 27  1 19990106     NA
+3  1 27  1 19990109     NA
+4  1 27  1 19990112  8.841
+5  1 27  1 19990115 14.920
+6  1 27  1 19990118  3.878
+
+| Excellent job!
+
+  |==                                   |   5%
+| We see there's some missing data, but we
+| won't worry about that now. We also see that
+| the column names, V1, V2, etc., are not
+| informative. However, we know that the first
+| line of the original file (a comment)
+| explained what information the columns
+| contained.
+
+...
+
+  |==                                   |   6%
+| We created the variable cnames containing
+| the 28 column names of the original file.
+| Take a look at the column names now.
+
+> cnames 
+[1] "# RD|Action Code|State Code|County Code|Site ID|Parameter|POC|Sample Duration|Unit|Method|Date|Start Time|Sample Value|Null Data Code|Sampling Frequency|Monitor Protocol (MP) ID|Qualifier - 1|Qualifier - 2|Qualifier - 3|Qualifier - 4|Qualifier - 5|Qualifier - 6|Qualifier - 7|Qualifier - 8|Qualifier - 9|Qualifier - 10|Alternate Method Detectable Limit|Uncertainty"
+
+| That's correct!
+
+  |===                                  |   7%
+| We see that the 28 column names look all
+| jumbled together even though they're
+| separated by "|" characters, so let's fix
+| this. Reassign to cnames the output of a
+| call to strsplit (string split) with 3
+| arguments. The first is cnames, the pipe
+| symbol '|' is the second (use the quotation
+| marks), and the third is the argument fixed
+| set to TRUE. Try this now.
+
+> ames <- strsplit(cnames, "|", fixed = TRUE)
+
+| One more time. You can do it! Or, type
+| info() for more options.
+
+| Type cnames <- strsplit(cnames, "|", fixed =
+| TRUE) at the command prompt.
+
+>  cnames <- strsplit(cnames, "|", fixed = TRUE)
+
+| Perseverance, that's the answer.
+
+  |===                                  |   8%
+| The variable cnames now holds a list of the
+| column headings. Take another look at the
+| column names.
+
+>  cnames 
+[[1]]
+ [1] "# RD"                             
+ [2] "Action Code"                      
+ [3] "State Code"                       
+ [4] "County Code"                      
+ [5] "Site ID"                          
+ [6] "Parameter"                        
+ [7] "POC"                              
+ [8] "Sample Duration"                  
+ [9] "Unit"                             
+[10] "Method"                           
+[11] "Date"                             
+[12] "Start Time"                       
+[13] "Sample Value"                     
+[14] "Null Data Code"                   
+[15] "Sampling Frequency"               
+[16] "Monitor Protocol (MP) ID"         
+[17] "Qualifier - 1"                    
+[18] "Qualifier - 2"                    
+[19] "Qualifier - 3"                    
+[20] "Qualifier - 4"                    
+[21] "Qualifier - 5"                    
+[22] "Qualifier - 6"                    
+[23] "Qualifier - 7"                    
+[24] "Qualifier - 8"                    
+[25] "Qualifier - 9"                    
+[26] "Qualifier - 10"                   
+[27] "Alternate Method Detectable Limit"
+[28] "Uncertainty"                      
+
+
+| That's the answer I was looking for.
+
+  |===                                  |   9%
+| Nice, but we don't need all these. Assign to
+| names(pm0) the output of a call to the
+| function make.names with cnames[[1]][wcol]
+| as the argument. The variable wcol holds the
+| indices of the 5 columns we selected (from
+| the 28) to use in this lesson, so those are
+| the column names we'll need. As the name
+| suggests, the function "makes syntactically
+| valid names".
+
+>  names(pm0) <- make.names(cnames[[1]][wcol])
+
+| You're the best!
+
+  |====                                 |  10%
+| Now re-run head on pm0 now to see if the
+| column names have been put in place.
+
+>  head(pm0)
+  State.Code County.Code Site.ID     Date
+1          1          27       1 19990103
+2          1          27       1 19990106
+3          1          27       1 19990109
+4          1          27       1 19990112
+5          1          27       1 19990115
+6          1          27       1 19990118
+  Sample.Value
+1           NA
+2           NA
+3           NA
+4        8.841
+5       14.920
+6        3.878
+
+| You are doing so well!
+
+  |====                                 |  11%
+| Now it's clearer what information each
+| column of pm0 holds. The measurements of
+| particulate matter (pm25) are in the column
+| named Sample.Value. Assign this component of
+| pm0 to the variable x0. Use the m$n
+| notation.
+
+>  x0 <- pm0$Sample.Value
+
+| That's correct!
+
+  |=====                                |  12%
+| Call the R command str with x0 as its
+| argument to see x0's structure.
+
+> str(x0)
+ num [1:117421] NA NA NA 8.84 14.92 ...
+
+| You are really on a roll!
+
+  |=====                                |  13%
+| We see that x0 is a numeric vector (of
+| length 117000+) with at least the first 3
+| values missing.  Exactly what percentage of
+| values are missing in this vector? Use the R
+| function mean with is.na(x0) as an argument
+| to see what percentage of values are missing
+| (NA) in x0.
+
+>  mean(is.na(x0))
+[1] 0.1125608
+
+| Your dedication is inspiring!
+
+  |=====                                |  14%
+| So a little over 11% of the 117000+ are
+| missing. We'll keep that in mind. Now let's
+| start processing the 2012 data which we
+| stored for you in the array pm1.
+
+...
+
+  |======                               |  15%
+| We'll repeat what we did for pm0, except a
+| little more efficiently. First assign the
+| output of make.names(cnames[[1]][wcol]) to
+| names(pm1).
+
+> names(pm1) <- make.names(cnames[[1]][wcol])
+
+| Perseverance, that's the answer.
+
+  |======                               |  16%
+| Find the dimensions of pm1 with the command
+| dim.
+
+> dim(pm1) 
+[1] 1304287       5
+
+| All that practice is paying off!
+
+  |======                               |  18%
+| Wow! Over 1.3 million entries. Particulate
+| matter was first collected in 1999 so
+| perhaps there weren't as many sensors
+| collecting data then as in 2012 when the
+| program was more mature. If you ran head on
+| pm1 you'd see that it looks just like pm0.
+| We'll move on though.
+
+...
+
+  |=======                              |  19%
+| Create the variable x1 by assigning to it
+| the Sample.Value component of pm1.
+
+>  x1 <- pm1$Sample.Value
+
+| Great job!
+
+  |=======                              |  20%
+| Now let's see what percentage of values are
+| missing in x1. As before, use the R function
+| mean with is.na(x1) as an argument to find
+| out.
+
+>  mean(is.na(x1))
+[1] 0.05607125
+
+| You are amazing!
+
+  |========                             |  21%
+| So only 5.6% of the particulate matter
+| measurements are missing. That's about half
+| the percentage as in 1999.
+
+...
+
+  |========                             |  22%
+| Now let's look at summaries (using the
+| summary command) for both datasets. First,
+| x0.
+
+> summary(x0)
+   Min. 1st Qu.  Median    Mean 3rd Qu. 
+   0.00    7.20   11.50   13.74   17.90 
+   Max.    NA's 
+ 157.10   13217 
+
+| Keep up the great work!
+
+  |========                             |  23%
+| The numbers in the vectors x0 and x1
+| represent measurements taken in micrograms
+| per cubic meter. Now look at the summary of
+| x1.
+
+>  summary(x1)
+   Min. 1st Qu.  Median    Mean 3rd Qu. 
+-10.000   4.000   7.633   9.140  12.000 
+   Max.    NA's 
+908.970   73133 
+
+| That's correct!
+
+  |=========                            |  24%
+| We see that both the median and the mean of
+| measured particulate matter have declined
+| from 1999 to 2012. In fact, all of the
+| measurements, except for the maximum and
+| missing values (Max and NA's), have
+| decreased. Even the Min has gone down from 0
+| to -10.00! We'll address what a negative
+| measurment might mean a little later. Note
+| that the Max has increased from 157 in 1999
+| to 909 in 2012. This is quite high and might
+| reflect an error in the table or
+| malfunctions in some monitors.
+
+...
+
+  |=========                            |  25%
+| Call the boxplot function with 2 arguments,
+| x0 and x1.
+
+>  boxplot(x0, x1)
+
+| That's the answer I was looking for.
+
+  |==========                           |  26%
+| Huh? Did somebody step on the boxes? It's
+| hard to see what's going on here. There are
+| so many values outside the boxes and the
+| range of x1 is so big that the boxes are
+| flattened. It might be more informative to
+| call boxplot on the logs (base 10) of x0 and
+| x1. Do this now using log10(x0) and
+| log10(x1) as the 2 arguments.
+
+>  boxplot(log10(x0), log10(x1))
+Warning messages:
+1: In boxplot.default(log10(x0), log10(x1)) : NaNs produced
+2: In bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group ==  :
+  Outlier (-Inf) in boxplot 1 is not drawn
+3: In bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group ==  :
+  Outlier (-Inf) in boxplot 2 is not drawn
+
+| That's correct!
+
+  |==========                           |  27%
+| A bonus! Not only do we get a better looking
+| boxplot we also get some warnings from R in
+| Red. These let us know that some values in
+| x0 and x1 were "unloggable", no doubt the 0
+| (Min) we saw in the summary of x0 and the
+| negative values we saw in the Min of the
+| summary of x1.
+
+...
+
+  |==========                           |  28%
+| From the boxplot (x0 on the left and x1 on
+| the right), what can you say about the data?
+
+1: The mean of x1 is less than the mean of x0
+2: The range of x0 is greater than the range of x1
+3: The boxes are too small to interpret
+4: The median of x1 is less than the median of x0
+
+Selection: 3
+
+| You almost had it, but not quite. Try again.
+
+| Recall that the horizontal lines inside the
+| boxes represent the medians of the two
+| datasets.
+
+1: The mean of x1 is less than the mean of x0
+2: The median of x1 is less than the median of x0
+3: The boxes are too small to interpret
+4: The range of x0 is greater than the range of x1
+
+Selection: 2
+
+| That's correct!
+
+  |===========                          |  29%
+| Let's return to the question of the negative
+| values in x1. Let's count how many negative
+| values there are. We'll do this in a few
+| steps.
+
+...
+
+  |===========                          |  30%
+| First, form the vector negative by assigning
+| to it the boolean x1<0.
+
+>  negative <- x1 < 0
+
+| Keep working like that and you'll get there!
+
+  |===========                          |  31%
+| Now run the R command sum with 2 arguments.
+| The first is negative, and the second is
+| na.rm set equal to TRUE. This tells sum to
+| ignore the missing values in negative.
+
+>  sum(negative, na.rm = TRUE)
+[1] 26474
+
+| You got it right!
+
+  |============                         |  32%
+| So there are over 26000 negative values.
+| Sounds like a lot. Is it? Run the R command
+| mean with same 2 arguments you just used
+| with the call to sum. This will tell us a
+| percentage.
+
+>  mean(negative, na.rm = TRUE)
+[1] 0.0215034
+
+| You are quite good my friend!
+
+  |============                         |  33%
+| We see that just 2% of the x1 values are
+| negative. Perhaps that's a small enough
+| percentage that we can ignore them. Before
+| we ignore them, though, let's see if they
+| occur during certain times of the year.
+
+...
+
+  |=============                        |  34%
+| First create the array dates by assigning to
+| it the Date component of pm1. Remember to
+| use the x$y notation.
+
+>  dates <- pm1$Date
+
+| That's correct!
+
+  |=============                        |  35%
+| To see what dates looks like run the R
+| command str on it.
+
+>  str(dates)
+ int [1:1304287] 20120101 20120104 20120107 20120110 20120113 20120116 20120119 20120122 20120125 20120128 ...
+
+| All that practice is paying off!
+
+  |=============                        |  36%
+| We see dates is a very long vector of
+| integers. However, the format of the entries
+| is hard to read. There's no separation
+| between the year, month, and day. Reassign
+| to dates the output of a call to as.Date
+| with the 2 arguments as.character(dates) as
+| the first argument and the string "%Y%m%d"
+| as the second.
+
+>  dates <- as.Date(as.character(dates), "%Y%m%d")
+
+| That's a job well done!
+
+  |==============                       |  37%
+| Now when you run head on dates you'll see
+| the dates in a nicer format. Try this now.
+
+> 
+> head(dates)
+[1] "2012-01-01" "2012-01-04" "2012-01-07"
+[4] "2012-01-10" "2012-01-13" "2012-01-16"
+
+| Excellent job!
+
+  |==============                       |  38%
+| Let's plot a histogram of the months when
+| the particulate matter measurements are
+| negative. Run hist with 2 arguments. The
+| first is dates[negative] and the second is
+| the string "month".
+
+> hist(dates[negative],"month")
+
+| You are quite good my friend!
+
+  |==============                       |  39%
+| We see the bulk of the negative measurements
+| were taken in the winter months, with a
+| spike in May. Not many of these negative
+| measurements occurred in summer months. We
+| can take a guess that because particulate
+| measures tend to be low in winter and high
+| in summer, coupled with the fact that higher
+| densities are easier to measure, that
+| measurement errors occurred when the values
+| were low. For now we'll attribute these
+| negative measurements to errors. Also, since
+| they account for only 2% of the 2012 data,
+| we'll ignore them.
+
+...
+
+  |===============                      |  40%
+| Now we'll change focus a bit and instead of
+| looking at all the monitors throughout the
+| country and the data they recorded, we'll
+| try to find one monitor that was taking
+| measurements in both 1999 and 2012. This
+| will allow us to control for different
+| geographical and environmental variables
+| that might have affected air quality in
+| different areas. We'll narrow our search and
+| look just at monitors in New York State.
+
+...
+
+  |===============                      |  41%
+| We subsetted off the New York State monitor
+| identification data for 1999 and 2012 into 2
+| vectors, site0 and site1. Look at the
+| structure of site0 now with the R command
+| str.
+
+> str(site0)
+ chr [1:33] "1.5" "1.12" "5.73" "5.80" ...
+
+| You are quite good my friend!
+
+  |================                     |  42%
+| We see that site0 (the IDs of monitors in
+| New York State in 1999) is a vector of 33
+| strings, each of which has the form "x.y".
+| We've created these from the county codes
+| (the x portion of the string) and the
+| monitor IDs (the y portion). If you ran str
+| on site1 you'd see 18 similar values.
+
+...
+
+  |================                     |  43%
+| Use the intersect command with site0 and
+| site1 as arguments and put the result in the
+| variable both.
+
+> both <- intersect(site0, site1)
+
+| You got it right!
+
+  |================                     |  44%
+| Take a look at both now.
+
+> both
+ [1] "1.5"     "1.12"    "5.80"    "13.11"  
+ [5] "29.5"    "31.3"    "63.2008" "67.1015"
+ [9] "85.55"   "101.3"  
+
+| Keep working like that and you'll get there!
+
+  |=================                    |  45%
+| We see that 10 monitors in New York State
+| were active in both 1999 and 2012.
+
+...
+
+  |=================                    |  46%
+| To save you some time and typing, we
+| modified the data frames pm0 and pm1
+| slightly by adding to each of them a new
+| component, county.site. This is just a
+| concatenation of two original components
+| County.Code and Site.ID. We did this to
+| facilitate the next step which is to find
+| out how many measurements were taken by the
+| 10 New York monitors working in both of the
+| years of interest. Run head on pm0 to see
+| the first few entries now.
+
+>  head(pm0)
+  State.Code County.Code Site.ID     Date
+1          1          27       1 19990103
+2          1          27       1 19990106
+3          1          27       1 19990109
+4          1          27       1 19990112
+5          1          27       1 19990115
+6          1          27       1 19990118
+  Sample.Value county.site
+1           NA        27.1
+2           NA        27.1
+3           NA        27.1
+4        8.841        27.1
+5       14.920        27.1
+6        3.878        27.1
+
+| Perseverance, that's the answer.
+
+  |==================                   |  47%
+| Now pm0 and pm1 have 6 columns instead of 5,
+| and the last column is a concatenation of
+| two other columns, County and Site.
+
+...
+
+  |==================                   |  48%
+| Now let's see how many measurements each of
+| the 10 New York monitors that were active in
+| both 1999 and 2012 took in those years.
+| We'll create 2 subsets (one for each year),
+| one of pm0 and the other of pm1.
+
+...
+
+  |==================                   |  49%
+| The subsets will filter for 2
+| characteristics. The first is State.Code
+| equal to 36 (the code for New York), and the
+| second is that the county.site (the
+| component we added) is in the vector both.
+
+...
+
+  |===================                  |  51%
+| First create the variable cnt0 by assigning
+| to it the output of the R command subset,
+| called with 2 arguments. The first is pm0,
+| and the second is a boolean with the 2
+| conditions we just mentioned. Recall that
+| the testing for equality in a boolean
+| requires ==, intersection of 2 boolean
+| conditions is denoted by & and membership by
+| %in%.
+
+> cnt0 <- subset(pm0, State.Code == 36 & county.site %in% both)
+
+| Keep working like that and you'll get there!
+
+  |===================                  |  52%
+| Recall the last command with the up arrow,
+| and create cnt1 (instead of cnt0). Remember
+| to change pm0 to pm1. Everything else can
+| stay the same.
+
+> cnt1 <- subset(pm1, State.Code == 36 & county.site %in% both)
+
+| You nailed it! Good job!
+
+  |===================                  |  53%
+| Now run the command sapply(split(cnt0,
+| cnt0$county.site), nrow). This will split
+| cnt0 into several data frames according to
+| county.site (that is, monitor IDs) and tell
+| us how many measurements each monitor
+| recorded.
+
+> sapply(split(cnt0, cnt0$county.site), nrow)
+   1.12     1.5   101.3   13.11    29.5 
+     61     122     152      61      61 
+   31.3    5.80 63.2008 67.1015   85.55 
+    183      61     122     122       7 
+
+| All that hard work is paying off!
+
+  |====================                 |  54%
+| Do the same for cnt1. (Recall your last
+| command and change 2 occurrences of cnt0 to
+| cnt1.)
+
+
+> 
+> sapply(split(cnt1, cnt1$county.site), nrow)
+   1.12     1.5   101.3   13.11    29.5 
+     31      64      31      31      33 
+   31.3    5.80 63.2008 67.1015   85.55 
+     15      31      30      31      31 
+
+| You are doing so well!
+
+  |====================                 |  55%
+| From the output of the 2 calls to sapply,
+| which monitor is the only one whose number
+| of measurements increased from 1999 to 2012?
+
+1: 85.55
+2: 63.2008
+3: 101.3
+4: 29.5
+
+Selection: 1
+
+| Great job!
+
+  |=====================                |  56%
+| We want to examine a monitor with a
+| reasonable number of measurements so let's
+| look at the monitor with ID 63.2008. Create
+| a variable pm0sub which is the subset of
+| cnt0 (this contains just New York data)
+| which has County.Code equal to 63 and
+| Site.ID 2008.
+
+> pm0sub <- subset(cnt0, County.Code==63 & Site.ID==2008)
+
+| Your dedication is inspiring!
+
+  |=====================                |  57%
+| Now do the same for cnt1. Name this new
+| variable pm1sub.
+
+> pm1sub <- subset(cnt1, County.Code==63 & Site.ID==2008)
+
+| That's correct!
+
+  |=====================                |  58%
+| From the output of the 2 calls to sapply,
+| how many rows will pm0sub have?
+
+1: 122
+2: 183
+3: 29
+4: 30
+
+Selection: 1
+
+| That's a job well done!
+
+  |======================               |  59%
+| Now we'd like to compare the pm25
+| measurements of this particular monitor
+| (63.2008) for the 2 years. First, create the
+| vector x0sub by assigning to it the
+| Sample.Value component of pm0sub.
+
+> x0sub <- pm0sub$Sample.Value
+
+| That's a job well done!
+
+  |======================               |  60%
+| Similarly, create x1sub from pm1sub.
+
+>  x1sub <- pm1sub$Sample.Value
+
+| Excellent job!
+
+  |=======================              |  61%
+| We'd like to make our comparison visually so
+| we'll have to create a time series of these
+| pm25 measurements. First, create a dates0
+| variable by assigning to it the output of a
+| call to as.Date. This will take 2 arguments.
+| The first is a call to as.character with
+| pm0sub$Date as the argument. The second is
+| the format string "%Y%m%d".
+
+>  dates0 <- as.Date(as.character(pm0sub$Date),"%Y%m%d")
+
+| Excellent work!
+
+  |=======================              |  62%
+| Do the same for the 2012 data. Specifically,
+| create dates1 using pm1sub$Date as your
+| input.
+
+>  dates1 <- as.Date(as.character(pm1sub$Date),"%Y%m%d")
+
+| Keep working like that and you'll get there!
+
+  |=======================              |  63%
+| Now we'll plot these 2 time series in the
+| same panel using the base plotting system.
+| Call par with 2 arguments. The first is
+| mfrow set equal to c(1,2). This will tell
+| the system we're plotting 2 graphs in 1 row
+| and 2 columns. The second argument will
+| adjust the panel's margins. It is mar set to
+| c(4,4,2,1).
+
+> par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+| All that practice is paying off!
+
+  |========================             |  64%
+| Call plot with the 3 arguments dates0,
+| x0sub, and pch set to 20. The first two
+| arguments are the x and y coordinates. This
+| will show the pm25 values as functions of
+| time.
+
+>  plot(dates0, x0sub, pch = 20)
+
+| That's the answer I was looking for.
+
+  |========================             |  65%
+| Now we'll mark the median.
+
+...
+
+  |========================             |  66%
+| Use abline to add a horizontal line at the
+| median of the pm25 values. Make the line
+| width 2 (lwd is the argument), and when you
+| call median with x0sub, specify the argument
+| na.rm to be TRUE.
+
+>  abline(h = median(x0sub, na.rm = TRUE),lwd=2)
+
+| That's the answer I was looking for.
+
+  |=========================            |  67%
+| Now we'll do the same for the 2012 data.
+| Call plot with the 3 arguments dates1,
+| x1sub, and pch set to 20.
+
+>  plot(dates1, x1sub, pch = 20)
+
+| Keep up the great work!
+
+  |=========================            |  68%
+| As before, we'll mark the median of this
+| 2012 data.
+
+...
+
+  |==========================           |  69%
+| Use abline to add a horizontal line at the
+| median of the pm25 values. Make the line
+| width 2 (lwd is the argument). Remember to
+| specify the argument na.rm to be TRUE when
+| you call median on x1sub.
+
+> abline(h = median(x1sub, na.rm = TRUE),lwd=2)
+
+| You're the best!
+
+  |==========================           |  70%
+| Which median is larger - the one for 1999 or
+| the one for 2012?
+
+1: 1999
+2: 2012
+
+Selection: 1
+
+| You got it!
+
+  |==========================           |  71%
+| The picture makes it look like the median is
+| higher for 2012 than 1999. Closer inspection
+| shows that this isn't true. The median for
+| 1999 is a little over 10 micrograms per
+| cubic meter and for 2012 its a little over
+| 8. The plots appear this way because the
+| 1999 plot ....
+
+1: displays more points than the 2012 plot
+2: shows a bigger range of y values than the 2012 plot
+3: shows different months than those in the 2012 plot
+
+Selection: 2
+
+| You are doing so well!
+
+  |===========================          |  72%
+| The 1999 plot shows a much bigger range of
+| pm25 values on the y axis, from below 10 to
+| 40, while the 2012 pm25 values are much more
+| restricted, from around 1 to 14. We should
+| really plot the points of both datasets on
+| the same range of values on the y axis.
+| Create the variable rng by assigning to it
+| the output of a call to the R command range
+| with 3 arguments, x0sub, x1sub, and the
+| boolean na.rm set to TRUE.
+
+> rng <- range(x0sub,x1sub,na.rm=TRUE)
+
+| You're the best!
+
+  |===========================          |  73%
+| Look at rng to see the values it spans.
+
+> rng
+[1]  3.0 40.1
+
+| That's correct!
+
+  |===========================          |  74%
+| Here a new figure we've created showing the
+| two plots side by side with the same range
+| of values on the y axis. We used the
+| argument ylim set equal to rng in our 2
+| calls to plot. The improvement in the
+| medians between 1999 and 2012 is now clear.
+| Also notice that in 2012 there are no big
+| values (above 15). This shows that not only
+| is there a chronic improvement in air
+| quality, but also there are fewer days with
+| severe pollution.
+
+...
+
+  |============================         |  75%
+| The last avenue of this data we'll explore
+| (and we'll do it quickly) concerns a
+| comparison of all the states' mean pollution
+| levels. This is important because the states
+| are responsible for implementing the
+| regulations set at the federal level by the
+| EPA.
+
+...
+
+  |============================         |  76%
+| Let's first gather the mean (average
+| measurement) for each state in 1999. Recall
+| that the original data for this year was
+| stored in pm0.
+
+...
+
+  |=============================        |  77%
+| Create the vector mn0 with a call to the R
+| command with using 2 arguments. The first is
+| pm0. This is the data in which the second
+| argument, an expression, will be evaluated.
+| The second argument is a call to the
+| function tapply. This call requires 4
+| arguments. Sample.Value and State.Code are
+| the first two. We want to apply the function
+| mean to Sample.Value, so mean is the third
+| argument. The fourth is simply the boolean
+| na.rm set to TRUE.
+
+>  mn0 <- with(pm0,tapply(Sample.Value,State.Code,mean,na.rm=TRUE))
+
+| Excellent job!
+
+  |=============================        |  78%
+| Call the function str with mn0 as its
+| argument to see what it looks like.
+
+>  str(mn0)
+ num [1:53(1d)] 19.96 6.67 10.8 15.68 17.66 ...
+ - attr(*, "dimnames")=List of 1
+  ..$ : chr [1:53] "1" "2" "4" "5" ...
+
+| Excellent job!
+
+  |=============================        |  79%
+| We see mn0 is a 53 long numerical vector.
+| Why 53 if there are only 50 states? As it
+| happens, pm25 measurements for the District
+| of Columbia (Washington D.C), the Virgin
+| Islands, and Puerto Rico are included in
+| this data. They are coded as 11, 72, and 78
+| respectively.
+
+...
+
+  |==============================       |  80%
+| Recall your command creating mn0 and change
+| it to create mn1 using pm1 as the first
+| input to the call to with.
+
+>  mn1 <- with(pm1,tapply(Sample.Value,State.Code,mean,na.rm=TRUE))
+
+| You got it!
+
+  |==============================       |  81%
+| For fun, call the function str with mn1 as
+| its argument.
+
+>  str(mn1)
+ num [1:52(1d)] 10.13 4.75 8.61 10.56 9.28 ...
+ - attr(*, "dimnames")=List of 1
+  ..$ : chr [1:52] "1" "2" "4" "5" ...
+
+| All that hard work is paying off!
+
+  |===============================      |  82%
+| So mn1 has only 52 entries, rather than 53.
+| We checked. There are no entries for the
+| Virgin Islands in 2012. Call summary now
+| with mn0 as its input.
+
+>  summary(mn0)
+   Min. 1st Qu.  Median    Mean 3rd Qu. 
+  4.862   9.519  12.315  12.406  15.640 
+   Max. 
+ 19.956 
+
+| That's the answer I was looking for.
+
+  |===============================      |  84%
+| Now call summary with mn1 as its input so we
+| can compare the two years.
+
+>  summary(mn1)
+   Min. 1st Qu.  Median    Mean 3rd Qu. 
+  4.006   7.355   8.729   8.759  10.613 
+   Max. 
+ 11.992 
+
+| That's correct!
+
+  |===============================      |  85%
+| We see that in all 6 entries, the 2012
+| numbers are less than those in 1999. Now
+| we'll create 2 new dataframes containing
+| just the state names and their mean
+| measurements for each year. First, we'll do
+| this for 1999. Create the data frame d0 by
+| calling the function data.frame with 2
+| arguments. The first is state set equal to
+| names(mn0), and the second is mean set equal
+| to mn0.
+
+> d0 <- data.frame(state = names(mn0), mean = mn0)
+
+| That's the answer I was looking for.
+
+  |================================     |  86%
+| Recall the last command and create d1
+| instead of d0 using the 2012 data. (There'll
+| be 3 changes of 0 to 1.)
+
+>  d1 <- data.frame(state = names(mn1), mean = mn1)
+
+| You are really on a roll!
+
+  |================================     |  87%
+| Create the array mrg by calling the R
+| command merge with 3 arguments, d0, d1, and
+| the argument by set equal to the string
+| "state".
+
+> mrg <- merge(d0, d1, by = "state")
+
+| Your dedication is inspiring!
+
+  |================================     |  88%
+| Run dim with mrg as its argument to see how
+| big it is.
+
+> dim(mrg)
+[1] 52  3
+
+| You nailed it! Good job!
+
+  |=================================    |  89%
+| We see merge has 52 rows and 3 columns.
+| Since the Virgin Island data was missing
+| from d1, it is excluded from mrg. Look at
+| the first few entries of mrg using the head
+| command.
+
+>  head(mrg)
+  state    mean.x    mean.y
+1     1 19.956391 10.126190
+2    10 14.492895 11.236059
+3    11 15.786507 11.991697
+4    12 11.137139  8.239690
+5    13 19.943240 11.321364
+6    15  4.861821  8.749336
+
+| Excellent work!
+
+  |=================================    |  90%
+| Each row of mrg has 3 entries - a state
+| identified by number, a state mean for 1999
+| (mean.x), and a state mean for 2012
+| (mean.y).
+
+...
+
+  |==================================   |  91%
+| Now we'll plot the data to see how the state
+| means changed between the 2 years. First
+| we'll plot the 1999 data in a single column
+| at x=1. The y values for the points will be
+| the state means. Again, we'll use the R
+| command with so we don't have to keep typing
+| mrg as the data environment in which to
+| evaluate the second argument, the call to
+| plot. We've already reset the graphical
+| parameters for you.
+
+...
+
+  |==================================   |  92%
+| For the first column of points, call with
+| with 2 arguments. The first is mrg, and the
+| second is the call to plot with 3 arguments.
+| The first of these is rep(1,52). This tells
+| the plot routine that the x coordinates for
+| all 52 points are 1. The second argument is
+| the second column of mrg or mrg[,2] which
+| holds the 1999 data. The third argument is
+| the range of x values we want, namely xlim
+| set to c(.5,2.5). This works since we'll be
+| plotting 2 columns of points, one at x=1 and
+| the other at x=2.
+
+>  with(mrg, plot(rep(1, 52), mrg[, 2], xlim = c(.5, 2.5)))
+
+| Nice work!
+
+  |==================================   |  93%
+| We see a column of points at x=1 which
+| represent the 1999 state means. For the
+| second column of points, again call with
+| with 2 arguments. As before, the first is
+| mrg. The second, however, is a call to the
+| function points with 2 arguments. We need to
+| do this since we're adding points to an
+| already existing plot. The first argument to
+| points is the set of x values, rep(2,52).
+| The second argument is the set of y values,
+| mrg[,3]. Of course, this is the third column
+| of mrg. (We don't need to specify the range
+| of x values again.)
+
+> with(mrg, points(rep(2, 52), mrg[, 3]))
+
+| All that practice is paying off!
+
+  |===================================  |  94%
+| We see a shorter column of points at x=2.
+| Now let's connect the dots. Use the R
+| function segments with 4 arguments. The
+| first 2 are the x and y coordinates of the
+| 1999 points and the last 2 are the x and y
+| coordinates of the 2012 points. As in the
+| previous calls specify the x coordinates
+| with calls to rep and the y coordinates with
+| references to the appropriate columns of
+| mrg.
+
+> segments(rep(1, 52), mrg[, 2], rep(2, 52), mrg[, 3])
+
+| That's the answer I was looking for.
+
+  |===================================  |  95%
+| We see from the plot that the vast majority
+| of states have indeed improved their
+| particulate matter counts so the general
+| trend is downward. There are a few
+| exceptions. (The topmost point in the 1999
+| column is actually two points that had very
+| close measurements.)
+
+...
+
+  |===================================  |  96%
+| For fun, let's see which states had higher
+| means in 2012 than in 1999. Just use the
+| mrg[mrg$mean.x < mrg$mean.y, ] notation to
+| find the rows of mrg with this particulate
+| property.
+
+>  mrg[mrg$mean.x < mrg$mean.y,]
+   state    mean.x    mean.y
+6     15  4.861821  8.749336
+23    31  9.167770  9.207489
+27    35  6.511285  8.089755
+33    40 10.657617 10.849870
+
+| That's correct!
+
+  |==================================== |  97%
+| Only 4 states had worse pollution averages,
+| and 2 of these had means that were very
+| close. If you want to see which states (15,
+| 31, 35, and 40) these are, you can check out
+| this website
+| https://www.epa.gov/enviro/state-fips-code-listing
+| to decode the state codes.
+
+...
+
+  |==================================== |  98%
+| This concludes the lesson, comparing air
+| pollution data from two years in different
+| ways. First, we looked at measures of the
+| entire set of monitors, then we compared the
+| two measures from a particular monitor, and
+| finally, we looked at the mean measures of
+| the individual states.
+
+...
+
+  |=====================================|  99%
+| Congratulations! We hope you enjoyed this
+| particulate lesson.
+
+...
+
+  |=====================================| 100%
+| Would you like to receive credit for
+| completing this course on Coursera.org?
+
+1: No
+2: Yes
+
+Selection: 1
+
+| Nice work!
+
+| You've reached the end of this lesson!
+| Returning to the main menu...
+
+| Please choose a course, or type 0 to exit
+| swirl.
+
+1: Exploratory Data Analysis
+2: Take me to the swirl course repository!
+
+Selection: sink()
+Enter an item from the menu, or 0 to exit
+Selection: 0
+
+| Leaving swirl now. Type swirl() to resume.
+
+> sink()
+> 

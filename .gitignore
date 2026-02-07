@@ -1,1 +1,3 @@
 *.dcf
+data-analysis/l5/plots/*.png
+data-analysis/l5/.RData
