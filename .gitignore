@@ -1,3 +1,16 @@
 *.dcf
 data-analysis/l5/plots/*.png
 data-analysis/l5/.RData
+
+# F# / .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+.vs/
+*.DotSettings.user
+project.lock.json
+*.nupkg
+.ionide/
