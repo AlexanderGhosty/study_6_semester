@@ -1,0 +1,10 @@
+# Одноэтапная сборка — SDK-образ используется и для сборки, и для запуска
+FROM mcr.microsoft.com/dotnet/sdk:10.0
+
+WORKDIR /app
+
+COPY HelloDocker/ .
+
+RUN dotnet publish -c Release -o /app/publish
+
+CMD ["dotnet", "/app/publish/HelloDocker.dll"]
