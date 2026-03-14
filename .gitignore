@@ -19,3 +19,6 @@ project.lock.json
 __pycache__/
 .venv/
 .ipynb_checkpoints/
+
+# R lang
+.Rhistory

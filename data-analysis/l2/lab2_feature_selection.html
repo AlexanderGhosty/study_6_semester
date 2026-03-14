@@ -11,7 +11,7 @@
 
 <meta name="author" content="Быков Александр 231-332" />
 
-<meta name="date" content="2026-02-06" />
+<meta name="date" content="2026-02-20" />
 
 <title>Лабораторная работа №2: Работа с пакетами CARET и BORUTA на языке R</title>
 
@@ -1670,7 +1670,7 @@ border-radius: 0px;
 CARET и BORUTA на языке R</h1>
 <h3 class="subtitle">Анализ данных</h3>
 <h4 class="author">Быков Александр 231-332</h4>
-<h4 class="date">2026-02-06</h4>
+<h4 class="date">2026-02-20</h4>
 
 </div>
 
@@ -2319,7 +2319,7 @@ Uncertainty, Chi-Squared) согласованно определяют поря
 <span id="cb103-6"><a href="#cb103-6" tabindex="-1"></a>boruta_result <span class="ot">&lt;-</span> <span class="fu">Boruta</span>(V4 <span class="sc">~</span> ., <span class="at">data =</span> ozone_clean, <span class="at">doTrace =</span> <span class="dv">0</span>)</span>
 <span id="cb103-7"><a href="#cb103-7" tabindex="-1"></a></span>
 <span id="cb103-8"><a href="#cb103-8" tabindex="-1"></a><span class="fu">print</span>(boruta_result)</span></code></pre></div>
-<pre><code>## Boruta performed 24 iterations in 1.718744 secs.
+<pre><code>## Boruta performed 24 iterations in 1.934652 secs.
 ##  9 attributes confirmed important: V1, V10, V11, V12, V13 and 4 more;
 ##  3 attributes confirmed unimportant: V2, V3, V6;</code></pre>
 </div>
@@ -2373,7 +2373,7 @@ Uncertainty, Chi-Squared) согласованно определяют поря
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" tabindex="-1"></a><span class="co"># Попытка определить статус Tentative признаков</span></span>
 <span id="cb118-2"><a href="#cb118-2" tabindex="-1"></a>boruta_final <span class="ot">&lt;-</span> <span class="fu">TentativeRoughFix</span>(boruta_result)</span>
 <span id="cb118-3"><a href="#cb118-3" tabindex="-1"></a><span class="fu">print</span>(boruta_final)</span></code></pre></div>
-<pre><code>## Boruta performed 24 iterations in 1.718744 secs.
+<pre><code>## Boruta performed 24 iterations in 1.934652 secs.
 ##  9 attributes confirmed important: V1, V10, V11, V12, V13 and 4 more;
 ##  3 attributes confirmed unimportant: V2, V3, V6;</code></pre>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Финальный список подтвержденных признаков:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
@@ -2447,7 +2447,7 @@ Uncertainty, Chi-Squared) согласованно определяют поря
 ##  [9] LC_ADDRESS=en_US.UTF-8        LC_TELEPHONE=en_US.UTF-8     
 ## [11] LC_MEASUREMENT=en_US.UTF-8    LC_IDENTIFICATION=en_US.UTF-8
 ## 
-## time zone: Europe/Samara
+## time zone: Europe/Moscow
 ## tzcode source: system (glibc)
 ## 
 ## attached base packages:
