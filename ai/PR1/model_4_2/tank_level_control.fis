@@ -1,0 +1,51 @@
+[System]
+Name='tank_level_control'
+Ninputs=2
+Noutputs=1
+Nrules=5
+Nexceptions=0
+Conjunction='min'
+MissingValues='random'
+
+[Input1]
+Active='yes'
+Name='level_error'
+Range=[     -50.000 ,      50.000 ]
+NMFs=3
+MF1='low','trapezoidal',[     -50.000 ,     -50.000 ,     -20.000 ,       0.000 ]
+MF2='normal','triangular',[     -20.000 ,       0.000 ,      20.000 ]
+MF3='high','trapezoidal',[       0.000 ,      20.000 ,      50.000 ,      50.000 ]
+
+[Input2]
+Active='yes'
+Name='d_level'
+Range=[     -10.000 ,      10.000 ]
+NMFs=3
+MF1='negative','trapezoidal',[     -10.000 ,     -10.000 ,      -3.000 ,       0.000 ]
+MF2='zero','triangular',[      -3.000 ,       0.000 ,       3.000 ]
+MF3='positive','trapezoidal',[       0.000 ,       3.000 ,      10.000 ,      10.000 ]
+
+[Output1]
+Nature='fuzzy'
+Defuzzification='area'
+Disjunction='sum'
+DefaultValue=      -1.000 
+Classif='no' 
+Active='yes'
+Name='valve_action'
+Range=[    -100.000 ,     100.000 ]
+NMFs=5
+MF1='close_fast','trapezoidal',[    -100.000 ,    -100.000 ,     -80.000 ,     -50.000 ]
+MF2='close_slow','triangular',[     -80.000 ,     -40.000 ,       0.000 ]
+MF3='no_change','triangular',[     -20.000 ,       0.000 ,      20.000 ]
+MF4='open_slow','triangular',[       0.000 ,      40.000 ,      80.000 ]
+MF5='open_fast','trapezoidal',[      50.000 ,      80.000 ,     100.000 ,     100.000 ]
+
+[Rules]
+1, 0,        5.000 ,
+3, 0,        1.000 ,
+2, 0,        3.000 ,
+2, 3,        2.000 ,
+2, 1,        4.000 ,
+
+[Exceptions]

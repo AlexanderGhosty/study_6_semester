@@ -1,0 +1,75 @@
+[System]
+Name='car_braking'
+Ninputs=2
+Noutputs=1
+Nrules=25
+Nexceptions=0
+Conjunction='min'
+MissingValues='random'
+
+[Input1]
+Active='yes'
+Name='speed'
+Range=[       0.000 ,     200.000 ]
+NMFs=5
+MF1='VS','trapezoidal',[       0.000 ,       0.000 ,      20.000 ,      60.000 ]
+MF2='S','triangular',[      20.000 ,      60.000 ,     100.000 ]
+MF3='M','triangular',[      60.000 ,     100.000 ,     140.000 ]
+MF4='B','triangular',[     100.000 ,     140.000 ,     180.000 ]
+MF5='VB','trapezoidal',[     140.000 ,     180.000 ,     200.000 ,     200.000 ]
+
+[Input2]
+Active='yes'
+Name='distance'
+Range=[       0.000 ,     500.000 ]
+NMFs=5
+MF1='VS','trapezoidal',[       0.000 ,       0.000 ,      50.000 ,     150.000 ]
+MF2='S','triangular',[      50.000 ,     150.000 ,     250.000 ]
+MF3='M','triangular',[     150.000 ,     250.000 ,     350.000 ]
+MF4='B','triangular',[     250.000 ,     350.000 ,     450.000 ]
+MF5='VB','trapezoidal',[     350.000 ,     450.000 ,     500.000 ,     500.000 ]
+
+[Output1]
+Nature='fuzzy'
+Defuzzification='area'
+Disjunction='sum'
+DefaultValue=      -1.000 
+Classif='no' 
+Active='yes'
+Name='braking_force'
+Range=[       0.000 ,     100.000 ]
+NMFs=5
+MF1='Z','trapezoidal',[       0.000 ,       0.000 ,      10.000 ,      30.000 ]
+MF2='OQ','triangular',[      10.000 ,      30.000 ,      50.000 ]
+MF3='H','triangular',[      30.000 ,      50.000 ,      70.000 ]
+MF4='TQ','triangular',[      50.000 ,      70.000 ,      90.000 ]
+MF5='FU','trapezoidal',[      70.000 ,      80.000 ,     100.000 ,     100.000 ]
+
+[Rules]
+1, 1,        3.000 ,
+2, 1,        4.000 ,
+3, 1,        5.000 ,
+4, 1,        5.000 ,
+5, 1,        5.000 ,
+1, 2,        2.000 ,
+2, 2,        3.000 ,
+3, 2,        4.000 ,
+4, 2,        5.000 ,
+5, 2,        5.000 ,
+1, 3,        1.000 ,
+2, 3,        2.000 ,
+3, 3,        3.000 ,
+4, 3,        4.000 ,
+5, 3,        5.000 ,
+1, 4,        1.000 ,
+2, 4,        1.000 ,
+3, 4,        2.000 ,
+4, 4,        3.000 ,
+5, 4,        4.000 ,
+1, 5,        1.000 ,
+2, 5,        1.000 ,
+3, 5,        1.000 ,
+4, 5,        2.000 ,
+5, 5,        3.000 ,
+
+[Exceptions]
